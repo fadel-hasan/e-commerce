@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+    .center-x {
+        @apply top-1/2 -translate-y-1/2
+    }
+    /* Search Input */
+    #inputSearch {
+        @apply bg-white rounded-lg py-2 sm:text-xl pr-2 pl-7 outline-none relative w-full
+    }
+    #iconSearch {
+        @apply absolute left-2 center-x text-xl cursor-pointer 
+    }
+    /* button in blue */
+    .button-blue {
+        @apply bg-white border-blue-500 border-2 px-1 sm:px-3 md:px-4 py-1 rounded-lg text-blue-500 font-bold  transition-colors duration-200 cursor-pointer opacity-60;
+    }
+    .button-blue:not(:disabled) {
+        @apply hover:text-white hover:border-blue-600 hover:bg-blue-500 opacity-100;
+    }
+    /* Start style auth */
+    .auth {
+        @apply min-h-[80vh] w-full md:w-1/2 mx-auto flex justify-center items-center flex-col gap-y-4 px-4 mt-6 lg:container py-4
+    }
+    .auth :is(input[type="text"],input[type="password"]) {
+        direction: ltr;
+        @apply w-[90%] md:w-full bg-slate-200 py-2 px-2 rounded-md text-black placeholder:text-black placeholder:text-opacity-60 outline-blue-600
+    }
+    .auth input[type="submit"] {
+        @apply button-blue text-xl;
+    }
+    .auth label {
+        @apply self-start text-lg cursor-pointer
+    }
+    .link {
+        @apply underline text-blue-700 font-bold
+    }
+    .hidden {
+        display: none;
+    }
+    [dir="rtl"] {
+        direction: rtl !important;
+    }
+}
