@@ -14,11 +14,13 @@
         <input type="text" name="email" id="email" placeholder="admin@domain.com" required >
         <label for="password">كلمة السر:</label>
         <input type="password" name="password" id="password" placeholder="**********" required>
+        <label for="repeatPassword">إعادة كلمة السر:</label>
+        <input type="password" name="repeatPassword" id="repeatPassword" placeholder="********" required>
         <div class="text-lg">
             <input type="checkbox" class="accent-blue-500" id="checkbox" name="save" value="true" />
             <label for="checkbox" class="px-1">تذكرني</label>
         </div>
-        <input type="submit" value="تسجيل الدخول" id="buttonAuth" disabled>
+        <input type="submit" value="إنشاء حساب" id="buttonAuth" disabled>
         <p>
             تملك حساباً
             ،يمكنك تسجيل الدخول 

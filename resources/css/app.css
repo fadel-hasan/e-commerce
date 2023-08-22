@@ -42,4 +42,48 @@
     [dir="rtl"] {
         direction: rtl !important;
     }
+    /* Nav Bar Admin */
+    #navbarAdmin {
+        @apply min-h-[calc(100vh-70px)] overflow-hidden sm:min-h-[calc(100vh-77px)] w-16 hover:w-40 transition-all duration-300 ease-linear bg-slate-100 fixed top-[70px] sm:top-[77px] left-0;
+    }
+    #navbarAdmin a {
+        @apply flex justify-center items-center py-2 mt-6 text-black;
+    }
+    #navbarAdmin:hover .icon {
+        @apply right-2 translate-x-0;
+    }
+    #navbarAdmin:hover .title {
+        @apply opacity-100 left-2;
+    }
+    #navbarAdmin a:hover .icon{
+        @apply text-blue-600
+    }
+    #navbarAdmin a:hover .title{
+        @apply text-blue-700
+    }
+    #navbarAdmin .icon {
+        @apply absolute left-1/2 -translate-x-1/2 transition-all duration-300 ease-linear text-blue-500;
+    }
+    #navbarAdmin .title {
+        @apply  opacity-0 absolute -left-full transition-all duration-300 ease-linear text-blue-600 font-bold;
+    }
+    /* Start Boxs */
+    .dashboard {
+        @apply transition-all duration-300 ease-linear pt-6;
+    }
+    .boxs {
+        @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 container w-[90%] mx-auto
+    }
+    .box {
+        @apply flex flex-row-reverse justify-between py-4 gap-y-2 p-3 shadow-md bg-gray-50 items-center hover:-translate-y-3 transition duration-200
+    }
+    .box h3 {
+        @apply text-2xl mb-2
+    }
+    .box .icon {
+        @apply text-4xl text-blue-500;
+    }
+    .box p {
+        @apply text-lg font-bold
+    }
 }

@@ -8,7 +8,7 @@
     }
 @endphp
 <div class="my-4 alert">
-    <div class="w-[90%] max-w-3xl mx-auto px-4 py-2 rounded-md relative {{ $class }}">
+    <div class="w-[90%] max-w-2xl mx-auto px-1 py-1 rounded-md relative {{ $class }}">
         <h3 class="text-xl font-bold py-2">{{ $title }}</h3>
         <hr class="border">
         <p class="py-2">

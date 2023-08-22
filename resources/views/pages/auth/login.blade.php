@@ -19,6 +19,8 @@
             ،يمكنك إنشاء حساب جديد 
             <a href="{{ route('signup') }}" class="link">من هنا</a>
         </p>
+        <p>هل نسيت كلمة السر يمكنك إعاداتها <a href="{{ route('forgot') }}" class="link">من هنا</a>
+        </p>
     </form>
 @endsection
 @extends('pages.home')

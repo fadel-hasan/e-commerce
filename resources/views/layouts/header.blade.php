@@ -1,4 +1,4 @@
-<header class="bg-slate-100">
+<header class="bg-slate-100 max-h-[70px] sm:max-h-[77px] min-h-[70px] sm:min-h-[77px]">
     <div class="flex justify-between px-2 mx-auto sm:px-2 md:px-4 py-3 items-center md:container">
         <a href="{{ asset('') }}">
             <h1 class="text-xl sm:text-3xl font-bold text-blue-500">عنوان</h1>
@@ -8,7 +8,7 @@
             <span id="iconSearch"><i class="fa-solid fa-search"></i></span>
         </form>
         {{-- You Can use any ways for $isAuth --}}
-        <div @class(['hidden sm:block' => !$isAuth])>
+        <div @class(['hidden sm:block'])>
             <a href="{{ route('login') }}" @class(['hidden' => $isAuth,'text-md sm:text-lg md:text-xl button-blue'])>تسجيل الدخول</a>
             <span @class(['hidden' => !$isAuth])>
                 <a href="#">
