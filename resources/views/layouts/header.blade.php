@@ -7,14 +7,17 @@
             <input type="serach" name="q" id="inputSearch">
             <span id="iconSearch"><i class="fa-solid fa-search"></i></span>
         </form>
-        {{-- You Can use any ways for $isAuth --}}
+        {{-- i used guest to check if not registerd --}}
         <div @class(['hidden sm:block'])>
-            <a href="{{ route('login') }}" @class(['hidden' => $isAuth,'text-md sm:text-lg md:text-xl button-blue'])>تسجيل الدخول</a>
-            <span @class(['hidden' => !$isAuth])>
-                <a href="#">
-                    <i class="fa-solid fa-user text-white bg-slate-300 text-2xl p-3 rounded-full"></i>
-                </a>
-            </span>
+            @guest
+                <a href="{{ route('login') }}" class="button-blue">تسجيل الدخول</a>
+            @else
+                <span>
+                    <a href="#">
+                        <i class="fa-solid fa-user text-white bg-slate-300 text-2xl p-3 rounded-full"></i>
+                    </a>
+                </span>
+            @endguest
         </div>
     </div>
 </header>

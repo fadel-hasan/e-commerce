@@ -13,7 +13,6 @@
     </head>
     <body class="font-[Cairo] h-screen w-screen flex justify-center items-center flex-col">
         <h1 class="text-xl">الرجاء الضغط على الزر التالي:</h1>
-        <a href="#" class="button-blue my-4">تغير كلمة السر</a>
+        <a href="{{ route("reset.password",$token) }}" class="button-blue my-4">تغير كلمة السر</a>
     </body>
 </html>
- 

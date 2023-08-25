@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,23 +15,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return "
-    Welecome<br>You can go to <a href='".Route('login')."'>Login</a>
-    ";
-});
+    // return "Welcome<br>You can go to <a href='".Route('login')."'>Login</a>";
+    return redirect(route('dashboard'));
+})->name('home');
 
 // Auth
-Route::prefix('auth')->group(function() {
-    Route::get('login',fn() => view('pages.auth.login',['isAuth'=>false]))->name('login');
-    Route::get('signup',fn() => view('pages.auth.signup',['isAuth'=>true]))->name('signup');
-    // POST login + signup
-    Route::get('logout',fn() => 'logout')->name('logout');
+Route::prefix('auth')->group(function () {
+
+    Route::middleware('check.not.registered')->group(function () {
+        Route::get('signup', [AuthController::class, 'getSignup'])->name('get.signup');
+        Route::get('login', [AuthController::class, 'getLogin'])->name('get.login');
+        Route::post('signup', [AuthController::class, 'postSignup'])->name('signup');
+        Route::post('login', [AuthController::class, 'postLogin'])->name('login');
+        Route::get('forget-password', [AuthController::class, 'forgetPassword'])->name('forget.password');
+        Route::post('forget-password', [AuthController::class, 'forgetPasswordPost'])->name('forget.password.post');
+        Route::get('reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset.password');
+        Route::post('reset-password', [AuthController::class, 'resetPasswordPost'])->name('reset.password.post');
+    });
+
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
-// Search 
-Route::get('/search/{name}',function ($name) {
+// Search
+Route::get('/search/{name}', function ($name) {
     return "Search Aboud {$name}";
 });
 // Dashboard
-Route::prefix('dashboard')->middleware('auth')->group(function () {
-    
+Route::prefix('dashboard')/* ->middleware('auth') */->group(function () {
+    Route::get('/', fn () => view('pages.dashboard.home', ['isAuth' => true, 'adminLinks' => [['to' => route('dashboard'), 'icon' => 'fa-solid fa-home', 'title' => "الصفحة الرئيسية"]]]))->name('dashboard');
 });

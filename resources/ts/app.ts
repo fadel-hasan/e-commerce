@@ -49,19 +49,19 @@ window.addEventListener('load', function () {
                     opacity -= 10;
                     if (opacity == 0) {
                         divAlert.remove();
-                        clearInterval(timeRemoveAlert)   
+                        clearInterval(timeRemoveAlert)
                     }
                     divAlert.style.opacity = opacity.toString() + '%';
-                },30);
+                }, 30);
             })
         })
     }
     let navbarAdmin = this.document.getElementById('navbarAdmin') as HTMLDivElement;
     if (navbarAdmin) {
-        navbarAdmin.addEventListener('mouseenter',() => {
+        navbarAdmin.addEventListener('mouseenter', () => {
             (this.document.querySelector('.dashboard') as HTMLDivElement).style.setProperty('width', 'calc(100% - 10rem)');
         })
-        navbarAdmin.addEventListener('mouseleave',() => {
+        navbarAdmin.addEventListener('mouseleave', () => {
             (this.document.querySelector('.dashboard') as HTMLDivElement).style.setProperty('width', 'calc(100% - 4rem)');
         })
     }
