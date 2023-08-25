@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 @layer components {
+    body {
+        @apply before:max-h-[70px] before:sm:max-h-[77px] before:min-h-[70px] before:sm:min-h-[77px] before:block;
+    }
     .center-x {
         @apply top-1/2 -translate-y-1/2
     }
@@ -44,7 +47,7 @@
     }
     /* Nav Bar Admin */
     #navbarAdmin {
-        @apply min-h-[calc(100vh-70px)] overflow-hidden sm:min-h-[calc(100vh-77px)] w-16 hover:w-40 transition-all duration-300 ease-linear bg-slate-100 fixed top-[70px] sm:top-[77px] left-0;
+        @apply min-h-[calc(100vh-70px)] overflow-hidden sm:min-h-[calc(100vh-77px)] w-16 hover:w-40 transition-all duration-300 ease-linear bg-slate-100 fixed top-[70px] sm:top-[77px] left-0 z-10;
     }
     #navbarAdmin a {
         @apply flex justify-center items-center py-2 mt-6 text-black;
@@ -53,7 +56,7 @@
         @apply right-2 translate-x-0;
     }
     #navbarAdmin:hover .title {
-        @apply opacity-100 left-2;
+        @apply opacity-100 right-8;
     }
     #navbarAdmin a:hover .icon{
         @apply text-blue-600
@@ -65,25 +68,62 @@
         @apply absolute left-1/2 -translate-x-1/2 transition-all duration-300 ease-linear text-blue-500;
     }
     #navbarAdmin .title {
-        @apply  opacity-0 absolute -left-full transition-all duration-300 ease-linear text-blue-600 font-bold;
+        @apply  opacity-0 absolute -right-full transition-all duration-300 ease-linear text-blue-600 font-bold;
     }
     /* Start Boxs */
     .dashboard {
         @apply transition-all duration-300 ease-linear pt-6;
     }
     .boxs {
-        @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 container w-[90%] mx-auto
+        @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 container w-[90%] mx-auto
+    }
+    .efect {
+        @apply transition duration-200 ease-linear;
     }
     .box {
-        @apply flex flex-row-reverse justify-between py-4 gap-y-2 p-3 shadow-md bg-gray-50 items-center hover:-translate-y-3 transition duration-200
+        @apply flex flex-row-reverse justify-between py-4 gap-y-2 p-3 shadow-md bg-gray-50 items-center hover:-translate-y-3 efect rounded-md;
+    }
+    .box:hover {
+        @apply bg-blue-500 shadow-blue-400
+    }
+    .box:hover h3 {
+        @apply text-gray-100;
     }
     .box h3 {
-        @apply text-2xl mb-2
+        @apply text-2xl mb-2 text-blue-500 efect
+    }
+    .box:hover .icon {
+        @apply text-gray-50;
     }
     .box .icon {
-        @apply text-4xl text-blue-500;
+        @apply text-4xl text-blue-500 efect;
+    }
+    .box:hover p {
+        @apply text-white
     }
     .box p {
-        @apply text-lg font-bold
+        @apply text-lg   font-bold text-blue-700 efect
+    }
+    /* Start Table */
+    table {
+        @apply w-full;
+    }
+    tr:not(:last-child) {
+        @apply border-y;
+    }
+    td,th {
+        @apply py-2 px-2 text-right;
+    }
+    thead tr {
+        @apply bg-gray-200 border-collapse rounded-full;
+    }
+    thead tr {
+        @apply text-gray-600 font-bold;
+    }
+    tbody tr {
+        @apply even:bg-slate-50 hover:bg-slate-100 efect px-2;
+    }
+    .title-table {
+        @apply text-center text-blue-500 font-bold mb-4 text-2xl;
     }
 }

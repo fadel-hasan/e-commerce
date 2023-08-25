@@ -1,4 +1,6 @@
 import '@fortawesome/fontawesome-free/js/all.min.js'
+// import 'chart.js';
+import Chart from 'chart.js/auto';
 window.addEventListener('load', function () {
     let iconSearch = document.getElementById('iconSearch') as HTMLSpanElement;
     iconSearch.addEventListener('click', (el: MouseEvent) => {
@@ -59,10 +61,35 @@ window.addEventListener('load', function () {
     let navbarAdmin = this.document.getElementById('navbarAdmin') as HTMLDivElement;
     if (navbarAdmin) {
         navbarAdmin.addEventListener('mouseenter', () => {
-            (this.document.querySelector('.dashboard') as HTMLDivElement).style.setProperty('width', 'calc(100% - 10rem)');
+            if (this.window.innerWidth >= 463) {
+                (this.document.querySelector('.dashboard') as HTMLDivElement).style.setProperty('width', 'calc(100% - 10rem)');
+            }
         })
         navbarAdmin.addEventListener('mouseleave', () => {
-            (this.document.querySelector('.dashboard') as HTMLDivElement).style.setProperty('width', 'calc(100% - 4rem)');
+            if (this.window.innerWidth >= 463) {
+                (this.document.querySelector('.dashboard') as HTMLDivElement).style.setProperty('width', 'calc(100% - 4rem)');
+            }
         })
     }
-})
+    let monthlyVistors = this.document.getElementById('monthlyVistors') as HTMLCanvasElement;
+    if (monthlyVistors) {
+        let monthlyVistors2d = monthlyVistors.getContext('2d') as CanvasRenderingContext2D;
+        // monthlyVistors2d.fillRect()
+        new Chart(monthlyVistors2d, {
+            type: 'line',
+            data: {
+                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"],
+                datasets: [
+                    {
+                        label: 'الزيارات',
+                        data: ["1813", "8845", "2241", "390", "5496", "5962", "6164", "8212", "4024", "5842", "6318", "2401", "3581", "7885", "5938", "3170", "465", "7589", "8698", "5490", "9032", "9666", "9453", "151", "3393", "6734", "2433", "9874", "6246", "3267", "9870", "2254"],
+                        borderWidth: 2,
+                    },
+                ],
+            },
+            options: {
+                maintainAspectRatio: false,
+            }
+        });
+    }
+});

@@ -11,7 +11,7 @@
         <!-- Styles -->
         @vite(['resources/css/app.css', 'resources/ts/app.ts'])
     </head>
-    <body class="font-[Cairo]">
+    <body class="font-[Cairo] scroll-smooth">
         @include('layouts.header')
         <main class="relative" id="app">
             @yield('app')
