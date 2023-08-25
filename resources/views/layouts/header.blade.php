@@ -1,4 +1,4 @@
-<header class="bg-slate-100 max-h-[70px] sm:max-h-[77px] min-h-[70px] sm:min-h-[77px]">
+<header class="bg-slate-100 max-h-[70px] sm:max-h-[77px] min-h-[70px] sm:min-h-[77px] fixed top-0 left-0 w-full">
     <div class="flex justify-between px-2 mx-auto sm:px-2 md:px-4 py-3 items-center md:container">
         <a href="{{ asset('') }}">
             <h1 class="text-xl sm:text-3xl font-bold text-blue-500">عنوان</h1>
