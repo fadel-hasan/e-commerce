@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -65,12 +66,9 @@ class AuthController extends Controller
         }
     }
 
-    public function postLogin(Request $r)
+    public function postLogin(LoginRequest $r)
     {
-        $r->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+
         $remember_me = $r->has('save') ? true : false;
         if (auth()->attempt(['email' => $r->email, 'password' => $r->password], $remember_me)) {
             return redirect()->intended(route('home'));
@@ -85,7 +83,7 @@ class AuthController extends Controller
         Session::flush();
         Auth::logout();
 
-        return redirect('pages.auth.login');
+        return redirect()->route('home');
     }
 
     public function forgetPassword()
