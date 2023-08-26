@@ -20,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Blade::component('alert', \App\View\Components\Alert::class);
-        Blade::component('status-text', \App\View\Components\statusText::class);
+        Blade::component(\App\View\Components\Alert::class);
+        Blade::component(\App\View\Components\statusText::class);
+        Blade::component(\App\View\Components\chartJs::class);
     }
 }

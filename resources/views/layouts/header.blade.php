@@ -1,9 +1,9 @@
-<header class="bg-slate-100 max-h-[70px] sm:max-h-[77px] min-h-[70px] sm:min-h-[77px] fixed top-0 left-0 w-full">
+<header class="bg-slate-100 max-h-[70px] sm:max-h-[77px] min-h-[70px] sm:min-h-[77px] fixed top-0 left-0 w-full z-10">
     <div class="flex justify-between px-2 mx-auto sm:px-2 md:px-4 py-3 items-center md:container">
         <a href="{{ asset('') }}">
             <h1 class="text-xl sm:text-3xl font-bold text-blue-500">عنوان</h1>
         </a>
-        <form action="" method="POST" class=" relative basis-[80%] sm:basis-auto     md:basis-[60%] lg:basis-[70%]">
+        <form action="" method="POST" class=" relative basis-[80%] sm:basis-auto md:basis-[60%] lg:basis-[70%]">
             <input type="serach" name="q" id="inputSearch">
             <span id="iconSearch"><i class="fa-solid fa-search"></i></span>
         </form>

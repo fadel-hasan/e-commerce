@@ -1,6 +1,13 @@
 import '@fortawesome/fontawesome-free/js/all.min.js'
 // import 'chart.js';
-import Chart from 'chart.js/auto';
+import { Chart, ChartType } from 'chart.js/auto';
+type canvasDatas = {
+    id:string,
+    type:ChartType,
+    data:string,
+    title:string
+}
+declare var canvasData:Array<canvasDatas>;
 window.addEventListener('load', function () {
     let iconSearch = document.getElementById('iconSearch') as HTMLSpanElement;
     iconSearch.addEventListener('click', (el: MouseEvent) => {
@@ -71,24 +78,29 @@ window.addEventListener('load', function () {
             }
         })
     }
-    let monthlyVistors = this.document.getElementById('monthlyVistors') as HTMLCanvasElement;
-    if (monthlyVistors) {
-        let monthlyVistors2d = monthlyVistors.getContext('2d') as CanvasRenderingContext2D;
-        // monthlyVistors2d.fillRect()
-        new Chart(monthlyVistors2d, {
-            type: 'line',
-            data: {
-                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"],
-                datasets: [
-                    {
-                        label: 'الزيارات',
-                        data: ["1813", "8845", "2241", "390", "5496", "5962", "6164", "8212", "4024", "5842", "6318", "2401", "3581", "7885", "5938", "3170", "465", "7589", "8698", "5490", "9032", "9666", "9453", "151", "3393", "6734", "2433", "9874", "6246", "3267", "9870", "2254"],
-                        borderWidth: 2,
+    if (canvasData.length != 0) {
+        let canvaElemnt;
+        canvasData.forEach((canvasData:canvasDatas) => {
+            console.log(canvasData)
+            canvaElemnt = this.document.getElementById(canvasData.id) as HTMLCanvasElement;
+            if (canvaElemnt) {
+                let monthlyVistors2d = canvaElemnt.getContext('2d') as CanvasRenderingContext2D;
+                new Chart(monthlyVistors2d, {
+                    type: canvasData.type,
+                    data: {
+                        labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"],
+                        datasets: [
+                            {
+                                label: canvasData.title,
+                                data: JSON.parse(canvasData.data),
+                                borderWidth: 2,
+                            },
+                        ],
                     },
-                ],
-            },
-            options: {
-                maintainAspectRatio: false,
+                    options: {
+                        maintainAspectRatio: false,
+                    }
+                });
             }
         });
     }

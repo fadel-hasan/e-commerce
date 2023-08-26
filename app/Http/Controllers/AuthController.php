@@ -71,6 +71,9 @@ class AuthController extends Controller
 
         $remember_me = $r->has('save') ? true : false;
         if (auth()->attempt(['email' => $r->email, 'password' => $r->password], $remember_me)) {
+            if (auth()->user()->role_id == 1) {
+                return redirect()->route('dashboard');
+            }
             return redirect()->intended(route('home'));
         } else {
             return redirect(route('get.login'))->with('error', 'معلومات تسجيل دخول خاطئة حاول مرة اخرى');

@@ -14,14 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "admin" middleware group. Now create something great!
 |
 */
-
-Route::middleware('check.not.registered')->group(function () {
-    Route::get('/login', [AdminController::class, 'getLogin'])->name('getAdminLogin');
-    Route::post('/login', [AdminController::class, 'postLogin'])->name('AdminLogin');
-});
-
-
-Route::middleware(['admin'])->group(function () {
+Route::middleware('admin')->group(function () {
     Route::get('/dashboard', fn () => view('pages.dashboard.home', [
         'isAuth' => true,
         'adminLinks' => [
@@ -124,8 +117,4 @@ Route::middleware(['admin'])->group(function () {
         ],
         'isAuth' => true
     ]))->name('dashboard.analysis');
-});
-
-Route::get('/logout', function () {
-    Auth::logout();
 });

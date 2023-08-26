@@ -16,15 +16,9 @@ class CheckIfAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check()) {
-            if (Auth::user()->role_id == 1) {
-                return $next($request);
-            } else {
-               
-                return redirect(route('home'))->with('error', 'وصول غير مصرح به');
-            }
-        } else {
-            return redirect(route('getAdminLogin'))->with('error', 'الرجاء تسجيل الدخول اولا');
+        if (Auth::check() and Auth::user()->role_id == 1) {
+            return $next($request);
         }
+        return redirect(route('get.login'))->with('error', 'الرجاء تسجيل الدخول اولا');
     }
 }
