@@ -19,6 +19,7 @@
     <main class="relative" id="app">
         @yield('app')
     </main>
+    @include('layouts.footer')
 </body>
 
 </html>

@@ -4,6 +4,7 @@
         'id': "{{ $id }}",
         'type': "{{ $type }}",
         'data': '{!! $datasets !!}',
-        'title': "{{ $title }}"
+        'title': "{{ $title }}",
+        'labels': '{!! $labels !!}',
     });
 </script>

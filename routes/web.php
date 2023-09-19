@@ -47,3 +47,7 @@ Route::get('/search/{name}', function ($name) {
     return "Search Aboud {$name}";
 });
 // Dashboard
+
+Route::get('/test',function () {
+    dd(url()->current());
+});
