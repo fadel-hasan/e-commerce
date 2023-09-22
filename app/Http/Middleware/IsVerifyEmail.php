@@ -4,11 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckIfAdmin
+class IsVerifyEmail
 {
     /**
      * Handle an incoming request.
@@ -17,10 +16,11 @@ class CheckIfAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $admin = DB::table('roles')->where('name', 'admin')->value('id');
-        if (Auth::check() && Auth::user()->role_id == $admin) {
-            return $next($request);
-        }
-        return redirect(route('get.login'))->with('error', 'الرجاء تسجيل الدخول اولا');
+        if (!Auth::user()->is_email_verified) {
+            auth()->logout();
+            return redirect()->route('get.login')
+                    ->with('message', 'تحتاج إلى تأكيد حسابك. لقد أرسلنا لك رمز التفعيل، يرجى التحقق من بريدك الإلكتروني');
+          }
+        return $next($request);
     }
 }

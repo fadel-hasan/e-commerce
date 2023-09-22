@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             // \App\Http\Middleware\CheckIfAdmin::class,
+            \App\Http\Middleware\DailyVisitor::class
         ],
 
         'api' => [
@@ -67,5 +68,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check.not.registered' => \App\Http\Middleware\CheckIfUserIsNotRegistered::class,
         'admin' => \App\Http\Middleware\CheckIfAdmin::class,
+        'visit' => \App\Http\Middleware\DailyVisitor::class,
+        'is_verify_email' => \App\Http\Middleware\IsVerifyEmail::class,
     ];
 }

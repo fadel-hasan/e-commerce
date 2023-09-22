@@ -1,8 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use Stevebauman\Location\Facades\Location;
+use function PHPUnit\Framework\throwException;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +31,7 @@ Route::get('/', function () {
     // return redirect(route('dashboard'));
 })->name('home');
 
+
 // Auth
 Route::prefix('auth')->group(function () {
 
@@ -38,6 +44,7 @@ Route::prefix('auth')->group(function () {
         Route::post('forget-password', [AuthController::class, 'forgetPasswordPost'])->name('forget.password.post');
         Route::get('reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset.password');
         Route::post('reset-password', [AuthController::class, 'resetPasswordPost'])->name('reset.password.post');
+        Route::get('account/verify/{token}', [AuthController::class, 'verifyAccount'])->name('user.verify');
     });
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
@@ -47,7 +54,3 @@ Route::get('/search/{name}', function ($name) {
     return "Search Aboud {$name}";
 });
 // Dashboard
-
-Route::get('/test',function () {
-    dd(url()->current());
-});

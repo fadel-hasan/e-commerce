@@ -23,9 +23,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_email_verified',
+        'country'
     ];
 
-    
+
 
     public function role()
     {

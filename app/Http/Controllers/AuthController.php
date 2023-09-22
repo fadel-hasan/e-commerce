@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use App\Models\UserVerify;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Request as r;
+
 
 class AuthController extends Controller
 {
@@ -57,21 +61,64 @@ class AuthController extends Controller
             $date['name'] = $r->name;
             $date['email'] = $r->email;
             $date['password'] = $HashedPassword;
+            $ip = (env('APP_URL') == 'http://localhost') ? '211.197.11.0' : r::ip();
+            $date['ip'] = $ip;
+            $token = env("IPINFO_SECRET");
+            $url = "ipinfo.io/$ip?token=$token";
+            $response = Http::timeout(20)->get($url);
+            $jsonData = $response->json();
+            $date['country'] = ($jsonData['city'] ?? 'other');
             $User = User::create($date);
-            // dd($User);
+
             if (!$User) {
                 return redirect(route('get.signup'))->with('error', 'معلومات التسجيل خاطئة');
             }
-            return redirect(route('get.login'))->with('success', 'تم التسجيل قم بادخال بريدك وكلمة المرور للدخول');
+
+            $token = Str::random(64);
+
+            UserVerify::create([
+                'user_id' => $User->id,
+                'token' => $token
+            ]);
+
+            Mail::send('emails.emailVerification', ['token' => $token], function ($message) use ($r) {
+                $message->to($r->email);
+                $message->subject('Email Verification Mail');
+            });
+            // dd($User);
+            return redirect(route('get.login'))->with('success', 'تم التسجيل بنجاح تم ارسال رسالة لبريدك الالكتروني لتأكيد البريد الإلكتروني');
         }
     }
 
+    public function verifyAccount($token)
+    {
+        $verifyUser = UserVerify::where('token', $token)->first();
+
+        $message = 'المعذرة لا يمكن التعرف على البريد الإلكتروني الخاص بك';
+
+        if(!is_null($verifyUser) ){
+            $user = $verifyUser->user;
+
+            if(!$user->is_email_verified) {
+                $verifyUser->user->is_email_verified = 1;
+                $verifyUser->user->save();
+                $message = "تم التحقق من البريد الإلكتروني الخاص بك. يمكنك الآن تسجيل الدخول.";
+            } else {
+                $message = "لقد تم التحقق من بريدك الإلكتروني بالفعل. يمكنك الآن تسجيل الدخول";
+            }
+        }
+
+      return redirect()->route('get.login')->with('message', $message);
+    }
+
+
     public function postLogin(LoginRequest $r)
     {
+        $admin = DB::table('roles')->where('name', 'admin')->value('id');
 
         $remember_me = $r->has('save') ? true : false;
         if (auth()->attempt(['email' => $r->email, 'password' => $r->password], $remember_me)) {
-            if (auth()->user()->role_id == 1) {
+            if (auth()->user()->role_id == $admin) {
                 return redirect()->route('dashboard');
             }
             return redirect()->intended(route('home'));

@@ -163,6 +163,7 @@ return [
         /*
          * Application Service Providers...
          */
+        Stevebauman\Location\LocationServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -184,6 +185,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'Location' => 'Stevebauman\Location\Facades\Location',
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

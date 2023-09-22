@@ -33,16 +33,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>اسمي</td>
-                            <td>email@gmail.com</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>اسمي</td>
-                            <td>email@gmail.com</td>
-                        </tr>
+                        @php
+                            $i = 0;
+                        @endphp
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{ ++$i }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -50,32 +50,35 @@
                 <h3 class="title-table">أخر الطلبات</h3>
                 <table>
                     <thead>
+                        @php
+                            $i = 0;
+                        @endphp
                         <tr>
                             <th>#</th>
-                            <th>الاسم</th>
+                            <th>اسم المستخدم</th>
+                            <th>اسم المنتج</th>
+                            <th>الكمية</th>
                             <th>السعر</th>
                             <th>الحالة</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>منتج</td>
-                            <td>20$</td>
-                            <td><x-status-text /></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>منتج</td>
-                            <td>20$</td>
-                            <td><x-status-text type="pending" message="جاري" /></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>منتج</td>
-                            <td>20$</td>
-                            <td><x-status-text type="fail" message="ملغي" /></td>
-                        </tr>
+                        @foreach ($orders as $order)
+                            <tr>
+                                <td>{{ ++$i }}</td>
+                                <td>{{ $order->u_name }}</td>
+                                <td>{{ $order->p_name }}</td>
+                                <td>{{ $order->quantity }}</td>
+                                <td>{{ $order->price }}$</td>
+                                @if ($order->status == 0)
+                                    <td><x-status-text type="fail" message="ملغي" /></td>
+                                @elseif ($order->status == 1)
+                                    <td><x-status-text /></td>
+                                @else
+                                    <td><x-status-text type="pending" message="جاري" /></td>
+                                @endif
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
