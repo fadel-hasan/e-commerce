@@ -17,13 +17,13 @@ class HistoryController extends Controller
                 ->where('u.name', 'LIKE', '%' . request('q') . '%')
                 ->orWhere('u.email', 'LIKE', '%' . request('q') . '%')
                 ->orWhere('u.country', 'LIKE', '%' . request('q') . '%')
-                ->orderBy('u.id', $order)
+                ->orderBy('r.created_at', $order)
                 ->select('u.name', 'u.email', 'u.ip', 'u.country', 'r.op', 'r.slug', 'r.created_at')
                 ->paginate(50);
         } else {
             $r = DB::table('users', 'u')
                 ->rightJoin('records as r', 'u.id', '=', 'r.user_id')
-                ->orderBy('u.id', $order)
+                ->orderBy('r.created_at', $order)
                 ->select('u.name', 'u.email', 'u.ip', 'u.country', 'r.op', 'r.slug', 'r.created_at')
                 ->paginate(50);
         }
