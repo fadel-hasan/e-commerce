@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Dashboard\DashVarController;
+use App\Http\Controllers\Dashboard\VarController;
 use App\Http\Controllers\Dashboard\DashboardController;
 
 /*
@@ -367,4 +367,4 @@ Route::middleware('admin')->group(function () {
     ]))->name('dashboard.add-coupon');
 });
 
-Route::get('try', [DashVarController::class, 'get_latest_users']);
+Route::get('try', [VarController::class, 'get_latest_users']);
