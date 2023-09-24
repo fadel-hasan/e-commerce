@@ -1,0 +1,31 @@
+@layer components {
+    table {
+        @apply w-full;
+        tr:not(:last-child) {
+            @apply border-y;
+        }
+        td,th {
+            @apply py-2 px-2 text-right;
+        }
+        thead tr {
+            @apply bg-gray-200 border-collapse rounded-full;
+        }
+        thead tr {
+            @apply text-gray-600 font-bold;
+        }
+        tbody tr {
+            @apply even:bg-slate-50 hover:bg-slate-100 efect px-2;
+        }
+        &.list {
+            tr {
+                @apply h-14
+            }
+            td > span {
+                @apply button-blue py-0;
+            }
+            td > a {
+                @apply button-red py-0;
+            }
+        }
+    }
+}

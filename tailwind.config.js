@@ -4,9 +4,9 @@ export default {
     "./resources/views/*.blade.php",
     "./resources/views/**/*.blade.php",
     "./resources/**/*.ts",
-    "./resources/**/*.js",
-    "./resources/**/*.css",
-    "./app/Http/Controllers/**/*.php"
+    "./app/Http/Controllers/**/*.php",
+    "./resources/scss/style.scss",
+    "./resources/scss/**/*.scss",
   ],
   theme: {
     extend: {},

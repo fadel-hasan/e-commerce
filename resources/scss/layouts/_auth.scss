@@ -1,0 +1,15 @@
+@layer components {
+    .auth {
+        @apply min-h-[80vh] w-full md:w-1/2 mx-auto flex justify-center items-center flex-col gap-y-4 px-4 mt-6 lg:container py-4;
+        :is(input[type="text"],input[type="password"]) {
+            direction: ltr;
+            @apply w-[90%] md:w-full bg-slate-200 py-2 px-2 rounded-md text-black placeholder:text-black placeholder:text-opacity-60 outline-blue-600;
+        }
+        input[type="submit"] {
+            @apply button-blue text-xl;
+        }
+        .auth label {
+            @apply self-start text-lg cursor-pointer;
+        }
+    }
+}

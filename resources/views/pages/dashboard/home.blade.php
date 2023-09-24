@@ -7,7 +7,7 @@
     last users
     last product
     last order --}}
-    <div class="dashboard w-[calc(100%-4rem)] transition-all duration-300 ease-linear">
+    <div class="dashboard">
         <section class="boxs relative">
             @foreach ($boxs as $box)
                 <div class="box">

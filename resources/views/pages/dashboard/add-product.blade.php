@@ -3,7 +3,7 @@
 @endsection
 @section('app')
     @include('layouts.navbarAdmin')
-    <div class="dashboard w-[calc(100%-4rem)] transition-all duration-300 ease-linear">
+    <div class="dashboard">
         <form action="" method="POST" class="sitting">
             @csrf
             <h2 class="title-table">إضافة منتج</h2>
@@ -15,6 +15,8 @@
             <input type="number" name="price" id="price" placeholder="20" dir="ltr" min="0">
             <label for="desc">الوصف:</label>
             <input type="text" name="desc" id="desc" placeholder="الوصف">
+            <label for="paymetner">تعليمات المشتري:</label>
+            <input type="text" name="paymetner" id="paymetner" placeholder="تعليمات تطلب من المشتري بعد شراء المنتج">
             <label for="tags">العلامات الوصفية:</label>
             <input type="text" name="tags" id="tags" placeholder="هاتف ابل، هاتف ايفون">
             <label for="category">القسم:</label>
@@ -23,6 +25,9 @@
                 <option value="2">لابتوبات</option>
             </select>
             <input type="hidden" name="id" value="" id="id">
+            <div id="more">
+                {{-- إضافة تطويرات الخدمة --}}
+            </div>
             <input type="submit" value="إضافة" class="button-blue w-fit mx-auto px-12 mb-4">
         </form>
         <section class="max-w-[90%] overflow-scroll container mx-auto">

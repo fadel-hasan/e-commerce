@@ -3,7 +3,7 @@
 @endsection
 @section('app')
     @include('layouts.navbarAdmin')
-    <div class="dashboard w-[calc(100%-4rem)] transition-all duration-300 ease-linear">
+    <div class="dashboard">
         <script>
             var canvasData = [];
         </script>
@@ -69,7 +69,7 @@
                 <x-chart-js type="pie" datasets='{!! $string[7] !!}' labels='{!! $string[8] !!}'
                     id="countryVistors" title="الزيارات" />
             </div>
-            <div class="max-h-[300px] mt-12 lg:mt-0 md:hover:bg-blue-500">
+            <div class="max-h-[300px] mt-12 lg:mt-0 ">
                 <h3 class="title-table text-xl">المبيعات الشهرية</h3>
                 <x-chart-js datasets='{!! $string[5] !!}' labels='{!! $string[6] !!}' id="monthlyProducts"
                     type="bar" title="المبيعة" />

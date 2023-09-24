@@ -1,0 +1,22 @@
+@layer components {
+    .button {
+        @apply font-bold  transition-colors duration-200 cursor-pointer opacity-60
+        bg-white border-2 px-1 sm:px-3 md:px-4 py-1 rounded-lg;
+        &:not(:disabled) {
+            @apply opacity-100 hover:text-white;
+        }
+    }
+    .button-blue {
+        @apply button border-blue-500 text-blue-500;
+        &:not(:disabled) {
+            @apply hover:border-blue-600 hover:bg-blue-500;
+        }
+    }
+    /* button in red */
+    .button-red {
+        @apply button border-red-500 text-red-500;
+        &:not(:disabled) {
+            @apply hover:border-red-600 hover:bg-red-500 opacity-100;
+        }
+    }
+}

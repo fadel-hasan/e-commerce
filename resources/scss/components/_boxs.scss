@@ -1,0 +1,46 @@
+@layer components {
+    .boxs {
+        @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 container w-[90%] mx-auto;
+        .box {
+            @apply flex flex-row-reverse justify-between py-4 gap-y-2 p-3 shadow-md bg-gray-50 items-center hover:-translate-y-3 efect rounded-md;
+            &:hover {
+                @apply bg-blue-500 shadow-blue-400;
+
+                h3 {
+                    @apply text-gray-100;
+                }
+
+                .icon {
+                    @apply text-gray-50;
+                }
+
+                p {
+                    @apply text-white
+                }
+            }
+            h3 {
+                @apply text-2xl mb-2 text-blue-500 efect;
+            }
+            .icon {
+                @apply text-4xl text-blue-500 efect;
+            }
+            p {
+                @apply text-lg font-bold text-blue-700 efect;
+            }
+        }
+    }
+    // Grid System
+    .grid-template {
+        @apply container w-[90%] mx-auto grid gap-6;
+    }
+    @media (min-width: 1024px) {
+        .grid-template {
+            grid-template-columns: minmax(0,1fr) minmax(0,2fr);
+        }
+    }
+    @media (max-width: 1024px) {
+        .grid-template {
+            grid-template-columns: minmax(0,1fr);
+        }
+    }
+}

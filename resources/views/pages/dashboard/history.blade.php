@@ -3,7 +3,7 @@
 @endsection
 @section('app')
     @include('layouts.navbarAdmin')
-    <div class="dashboard w-[calc(100%-4rem)] transition-all duration-300 ease-linear">
+    <div class="dashboard">
         <h2 class="title-table">السجلات</h2>
         <form action="{{ route('dashboard.history') }}" method="POST" class="flex flex-col my-4 justify-center items-center">
             @csrf

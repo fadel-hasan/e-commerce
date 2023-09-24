@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Styles -->
-    @vite(['resources/css/app.css', 'resources/ts/app.ts'])
+    @vite(['resources/scss/style.scss', 'resources/ts/app.ts'])
 </head>
 
 <body class="font-[Cairo] scroll-smooth">

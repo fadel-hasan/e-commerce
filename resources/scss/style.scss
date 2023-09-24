@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@import './layouts/style';
+@import './components/inputSearch';
+@import './components/button';
+@import './layouts/auth';
+@import './layouts/navbarAdmin';
+@import './components/boxs';
+@import './layouts/inputs';
+@import './components/tables';

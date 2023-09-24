@@ -1,0 +1,26 @@
+@layer components {
+    body {
+        @apply before:max-h-[70px] before:sm:max-h-[77px] before:min-h-[70px] before:sm:min-h-[77px] before:block;
+        &.non-height {
+            @apply  after:max-h-[70px] after:sm:max-h-[77px] after:min-h-[70px] after:sm:min-h-[77px] after:block;
+        }
+        [dir="rtl"] {
+            direction: rtl !important;
+        }
+    }
+    .center-x {
+        @apply top-1/2 -translate-y-1/2
+    }
+    .link {
+        @apply underline text-blue-700 font-bold
+    }
+    .dashboard {
+        @apply transition-all duration-300 ease-linear pt-6 w-[calc(100%-4rem)];
+    }
+    .efect {
+        @apply transition duration-200 ease-linear;
+    }
+    .title-table {
+        @apply text-center text-blue-500 font-bold mb-4 text-2xl;
+    }
+}

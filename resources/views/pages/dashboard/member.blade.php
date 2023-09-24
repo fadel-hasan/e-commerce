@@ -3,7 +3,7 @@
 @endsection
 @section('app')
     @include('layouts.navbarAdmin')
-    <div class="dashboard w-[calc(100%-4rem)] transition-all duration-300 ease-linear">
+    <div class="dashboard">
         <h2 class="title-table">الأعضاء</h2>
         <section class="max-w-[90%] overflow-scroll container mx-auto">
             <table class="overflow-auto">
