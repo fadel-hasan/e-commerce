@@ -38,8 +38,8 @@ Route::prefix('auth')->group(function () {
     Route::middleware('check.not.registered')->group(function () {
         Route::get('signup', [AuthController::class, 'getSignup'])->name('get.signup');
         Route::get('login', [AuthController::class, 'getLogin'])->name('get.login');
-        Route::post('signup', [AuthController::class, 'postSignup'])->name('signup');
-        Route::post('login', [AuthController::class, 'postLogin'])->name('login');
+        Route::post('signup', [AuthController::class, 'postSignup'])->middleware('log.activity:عملية تسجيل في الموقع')->name('signup');
+        Route::post('login', [AuthController::class, 'postLogin'])->middleware('log.activity:عملية تسجيل دخول في الموقع')->name('login');
         Route::get('forget-password', [AuthController::class, 'forgetPassword'])->name('forget.password');
         Route::post('forget-password', [AuthController::class, 'forgetPasswordPost'])->name('forget.password.post');
         Route::get('reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset.password');
@@ -47,7 +47,7 @@ Route::prefix('auth')->group(function () {
         Route::get('account/verify/{token}', [AuthController::class, 'verifyAccount'])->name('user.verify');
     });
 
-    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::middleware(['auth', 'log.activity:عملية تسجيل خروج من الموقع'])->get('logout', [AuthController::class, 'logout'])->name('logout');
 });
 // Search
 Route::get('/search/{name}', function ($name) {

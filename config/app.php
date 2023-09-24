@@ -186,6 +186,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
         'Location' => 'Stevebauman\Location\Facades\Location',
+        'LogActivity' => App\Helpers\LogActivity::class,
+
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

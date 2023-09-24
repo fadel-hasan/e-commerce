@@ -33,6 +33,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+
+    public function records(){
+        return $this->hasMany(Record::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

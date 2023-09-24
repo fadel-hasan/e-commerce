@@ -18,59 +18,11 @@ use App\Http\Controllers\Dashboard\DashboardController;
 */
 
 Route::middleware('admin')->group(function () {
-    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
-    Route::get('/member/{sort_by?}/{sort_order?}', [DashboardController::class,'indexMember'])->name('dashboard.member');
-    Route::get('/analysis', [DashboardController::class,'indexAnalysis'])->name('dashboard.analysis');
-    Route::get('/history', fn () => view('pages.dashboard.history', [
-        'adminLinks' => [
-            [
-                'to' => route('dashboard'),
-                'icon' => 'fa-solid fa-home',
-                'title' => "الصفحة الرئيسية"
-            ],
-            [
-                'to' => route('dashboard.member'),
-                'icon' => 'fa-solid fa-users',
-                'title' => "الأعضاء"
-            ],
-            [
-                'to' => route('dashboard.analysis'),
-                'icon' => 'fa-solid fa-chart-line',
-                'title' => "الإحصائيات"
-            ],
-            [
-                'to' => route('dashboard.history'),
-                'icon' => 'fa-solid fa-history',
-                'title' => "السجلات"
-            ],
-            [
-                'to' => route('dashboard.add-admin'),
-                'icon' => 'fa-solid fa-user',
-                'title' => "إضافة أدمن"
-            ],
-            [
-                'to' => route('dashboard.sitting'),
-                'icon' => 'fa-solid fa-cog',
-                'title' => "الإعدادات"
-            ],
-            [
-                'to' => route('dashboard.add-category'),
-                'icon' => 'fa-solid fa-book',
-                'title' => "إضافة قسم"
-            ],
-            [
-                'to' => route('dashboard.add-product'),
-                'icon' => 'fa-solid fa-shop',
-                'title' => "إضافة منتج"
-            ],
-            [
-                'to' => route('dashboard.add-coupon'),
-                'icon' => 'fa-solid fa-tags',
-                'title' => "إضافة خصم"
-            ],
-        ],
-        'isAuth' => true
-    ]))->name('dashboard.history');
+    Route::get('/dashboard', [DashboardController::class,'index'])->middleware('log.activity:تصفح لوحة الأدمن الرئيسية')->name('dashboard');
+    Route::get('/member/{sort_by?}/{sort_order?}', [DashboardController::class,'indexMember'])->middleware('log.activity:تصفح صفحة الأعضاء')->name('dashboard.member');
+    Route::get('/analysis', [DashboardController::class,'indexAnalysis'])->middleware('log.activity:تصفح صفحة الإحصائيات')->name('dashboard.analysis');
+    Route::get('/history', [DashboardController::class,'indexHistory'])->middleware('log.activity:تصفح صفحة السجلات')->name('dashboard.history');
+    Route::post('/history', [DashboardController::class,'indexHistory'])->middleware('log.activity:تصفح صفحة السجلات')->name('post.dashboard.history');
     Route::get('/add-admin', fn () => view('pages.dashboard.add-admin', [
         'adminLinks' => [
             [

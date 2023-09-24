@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\CheckIfAdmin::class,
         'visit' => \App\Http\Middleware\DailyVisitor::class,
         'is_verify_email' => \App\Http\Middleware\IsVerifyEmail::class,
+        'log.activity' => \App\Http\Middleware\LogActivityMiddleware::class
     ];
 }

@@ -63,6 +63,14 @@ class DashboardController extends Controller
         return $this->getIndex('pages.dashboard.analysis', array_combine($name, $date));
     }
 
+    public function indexHistory()
+    {
+        $date = [$this->d->records()];
+        $name = ['records'];
+        return $this->getIndex('pages.dashboard.history', array_combine($name, $date));
+    }
+
+
 
     public function get_month_visit()
     {
