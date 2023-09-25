@@ -13,12 +13,13 @@ class VarController extends Controller
 
 
 
-    private $h,$m,$a,$r;
+    private $h,$m,$a,$r,$d;
     public function __construct() {
         $this->h = new HomeController();
         $this->m = new MemberController();
         $this->a = new AnalysisController();
         $this->r = new HistoryController();
+        $this->d = new Add_adminController();
     }
 
     public function adminLink()
@@ -159,5 +160,10 @@ class VarController extends Controller
     public function records()
     {
         return $this->r->get_records();
+    }
+
+    public function admins()
+    {
+        return $this->d->get_admin();
     }
 }

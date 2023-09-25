@@ -9,23 +9,30 @@
             <table class="overflow-auto min-w-[600px]">
                 <thead>
                     <tr>
-                        <th class="link"><a href="#">#</a></th>
+                        <th class="link"><a href="{{ route('dashboard.add-admin',['order' => request('order') == 'asc' ? 'desc' : 'asc']) }}">#</a></th>
                         <th>المستخدم</th>
                         <th>تاريخ التسجل</th>
-                        <th>اخر ظهور</th>
+                        <th>صلاحية</th>
                         <th>عدد المنتجات</th>
                         <th>عدد المبيعات</th>
                     </tr>
                 </thead>
                 <tbody class="hisroty">
+                    @php
+                        $i=0
+                    @endphp
+
+                    @foreach ($admins as $d )
+
                     <tr>
-                        <td>1</td>
-                        <td>Admin</td>
-                        <td>2022/1/1</td>
-                        <td>2023/8/28</td>
-                        <td>50</td>
-                        <td>230</td>
+                        <td>{{ ++$i }}</td>
+                        <td>{{ $d->u_name }}</td>
+                        <td>{{ $d->updated_at }}</td>
+                        <td>{{ $d->r_name }}</td>
+                        <td>{{ $d->product_count }}</td>
+                        <td>{{ $d->sold_count }}</td>
                     </tr>
+                    @endforeach
                     <tr>
                         <td>2</td>
                         <td>User</td>
@@ -38,10 +45,15 @@
             </table>
         </section>
         <h2 class="title-table mt-8">إضافة مشرف</h2>
-        <form action="{{ route('dashboard.add-admin') }}" method="POST" class="auth min-h-fit forgot">
+        <form action="{{ route('post.dashboard.add-admin') }}" method="POST" class="auth min-h-fit forgot">
             @csrf
             <label for="email">البريد الإلكتروني:</label>
             <input type="text" name="email" id="email">
+            <select name="rule" id="rule" required>
+                    <option value="admin">admin</option>
+                    <option value="saller">saller</option>
+                {{-- <option value="2">view</option> --}}
+            </select>
             <input type="submit" value="إضافة" id="buttonAuth" disabled>
         </form>
     </div>
