@@ -1,6 +1,6 @@
 import '@fortawesome/fontawesome-free/js/all.min.js'
-// import 'chart.js';
 import { Chart, ChartType } from 'chart.js/auto';
+import {default as LoopElements} from './queryAllElements';
 type canvasDatas = {
     id: string,
     type: ChartType,
@@ -158,26 +158,5 @@ window.addEventListener('load', function () {
         })
     });
     // Remove Admin
-    (this.document.querySelectorAll('.remove-admin') as NodeListOf<HTMLButtonElement>).forEach((button) => {
-        let urlApi  = this.document.querySelector('table.list')?.getAttribute('data-url-remove');
-        button.addEventListener('click',() => {
-            if (urlApi == null) {
-                urlApi = '';
-            }
-            console.log(urlApi);
-            this.fetch(`${urlApi}?id=${button.getAttribute('data-delete')}`)
-            .then((result:Response) => {
-                if (result.status == 200) {
-                    return result.json();
-                } else {
-                    return {ok:false};
-                }
-            }).
-            then(({ok}) => {
-                if (ok == true) {
-                    button.parentElement?.parentElement?.remove();
-                }
-            });
-        });
-    })
+    LoopElements.removeWithApi('remove-admin','data-url-remove','data-delete');
 });
