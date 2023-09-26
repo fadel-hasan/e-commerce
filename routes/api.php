@@ -18,5 +18,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::prefix(env('PASSWORD_API'))->group(function() {
-    // Enter Any API Here
+    Route::get('/remoeAdmin',fn() => json_encode(['ok'=>true]))->name('removeAdmin');
 });

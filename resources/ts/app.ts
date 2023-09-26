@@ -159,12 +159,13 @@ window.addEventListener('load', function () {
     });
     // Remove Admin
     (this.document.querySelectorAll('.remove-admin') as NodeListOf<HTMLButtonElement>).forEach((button) => {
+        let urlApi  = this.document.querySelector('table.list')?.getAttribute('data-url-remove');
         button.addEventListener('click',() => {
-            let urlApi  = this.document.querySelector('[data-url-remove="*"]')?.getAttribute('data-url-remove');
             if (urlApi == null) {
                 urlApi = '';
             }
-            this.fetch(`${urlApi}/${button.getAttribute('data-delete')}`)
+            console.log(urlApi);
+            this.fetch(`${urlApi}?id=${button.getAttribute('data-delete')}`)
             .then((result:Response) => {
                 if (result.status == 200) {
                     return result.json();
@@ -174,7 +175,7 @@ window.addEventListener('load', function () {
             }).
             then(({ok}) => {
                 if (ok == true) {
-                    button.parentElement?.remove();
+                    button.parentElement?.parentElement?.remove();
                 }
             });
         });
