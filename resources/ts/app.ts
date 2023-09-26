@@ -157,15 +157,26 @@ window.addEventListener('load', function () {
             (input.type == 'password') ? input.type = 'text' : input.type = 'password';
         })
     });
-    (this.document.querySelectorAll('.remove-admin') as NodeListOf<HTMLButtonElement>).forEach((button) => {
-        button.addEventListener('click',(event) => {
-            console.log(event.target);
-        })
-    });
     // Remove Admin
     (this.document.querySelectorAll('.remove-admin') as NodeListOf<HTMLButtonElement>).forEach((button) => {
         button.addEventListener('click',() => {
-
+            let urlApi  = this.document.querySelector('[data-url-remove="*"]')?.getAttribute('data-url-remove');
+            if (urlApi == null) {
+                urlApi = '';
+            }
+            this.fetch(`${urlApi}/${button.getAttribute('data-delete')}`)
+            .then((result:Response) => {
+                if (result.status == 200) {
+                    return result.json();
+                } else {
+                    return {ok:false};
+                }
+            }).
+            then(({ok}) => {
+                if (ok == true) {
+                    button.parentElement?.remove();
+                }
+            });
         });
     })
 });

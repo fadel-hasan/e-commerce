@@ -7,7 +7,7 @@
         <h2 class="title-table">المشرفين</h2>
         <section class="max-w-[90%] overflow-scroll container mx-auto">
             <table class="overflow-auto min-w-[600px] list"
-                data-url-remove="RotueHereBackEnd"
+                data-url-remove="RotueHereBackEnd/HereIdInJavaScript"
                 data-password-removes="{{ env('PASSWORD_API') }}"
                 {{-- Route Remove Admin --}}
             >
