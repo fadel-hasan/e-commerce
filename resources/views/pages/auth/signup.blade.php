@@ -27,9 +27,19 @@
         <label for="email">البريد الإلكتروني:</label>
         <input type="text" name="email" id="email" placeholder="admin@domain.com" required>
         <label for="password">كلمة السر:</label>
-        <input type="password" name="password" id="password" placeholder="**********" required>
+        <div class="relative">
+            <input type="password" name="password" id="password" placeholder="**********" required>
+            <span class="icon-eye">
+                <i class="fa-solid fa-eye"></i>
+            </span>
+        </div>
         <label for="repeatPassword">إعادة كلمة السر:</label>
-        <input type="password" name="password_confirmation" id="repeatPassword" placeholder="********" required>
+        <div class="relative">
+            <input type="password" name="password_confirmation" id="repeatPassword" placeholder="********" required>
+            <span class="icon-eye">
+                <i class="fa-solid fa-eye"></i>
+            </span>
+        </div>
         <input type="submit" value="إنشاء حساب" id="buttonAuth" disabled>
         <p>
             تملك حساباً

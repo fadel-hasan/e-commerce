@@ -18,6 +18,7 @@ window.addEventListener('load', function () {
         }
     })
     let authPage = this.document.querySelector('form.auth') as HTMLFormElement;
+    // Chek inputs
     if (authPage) {
         let inputEmailAuth = this.document.getElementById('email') as HTMLInputElement;
         let inputPassAuth = this.document.getElementById('email') as HTMLInputElement;
@@ -51,6 +52,7 @@ window.addEventListener('load', function () {
         inputEmailAuth.addEventListener('input', isChangeAuth);
     }
     let divAlerts = document.querySelectorAll('.alert') as NodeListOf<HTMLDivElement>;
+    // Close Alerts
     if (divAlerts) {
         divAlerts.forEach((divAlert: HTMLDivElement) => {
             (divAlert.querySelector('.close-alert') as HTMLSpanElement).addEventListener('click', function () {
@@ -67,6 +69,7 @@ window.addEventListener('load', function () {
         })
     }
     let navbarAdmin = this.document.getElementById('navbarAdmin') as HTMLDivElement;
+    // Response Web For Admin
     if (navbarAdmin) {
         navbarAdmin.addEventListener('mouseenter', () => {
             if (this.window.innerWidth >= 463) {
@@ -79,6 +82,7 @@ window.addEventListener('load', function () {
             }
         })
     }
+    // Add Chart With Chart.js
     if (typeof canvasData !== 'undefined') {
         let canvaElemnt;
         canvasData.forEach((canvasData: canvasDatas) => {
@@ -112,6 +116,7 @@ window.addEventListener('load', function () {
     }
     let inputFile = this.document.getElementById('file') as HTMLInputElement;
     let filePhoto = this.document.getElementById('filePhoto') as HTMLInputElement
+    // Upload File, maby change this
     if (inputFile) {
         inputFile.addEventListener('change', (el) => {
             var explode = inputFile.value.split("\\");
@@ -126,6 +131,7 @@ window.addEventListener('load', function () {
         });
     }
     let editForms = this.document.querySelectorAll('.edit') as NodeListOf<HTMLSpanElement>;
+    // Edit Product
     editForms.forEach((editForm: HTMLSpanElement) => {
         editForm.addEventListener('click', () => {
             var elementTableThis = this.document.querySelector(`tr[data-row="${editForm.getAttribute('data-id')}"]`) as HTMLTableRowElement;
@@ -140,12 +146,20 @@ window.addEventListener('load', function () {
     });
     // Config footer with css
     var height = this.document.body.offsetHeight;
-        console.log(height,this.window.innerHeight)
-        if (height < this.window.innerHeight) {
-            console.log('hi');
-            (this.document.getElementById('footer') as HTMLDivElement).style.position = 'fixed';
-            this.document.body.classList.add('non-height');
-        } else {
-            console.log('elese');
-        }
+    if (height < this.window.innerHeight) {
+        (this.document.getElementById('footer') as HTMLDivElement).style.position = 'fixed';
+        this.document.body.classList.add('non-height');
+    }
+    // View Password
+    (this.document.querySelectorAll('.icon-eye') as NodeListOf<HTMLElement>).forEach((el) => {
+        el.addEventListener('click',(event:MouseEvent) => {
+            var input = ((el.parentElement as HTMLDivElement).querySelector('input') as HTMLInputElement);
+            (input.type == 'password') ? input.type = 'text' : input.type = 'password';
+        })
+    });
+    (this.document.querySelectorAll('.remove-admin') as NodeListOf<HTMLButtonElement>).forEach((button) => {
+        button.addEventListener('click',(event) => {
+            console.log(event.target);
+        })
+    });
 });

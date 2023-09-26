@@ -8,8 +8,11 @@
             direction: rtl !important;
         }
     }
-    .center-x {
+    .center-y {
         @apply top-1/2 -translate-y-1/2
+    }
+    .center-x {
+        @apply left-1/2 -translate-x-1/2
     }
     .link {
         @apply underline text-blue-700 font-bold

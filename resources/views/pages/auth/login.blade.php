@@ -19,8 +19,12 @@
         <label for="email">البريد الإلكتروني:</label>
         <input type="text" name="email" id="email" placeholder="example@domain.com" required>
         <label for="password">كلمة السر:</label>
-        <input type="password" name="password" id="password" placeholder="**********" required
-        >
+        <div class="relative">
+            <input type="password" name="password" id="password" placeholder="**********" required>
+            <span class="icon-eye">
+                <i class="fa-solid fa-eye"></i>
+            </span>
+        </div>
         <div class="text-lg">
             <input type="checkbox" class="accent-blue-500" id="checkbox" name="save" value="true" />
             <label for="checkbox" class="px-1">تذكرني</label>

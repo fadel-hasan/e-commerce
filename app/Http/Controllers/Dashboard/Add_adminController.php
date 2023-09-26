@@ -18,9 +18,9 @@ class Add_adminController extends Controller
             ->join('roles as r', 'u.role_id', '=', 'r.id')
             ->whereNot('r.name', 'user')
             ->leftJoin('product_users as pu', 'u.id', '=', 'pu.user_id')
-            ->select('u.name as u_name', 'u.updated_at', 'r.name as r_name', DB::raw('COUNT(CASE WHEN pu.is_sell = 0 THEN 1 END) AS product_count'), DB::raw('COUNT(CASE WHEN pu.is_sell = 1 THEN 1 END) AS sold_count'))
+            ->select('u.name as u_name','u.id as u_id', 'u.updated_at', 'r.name as r_name', DB::raw('COUNT(CASE WHEN pu.is_sell = 0 THEN 1 END) AS product_count'), DB::raw('COUNT(CASE WHEN pu.is_sell = 1 THEN 1 END) AS sold_count'))
             ->orderBy('u.updated_at', $order)
-            ->groupBy('u.name', 'u.updated_at', 'r.name')
+            ->groupBy('u.name', 'u.updated_at', 'r.name','u.id')
             ->where('u.id', '<>', 1)
             ->get();
         return $date;

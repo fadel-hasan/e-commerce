@@ -6,7 +6,10 @@
     <div class="dashboard">
         <h2 class="title-table">المشرفين</h2>
         <section class="max-w-[90%] overflow-scroll container mx-auto">
-            <table class="overflow-auto min-w-[600px]">
+            <table class="overflow-auto min-w-[600px] list"
+                data-url-remove="RotueHereBackEnd"
+                {{-- Route Remove Admin --}}
+            >
                 <thead>
                     <tr>
                         <th class="link"><a href="{{ route('dashboard.add-admin',['order' => request('order') == 'asc' ? 'desc' : 'asc']) }}">#</a></th>
@@ -15,6 +18,7 @@
                         <th>صلاحية</th>
                         <th>عدد المنتجات</th>
                         <th>عدد المبيعات</th>
+                        <th>حذف</th>
                     </tr>
                 </thead>
                 <tbody class="hisroty">
@@ -31,16 +35,11 @@
                         <td>{{ $d->r_name }}</td>
                         <td>{{ $d->product_count }}</td>
                         <td>{{ $d->sold_count }}</td>
+                        <td>
+                            <button class="button-red remove-admin" data-delete="{{ $d->ids }}">حذف</button>
+                        </td>
                     </tr>
                     @endforeach
-                    <tr>
-                        <td>2</td>
-                        <td>User</td>
-                        <td>2022/5/1</td>
-                        <td>2023/8/28</td>
-                        <td>10</td>
-                        <td>0</td>
-                    </tr>
                 </tbody>
             </table>
         </section>
