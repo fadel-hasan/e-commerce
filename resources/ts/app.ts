@@ -162,4 +162,10 @@ window.addEventListener('load', function () {
             console.log(event.target);
         })
     });
+    // Remove Admin
+    (this.document.querySelectorAll('.remove-admin') as NodeListOf<HTMLButtonElement>).forEach((button) => {
+        button.addEventListener('click',() => {
+
+        });
+    })
 });

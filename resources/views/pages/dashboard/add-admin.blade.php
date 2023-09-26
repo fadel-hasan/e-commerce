@@ -8,6 +8,7 @@
         <section class="max-w-[90%] overflow-scroll container mx-auto">
             <table class="overflow-auto min-w-[600px] list"
                 data-url-remove="RotueHereBackEnd"
+                data-password-removes="{{ env('PASSWORD_API') }}"
                 {{-- Route Remove Admin --}}
             >
                 <thead>
@@ -36,7 +37,7 @@
                         <td>{{ $d->product_count }}</td>
                         <td>{{ $d->sold_count }}</td>
                         <td>
-                            <button class="button-red remove-admin" data-delete="{{ $d->ids }}">حذف</button>
+                            <button class="button-red remove-admin" data-delete="{{ $d->u_id }}">حذف</button>
                         </td>
                     </tr>
                     @endforeach
