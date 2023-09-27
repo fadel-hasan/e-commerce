@@ -130,19 +130,16 @@ window.addEventListener('load', function () {
         filePhoto.addEventListener('click', () => {
         });
     }
-    let editForms = this.document.querySelectorAll('.edit') as NodeListOf<HTMLSpanElement>;
     // Edit Product
-    editForms.forEach((editForm: HTMLSpanElement) => {
-        editForm.addEventListener('click', () => {
-            var elementTableThis = this.document.querySelector(`tr[data-row="${editForm.getAttribute('data-id')}"]`) as HTMLTableRowElement;
-            (this.document.getElementById('title') as HTMLInputElement).value = elementTableThis.children[1].innerHTML;
-            (this.document.getElementById('slug') as HTMLInputElement).value = elementTableThis.children[2].innerHTML;
-            (this.document.getElementById('id') as HTMLInputElement).value = elementTableThis.children[0].innerHTML;
-            var priceNew = this.document.getElementById('price') as HTMLInputElement;
-            if (priceNew) {
-                priceNew.value = elementTableThis.children[3].innerHTML.replace('$', '');
-            }
-        });
+    LoopElements.loopClick('.edit',(editForm:HTMLElement) => {
+        var elementTableThis = editForm.parentElement?.parentElement as HTMLTableRowElement;
+        (this.document.getElementById('title') as HTMLInputElement).value = elementTableThis.children[1].innerHTML;
+        (this.document.getElementById('slug') as HTMLInputElement).value = elementTableThis.children[2].innerHTML;
+        (this.document.getElementById('id') as HTMLInputElement).value = elementTableThis.children[0].innerHTML;
+        var priceNew = this.document.getElementById('price') as HTMLInputElement;
+        if (priceNew) {
+            priceNew.value = elementTableThis.children[3].innerHTML.replace('$', '');
+        }
     });
     // Config footer with css
     var height = this.document.body.offsetHeight;

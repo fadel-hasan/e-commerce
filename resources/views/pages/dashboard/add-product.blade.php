@@ -26,13 +26,18 @@
             </select>
             <input type="hidden" name="id" value="" id="id">
             <div id="more">
-                {{-- إضافة تطويرات الخدمة --}}
+                {{-- إضافة تطويرات الخدمة
+                    i am working here
+                    --}}
             </div>
             <input type="submit" value="إضافة" class="button-blue w-fit mx-auto px-12 mb-4">
         </form>
         <section class="max-w-[90%] overflow-scroll container mx-auto">
             <h2 class="title-table">المنتجات</h2>
-            <table class="overflow-auto list mb-8">
+            <table class="overflow-auto list mb-8"
+            data-url-remove="{{ route('removeAdmin') }}"
+            {{-- Route Remove Product --}}
+            >
                 <thead>
                     <tr>
                         <th class="link"><a href="#">#</a></th>
@@ -44,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr data-row="1">
+                    <tr>
                         <td>1</td>
                         <td>ايفون</td>
                         <td>apple</td>
@@ -52,9 +57,11 @@
                         <td>
                             <span class="edit" data-id="1">تعديل</span>
                         </td>
-                        <td><a href="#">حذف</a></td>
+                        <td>
+                            <button class="button-red remove-admin" data-delete="hereId">حذف</button>
+                        </td>
                     </tr>
-                    <tr data-row="2">
+                    <tr>
                         <td>2</td>
                         <td>لابتوب</td>
                         <td>laptops</td>
@@ -62,7 +69,9 @@
                         <td>
                             <span class="edit" data-id="2">تعديل</span>
                         </td>
-                        <td><a href="#">حذف</a></td>
+                        <td>
+                            <button class="button-red remove-admin" data-delete="hereId">حذف</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

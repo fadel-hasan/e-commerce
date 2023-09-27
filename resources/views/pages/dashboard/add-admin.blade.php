@@ -7,7 +7,6 @@
         <h2 class="title-table">المشرفين</h2>
         <section class="max-w-[90%] overflow-scroll container mx-auto">
             <table class="overflow-auto min-w-[600px] list"
-                {{-- data-url-remove="RotueHereBackEnd?id=" --}}
                 data-url-remove="{{ route('removeAdmin') }}"
                 {{-- Route Remove Admin --}}
             >
@@ -52,7 +51,6 @@
             <select name="rule" id="rule" required>
                     <option value="admin">admin</option>
                     <option value="saller">saller</option>
-                {{-- <option value="2">view</option> --}}
             </select>
             <input type="submit" value="إضافة" id="buttonAuth" disabled>
         </form>

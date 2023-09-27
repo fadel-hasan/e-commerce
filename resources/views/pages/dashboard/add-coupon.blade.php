@@ -20,7 +20,9 @@
         </form>
         <section class="max-w-[90%] overflow-scroll container mx-auto">
             <h2 class="title-table">الخصومات الحالية:</h2>
-            <table class="overflow-auto list mb-8">
+            <table class="overflow-auto list mb-8"
+            data-url-remove="{{ route('removeAdmin') }}"
+            {{-- Route Remove Coipon --}}>
                 <thead>
                     <tr>
                         <th class="link"><a href="#">#</a></th>
@@ -38,7 +40,9 @@
                         <td>10%</td>
                         <td>100</td>
                         <td>90</td>
-                        <td><a href="#">حذف</a></td>
+                        <td>
+                            <button class="button-red remove-admin" data-delete="hereId">حذف</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

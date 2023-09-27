@@ -17,14 +17,15 @@ export default class querySelectorAllElements {
         });
     }
     static removeWithApi(nameClass: string, urlAttribute: string, idAttribute: string) {
-        (document.querySelectorAll(`.${nameClass}`) as NodeListOf<HTMLElement>).forEach((element) => {
-            let urlApi = document.querySelector('table.list')?.getAttribute(urlAttribute);
-            element.addEventListener('click', () => {
-                if (confirm('هل أنت متأكد أنك تريد الحذف، الرجاء عدم حظر هذه الرسالة')) {
-                    var urlRequest = `${urlApi}?id=${element.getAttribute(idAttribute)}`
-                    this.requestApi(urlRequest,() => element.parentElement?.parentElement?.remove(),() => "");
-                }
-            });
-        })
+        let urlApi = document.querySelector('table.list')?.getAttribute(urlAttribute);
+        this.loopClick(`.${nameClass}`,(element:HTMLElement) => {
+            if (confirm('هل أنت متأكد أنك تريد الحذف، الرجاء عدم حظر هذه الرسالة')) {
+                var urlRequest = `${urlApi}?id=${element.getAttribute(idAttribute)}`
+                this.requestApi(urlRequest,() => element.parentElement?.parentElement?.remove(),() => "");
+            }
+        });
+    }
+    static loopClick(elementName:string,funcationCall:CallableFunction) {
+        (document.querySelectorAll(elementName) as NodeListOf<HTMLElement>).forEach((element) => element.addEventListener('click',() => funcationCall(element)));
     }
 }
