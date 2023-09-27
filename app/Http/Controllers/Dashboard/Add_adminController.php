@@ -28,8 +28,29 @@ class Add_adminController extends Controller
 
     public function add_admin($email, $role)
     {
-        $r = DB::table('roles')->where('name', $role)->select('id')->first();
         $u = DB::table('users')->where('email', $email)->first('*');
-        DB::table('users')->where('id', $u->id)->update(['role_id' => $r->id]);
+        if ($u) {
+            $r = DB::table('roles')->where('name', $role)->select('id')->first();
+            if ($r) {
+                DB::table('users')->where('id', $u->id)->update(['role_id' => $r->id]);
+            }
+        } else {
+            session()->put('error', 'هذا البريد الإلكتروني غير موجود او خاطئ');
+        }
+    }
+    
+
+    public function delete(Request $r)
+    {
+        $role = DB::table('roles')->where('name','user')->select('id')->first();
+        $u=DB::table('users')->where('id',$r->id)->update(['role_id'=>$role->id]);
+
+        if($u)
+        {
+            return response()->json(['ok'=>true]);
+        }
+        else{
+            return response()->json(['ok'=>false]);
+        }
     }
 }

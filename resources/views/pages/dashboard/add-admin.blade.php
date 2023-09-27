@@ -1,19 +1,21 @@
 @section('title')
-إضافة أدمن
+    إضافة أدمن
 @endsection
 @section('app')
     @include('layouts.navbarAdmin')
+    @if (session()->has('error'))
+        <x-alert message="{{ session()->get('error') }}" type='fail' title="خطأ" />
+    @endif
     <div class="dashboard">
         <h2 class="title-table">المشرفين</h2>
         <section class="max-w-[90%] overflow-scroll container mx-auto">
-            <table class="overflow-auto min-w-[600px] list"
-                {{-- data-url-remove="RotueHereBackEnd?id=" --}}
-                data-url-remove="{{ route('removeAdmin') }}"
-                {{-- Route Remove Admin --}}
-            >
+            <table class="overflow-auto min-w-[600px] list" {{-- data-url-remove="RotueHereBackEnd?id=" --}} data-url-remove="{{ route('removeAdmin') }}"
+                {{-- Route Remove Admin --}}>
                 <thead>
                     <tr>
-                        <th class="link"><a href="{{ route('dashboard.add-admin',['order' => request('order') == 'asc' ? 'desc' : 'asc']) }}">#</a></th>
+                        <th class="link"><a
+                                href="{{ route('dashboard.add-admin', ['order' => request('order') == 'asc' ? 'desc' : 'asc']) }}">#</a>
+                        </th>
                         <th>المستخدم</th>
                         <th>تاريخ التسجل</th>
                         <th>صلاحية</th>
@@ -24,22 +26,21 @@
                 </thead>
                 <tbody class="hisroty">
                     @php
-                        $i=0
+                        $i = 0;
                     @endphp
 
-                    @foreach ($admins as $d )
-
-                    <tr>
-                        <td>{{ ++$i }}</td>
-                        <td>{{ $d->u_name }}</td>
-                        <td>{{ $d->updated_at }}</td>
-                        <td>{{ $d->r_name }}</td>
-                        <td>{{ $d->product_count }}</td>
-                        <td>{{ $d->sold_count }}</td>
-                        <td>
-                            <button class="button-red remove-admin" data-delete="{{ $d->u_id }}">حذف</button>
-                        </td>
-                    </tr>
+                    @foreach ($admins as $d)
+                        <tr>
+                            <td>{{ ++$i }}</td>
+                            <td>{{ $d->u_name }}</td>
+                            <td>{{ $d->updated_at }}</td>
+                            <td>{{ $d->r_name }}</td>
+                            <td>{{ $d->product_count }}</td>
+                            <td>{{ $d->sold_count }}</td>
+                            <td>
+                                <button class="button-red remove-admin" data-delete="{{ $d->u_id }}">حذف</button>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -50,8 +51,8 @@
             <label for="email">البريد الإلكتروني:</label>
             <input type="text" name="email" id="email">
             <select name="rule" id="rule" required>
-                    <option value="admin">admin</option>
-                    <option value="saller">saller</option>
+                <option value="admin">admin</option>
+                <option value="saller">saller</option>
                 {{-- <option value="2">view</option> --}}
             </select>
             <input type="submit" value="إضافة" id="buttonAuth" disabled>

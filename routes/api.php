@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Add_adminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::prefix(env('PASSWORD_API'))->group(function() {
-    Route::get('/remoeAdmin',fn() => json_encode(['ok'=>true]))->name('removeAdmin');
+    Route::get('/removeAdmin',[Add_adminController::class,'delete'])->name('removeAdmin');
 });
