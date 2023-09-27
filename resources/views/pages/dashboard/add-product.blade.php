@@ -25,10 +25,9 @@
                 <option value="2">لابتوبات</option>
             </select>
             <input type="hidden" name="id" value="" id="id">
-            <div id="more">
-                {{-- إضافة تطويرات الخدمة
-                    i am working here
-                    --}}
+            <div class="flex flex-col my-6">
+                <span class="button-blue w-fit self-center text-lg" id="addMore">إضافة تطوية</span>
+                <div id="more" class="my-2 flex flex-col"></div>
             </div>
             <input type="submit" value="إضافة" class="button-blue w-fit mx-auto px-12 mb-4">
         </form>

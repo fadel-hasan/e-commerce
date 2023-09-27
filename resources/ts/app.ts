@@ -148,12 +148,23 @@ window.addEventListener('load', function () {
         this.document.body.classList.add('non-height');
     }
     // View Password
-    (this.document.querySelectorAll('.icon-eye') as NodeListOf<HTMLElement>).forEach((el) => {
-        el.addEventListener('click',(event:MouseEvent) => {
-            var input = ((el.parentElement as HTMLDivElement).querySelector('input') as HTMLInputElement);
-            (input.type == 'password') ? input.type = 'text' : input.type = 'password';
-        })
-    });
+    LoopElements.loopClick('.icon-eye',(el:HTMLElement) => {
+        var input = ((el.parentElement as HTMLDivElement).querySelector('input') as HTMLInputElement);
+        (input.type == 'password') ? input.type = 'text' : input.type = 'password';
+    })
     // Remove Admin
     LoopElements.removeWithApi('remove-admin','data-url-remove','data-delete');
+    // addMore
+    let numberAddMore = 0;
+    let moreHtmlAdd = this.document.getElementById('more') as HTMLDivElement;
+    var htmlElementInputMore = '';
+    (this.document.getElementById('addMore') as HTMLSpanElement).addEventListener('click',() => {
+        numberAddMore++;
+        htmlElementInputMore = `<label class="text font-bold cursor-pointer" for="name#${numberAddMore}">التطويرة #${numberAddMore}:</label>
+        <input type="text" name="name#${numberAddMore}" id="name#${numberAddMore}" placeholder="التطويرة ${numberAddMore}">
+        <label class="text font-bold cursor-pointer" for="price#${numberAddMore}">سعرها :</label>
+        <input type="number" name="price#${numberAddMore}" id="price#${numberAddMore}" placeholder="20$" dir="ltr">
+        <hr>`;
+        moreHtmlAdd.innerHTML += htmlElementInputMore;
+    })
 });
