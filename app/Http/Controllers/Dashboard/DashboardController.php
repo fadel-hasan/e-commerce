@@ -77,6 +77,12 @@ class DashboardController extends Controller
         return $this->getIndex('pages.dashboard.add-admin', array_combine($name, $date));
     }
 
+    public function indexSitting()
+    {
+        $date = [$this->d->sittings()];
+        $name = ['commands'];
+        return $this->getIndex('pages.dashboard.sitting', array_combine($name, $date));
+    }
 
 
     public function get_month_visit()

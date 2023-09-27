@@ -1,11 +1,11 @@
 @section('title')
-إضافة أدمن
+الإعدادات
 @endsection
 @section('app')
     @include('layouts.navbarAdmin')
     <div class="dashboard">
         <h2 class="title-table">الاعدادات</h2>
-        <form action="" method="POST" class="sitting">
+        <form action="{{ route('dashboard.sitting') }}" method="POST" class="sitting">
             @csrf
             @foreach ($commands as $command)
                 <label for="{{ $command['id'] }}">{{ $command['name'] }}:</label>

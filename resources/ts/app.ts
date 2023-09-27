@@ -130,19 +130,16 @@ window.addEventListener('load', function () {
         filePhoto.addEventListener('click', () => {
         });
     }
-    let editForms = this.document.querySelectorAll('.edit') as NodeListOf<HTMLSpanElement>;
     // Edit Product
-    editForms.forEach((editForm: HTMLSpanElement) => {
-        editForm.addEventListener('click', () => {
-            var elementTableThis = this.document.querySelector(`tr[data-row="${editForm.getAttribute('data-id')}"]`) as HTMLTableRowElement;
-            (this.document.getElementById('title') as HTMLInputElement).value = elementTableThis.children[1].innerHTML;
-            (this.document.getElementById('slug') as HTMLInputElement).value = elementTableThis.children[2].innerHTML;
-            (this.document.getElementById('id') as HTMLInputElement).value = elementTableThis.children[0].innerHTML;
-            var priceNew = this.document.getElementById('price') as HTMLInputElement;
-            if (priceNew) {
-                priceNew.value = elementTableThis.children[3].innerHTML.replace('$', '');
-            }
-        });
+    LoopElements.loopClick('.edit',(editForm:HTMLElement) => {
+        var elementTableThis = editForm.parentElement?.parentElement as HTMLTableRowElement;
+        (this.document.getElementById('title') as HTMLInputElement).value = elementTableThis.children[1].innerHTML;
+        (this.document.getElementById('slug') as HTMLInputElement).value = elementTableThis.children[2].innerHTML;
+        (this.document.getElementById('id') as HTMLInputElement).value = elementTableThis.children[0].innerHTML;
+        var priceNew = this.document.getElementById('price') as HTMLInputElement;
+        if (priceNew) {
+            priceNew.value = elementTableThis.children[3].innerHTML.replace('$', '');
+        }
     });
     // Config footer with css
     var height = this.document.body.offsetHeight;
@@ -151,12 +148,23 @@ window.addEventListener('load', function () {
         this.document.body.classList.add('non-height');
     }
     // View Password
-    (this.document.querySelectorAll('.icon-eye') as NodeListOf<HTMLElement>).forEach((el) => {
-        el.addEventListener('click',(event:MouseEvent) => {
-            var input = ((el.parentElement as HTMLDivElement).querySelector('input') as HTMLInputElement);
-            (input.type == 'password') ? input.type = 'text' : input.type = 'password';
-        })
-    });
+    LoopElements.loopClick('.icon-eye',(el:HTMLElement) => {
+        var input = ((el.parentElement as HTMLDivElement).querySelector('input') as HTMLInputElement);
+        (input.type == 'password') ? input.type = 'text' : input.type = 'password';
+    })
     // Remove Admin
     LoopElements.removeWithApi('remove-admin','data-url-remove','data-delete');
+    // addMore
+    let numberAddMore = 0;
+    let moreHtmlAdd = this.document.getElementById('more') as HTMLDivElement;
+    var htmlElementInputMore = '';
+    (this.document.getElementById('addMore') as HTMLSpanElement).addEventListener('click',() => {
+        numberAddMore++;
+        htmlElementInputMore = `<label class="text font-bold cursor-pointer" for="name#${numberAddMore}">التطويرة #${numberAddMore}:</label>
+        <input type="text" name="name#${numberAddMore}" id="name#${numberAddMore}" placeholder="التطويرة ${numberAddMore}">
+        <label class="text font-bold cursor-pointer" for="price#${numberAddMore}">سعرها :</label>
+        <input type="number" name="price#${numberAddMore}" id="price#${numberAddMore}" placeholder="20$" dir="ltr">
+        <hr>`;
+        moreHtmlAdd.innerHTML += htmlElementInputMore;
+    })
 });

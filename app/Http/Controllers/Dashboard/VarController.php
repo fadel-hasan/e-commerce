@@ -13,13 +13,14 @@ class VarController extends Controller
 
 
 
-    private $h,$m,$a,$r,$d;
+    private $h,$m,$a,$r,$d,$s;
     public function __construct() {
         $this->h = new HomeController();
         $this->m = new MemberController();
         $this->a = new AnalysisController();
         $this->r = new HistoryController();
         $this->d = new Add_adminController();
+        $this->s  =new SittingController();
     }
 
     public function adminLink()
@@ -165,5 +166,24 @@ class VarController extends Controller
     public function admins()
     {
         return $this->d->get_admin();
+    }
+
+    public function sittings()
+    {
+        $name =['اسم الموقع','الوصف','العلامات الوصفية','صورة الموقع','ايدي حساب الفيسبوك','معرف حساب تويتر'];
+        $type = ['text','text','text','file','text','text'];
+        $required = [true,true,true,false,false,false];
+        $date = $this->s->get_command();
+        $command=[];
+        for ($i=0; $i <count($date) ; $i++) {
+            $command[$i]=[
+                'name' => $name[$i],
+                'type' => $type[$i],
+                'id' => $date[$i]->command,
+                'required' => $required[$i],
+                'value' => $date[$i]->value
+            ];
+        }
+      return $command;
     }
 }

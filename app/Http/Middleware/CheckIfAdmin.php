@@ -17,10 +17,13 @@ class CheckIfAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $admin = DB::table('roles')->where('name', 'admin')->value('id');
-        if (Auth::check() && Auth::user()->role_id == $admin) {
-            return $next($request);
-        }
-        return redirect(route('get.login'))->with('error', 'الرجاء تسجيل الدخول اولا');
+
+        $admin_id = cache()->remember('admin_role_id', 60 *60 *24, function () {
+        return DB::table('roles')->where('name', 'admin')->value('id');
+    });
+    if (Auth::check() && Auth::user()->role_id == $admin_id) {
+        return $next($request);
+    }
+    return redirect(route('get.login'))->with('error', 'الرجاء تسجيل الدخول اولا');
     }
 }
