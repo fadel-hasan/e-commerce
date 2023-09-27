@@ -34,7 +34,6 @@ Route::get('/', function () {
 
 // Auth
 Route::prefix('auth')->group(function () {
-
     Route::middleware('check.not.registered')->group(function () {
         Route::get('signup', [AuthController::class, 'getSignup'])->name('get.signup');
         Route::get('login', [AuthController::class, 'getLogin'])->name('get.login');
@@ -49,8 +48,27 @@ Route::prefix('auth')->group(function () {
 
     Route::middleware(['auth', 'log.activity:عملية تسجيل خروج من الموقع'])->get('logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+// Member
+Route::prefix('/member')/* ->middleware() */->group(function() {
+    Route::get('/',fn() => view('pages.site.profile'))->name('user.profile');
+    Route::get('/refer',fn() => view('pages.site.refer'))->name('user.refer');
+    Route::get('/history',fn() => view('pages.site.history'))->name('user.history');
+});
 // Search
 Route::get('/search/{name}', function ($name) {
     return "Search Aboud {$name}";
-});
-// Dashboard
+})->name('search');
+// product
+Route::get('/product/{uri}',fn(string $uri) => view('pages.site.product'))->name('user.product');
+// category
+Route::get('/category/{uri}',fn(string $uri) => view('pages.site.category'))->name('user.category');
+// payment
+/**
+ * @param int $id the payment
+ * @param int $productId for pay
+*/
+function payment(int $id,int $productId) {
+    view('pages.site.category');
+}
+Route::get('/payment/{id}/{productId}',payment($id,$productId))->name('user.category');
