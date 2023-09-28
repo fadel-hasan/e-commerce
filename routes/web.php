@@ -67,8 +67,8 @@ Route::get('/category/{uri}',fn(string $uri) => view('pages.site.category'))->na
 /**
  * @param int $id the payment
  * @param int $productId for pay
-*/
-function payment(int $id,int $productId) {
-    view('pages.site.category');
-}
-Route::get('/payment/{id}/{productId}',payment($id,$productId))->name('user.category');
+// */
+// function payment(int $id,int $productId) {
+//     view('pages.site.category');
+// }
+// Route::get('/payment/{id}/{productId}',payment($id,$productId))->name('user.category');
