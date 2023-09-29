@@ -1,31 +1,22 @@
 export default class querySelectorAllElements {
+    // Request Any API
     static requestApi(url: string,functionSuccess:CallableFunction,functionFail:CallableFunction) {
         fetch(url)
-        .then((result: Response) => {
-            if (result.status == 200) {
-                return result.json();
-            } else {
-                return { ok: false };
-            }
-        }).
-        then(({ok}) => {
-            if (ok == true) {
-                functionSuccess();
-            } else {
-                functionFail();
-            }
-        });
+        .then((result: Response) => (result.status == 200) ? result.json() : { ok: false })
+        .then((result) => (result.ok == true) ? functionSuccess(result) : functionFail());
     }
+    // Remove data in databases with API
     static removeWithApi(nameClass: string, urlAttribute: string, idAttribute: string) {
         let urlApi = document.querySelector('table.list')?.getAttribute(urlAttribute);
         this.loopClick(`.${nameClass}`,(element:HTMLElement) => {
             if (confirm('هل أنت متأكد أنك تريد الحذف، الرجاء عدم حظر هذه الرسالة')) {
                 var urlRequest = `${urlApi}?id=${element.getAttribute(idAttribute)}`
-                this.requestApi(urlRequest,() => element.parentElement?.parentElement?.remove(),() => "");
+                this.requestApi(urlRequest,(res:any) => element.parentElement?.parentElement?.remove(),() => "");
             }
         });
     }
+    // Loop Elements for click any element
     static loopClick(elementName:string,funcationCall:CallableFunction) {
-        (document.querySelectorAll(elementName) as NodeListOf<HTMLElement>).forEach((element) => element.addEventListener('click',() => funcationCall(element)));
+        (document.querySelectorAll(elementName) as NodeListOf<HTMLElement>)?.forEach((element) => element.addEventListener('click',() => funcationCall(element)));
     }
 }

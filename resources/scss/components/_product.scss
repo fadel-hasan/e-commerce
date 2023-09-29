@@ -2,10 +2,9 @@
     #products {
         @apply mx-2 sm:mx-4 lg:mx-8 mt-2 sm:mt-4 lg:mt-8 border py-4 px-2 sm:px-4 rounded-md ;
         .products {
-            @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 md:gap-x-4 lg:gap-x-8 gap-y-12;
+            @apply grid-helper lg:grid-cols-4 gap-y-12;
             >article {
-                @apply bg-gray-200 rounded-md relative shadow-md efect overflow-hidden;
-
+                @apply rounded-md relative shadow-md efect overflow-hidden;
                 >.img img {
                     @apply w-full object-cover rounded-t-md;
                 }

@@ -4,7 +4,10 @@
 
 
 @import './layouts/style';
-@import './components/inputSearch';
+@import './layouts/footer';
+@import './layouts/header';
+// Helpers
+@import './helpers/grid';
 @import './components/button';
 @import './layouts/auth';
 @import './layouts/navbarLeft';
@@ -12,3 +15,5 @@
 @import './layouts/inputs';
 @import './components/tables';
 @import './components/product';
+@import './components/animation';
+@import './components/flex'

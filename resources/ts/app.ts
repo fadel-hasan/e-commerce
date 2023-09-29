@@ -8,10 +8,17 @@ type canvasDatas = {
     title: string,
     labels: string
 }
+type resultRequestProductes = {
+    image: string,
+    title:string,
+    des:string,
+    category:string,
+    link:string,
+    linkCategory:string,
+}
 declare var canvasData: Array<canvasDatas>;
 window.addEventListener('load', function () {
-    let iconSearch = document.getElementById('iconSearch') as HTMLSpanElement;
-    iconSearch.addEventListener('click', (el: MouseEvent) => {
+    LoopElements.loopClick('#iconSearch',() => {
         let inputSearch = document.getElementById('inputSearch') as HTMLInputElement;
         if (inputSearch.value.length > 0) {
             window.location.href = `${window.location.origin}/search/${inputSearch.value}`
@@ -51,25 +58,22 @@ window.addEventListener('load', function () {
         }
         inputEmailAuth.addEventListener('input', isChangeAuth);
     }
-    let divAlerts = document.querySelectorAll('.alert') as NodeListOf<HTMLDivElement>;
     // Close Alerts
-    if (divAlerts) {
-        divAlerts.forEach((divAlert: HTMLDivElement) => {
-            (divAlert.querySelector('.close-alert') as HTMLSpanElement).addEventListener('click', function () {
-                var opacity = 100;
-                var timeRemoveAlert = setInterval(() => {
-                    opacity -= 10;
-                    if (opacity == 0) {
-                        divAlert.remove();
-                        clearInterval(timeRemoveAlert)
-                    }
-                    divAlert.style.opacity = opacity.toString() + '%';
-                }, 30);
-            })
+    LoopElements.loopClick('.alert',(divAlert:HTMLElement) => {
+        (divAlert.querySelector('.close-alert') as HTMLSpanElement).addEventListener('click', function () {
+            var opacity = 100;
+            var timeRemoveAlert = setInterval(() => {
+                opacity -= 10;
+                if (opacity == 0) {
+                    divAlert.remove();
+                    clearInterval(timeRemoveAlert)
+                }
+                divAlert.style.opacity = opacity.toString() + '%';
+            }, 30);
         })
-    }
-    let navbarLeft = this.document.getElementById('navbarLeft') as HTMLDivElement;
+    });
     // Response Web For Admin
+    let navbarLeft = this.document.getElementById('navbarLeft') as HTMLDivElement;
     if (navbarLeft) {
         navbarLeft.addEventListener('mouseenter', () => {
             if (this.window.innerWidth >= 463) {
@@ -168,5 +172,43 @@ window.addEventListener('load', function () {
             <hr>`;
             moreHtmlAdd.innerHTML += htmlElementInputMore;
         });
+    }
+    // moreProductsClick
+    let moreProductsClick = this.document.getElementById('moreProducts') as HTMLButtonElement;
+    let numberPageProducts = 0;
+    if (moreProductsClick) {
+        let urlMoreProducts = this.document.getElementById('products')?.getAttribute('data-url-products');
+        let htmlProductInsert = '';
+        let spanSpiner = moreProductsClick.childNodes[1] as HTMLSpanElement;
+        moreProductsClick.addEventListener('click',() => {
+            numberPageProducts++;
+            spanSpiner.classList.remove('hidden')
+            LoopElements.requestApi(`${urlMoreProducts}?page=${numberPageProducts}`,(result:any) => {
+                var resultProducts:Array<resultRequestProductes> = result.result;
+                htmlProductInsert = '';
+                resultProducts.forEach((product) => {
+                    htmlProductInsert += `
+                    <article>
+                    <div class="img">
+                        <a href="${product.link}">
+                            <img src="${product.image}" alt="${product.title}" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="content">
+                        <a href="${product.link}"><h3>${product.title}</h3></a>
+                        <p>${product.des}</p>
+                        <a href="${product.link}" class="button-blue">المزيد من المعلومات</a>
+                    </div>
+                    <a class="category" href="${product.linkCategory}">${product.category}</a>
+                </article>
+                    `;
+                });
+                (this.document.querySelector('.products') as HTMLDivElement).innerHTML += htmlProductInsert;
+                spanSpiner.classList.add('hidden');
+            },() => {
+                console.error("error in your network")
+                spanSpiner.classList.add('hidden');
+            });
+        })
     }
 });

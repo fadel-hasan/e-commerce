@@ -1,0 +1,23 @@
+@layer components {
+    .flex-page {
+        @apply container mx-auto flex flex-row justify-center md:items-center flex-wrap px-2 min-h-screen;
+        &#hero {
+            @apply min-h-[calc(100vh-70px)] sm:min-h-[calc(100vh-77px)];
+        }
+        > .content {
+            @apply w-full md:w-2/3 mt-6 md:mt-0 h-fit;
+            h1,h2 {
+                @apply text-3xl font-bold text-blue-600 text-center md:text-start;
+            }
+            p {
+                @apply max-w-[700px] text-center leading-8 text-gray-700 font-bold mt-4;
+            }
+        }
+        .image {
+            @apply w-2/3 md:w-1/3 h-fit;
+            img {
+                @apply w-full animation-top;
+            }
+        }
+    }
+}
