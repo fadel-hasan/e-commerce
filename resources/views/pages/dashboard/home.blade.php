@@ -1,6 +1,4 @@
-@section('title')
-    لوحة التحكم
-@endsection
+@section('title','لوحة التحكم')
 @section('app')
     @include('layouts.navbarAdmin')
     {{--     4 Box for information data

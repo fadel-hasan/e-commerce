@@ -13,7 +13,7 @@ class VarController extends Controller
 
 
 
-    private $h,$m,$a,$r,$d,$s;
+    private $h,$m,$a,$r,$d,$s,$sec;
     public function __construct() {
         $this->h = new HomeController();
         $this->m = new MemberController();
@@ -21,9 +21,10 @@ class VarController extends Controller
         $this->r = new HistoryController();
         $this->d = new Add_adminController();
         $this->s  =new SittingController();
+        $this->sec = new SectionController();
     }
 
-    public function adminLink()
+    public static function adminLink()
     {
         $admin_link =  [
             [
@@ -186,4 +187,11 @@ class VarController extends Controller
         }
       return $command;
     }
+
+
+    public function sections()
+    {
+        return $this->sec->get_sections();
+    }
+
 }

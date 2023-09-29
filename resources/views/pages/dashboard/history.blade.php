@@ -1,6 +1,4 @@
-@section('title')
-    السجلات
-@endsection
+@section('title','السجلات')
 @section('app')
     @include('layouts.navbarAdmin')
     <div class="dashboard">

@@ -1,6 +1,4 @@
-@section('title')
-    إضافة أدمن
-@endsection
+@section('title','إضافة أدمن')
 @section('app')
     @include('layouts.navbarAdmin')
     @if (session()->has('error'))

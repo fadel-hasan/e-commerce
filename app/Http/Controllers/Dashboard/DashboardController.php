@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $this->d = new VarController();
     }
 
-    public function getIndex($view, $date = [])
+    public  function  getIndex($view, $date = [])
     {
         return view($view, array_merge(['adminLinks' => $this->d->adminLink()], $date));
     }
@@ -84,14 +84,11 @@ class DashboardController extends Controller
         return $this->getIndex('pages.dashboard.sitting', array_combine($name, $date));
     }
 
-
-    public function get_month_visit()
+    public function indexSection()
     {
-        $visits = DB::table('visitors')
-            ->select(DB::raw('MONTH(date) as month,YEAR(date) as year, SUM(count) as count'))
-            ->groupBy(DB::raw('MONTH(date),YEAR(date)'))
-            ->get('count');
-        return response()->json($visits);
+        $date = [$this->d->sections()];
+        $name = ['sections'];
+        return $this->getIndex('pages.dashboard.add-category', array_combine($name, $date));
     }
 
 
@@ -99,13 +96,37 @@ class DashboardController extends Controller
 
 
 
-    public function add_seller($userId)
-    {
-        $newRole = DB::table('roles')->where('name', 'seller')->value('id');
-        DB::table('users')
-            ->where('id', $userId)
-            ->update(['role_id' => $newRole]);
-    }
+
+
+
+
+
+
+
+
+
+
+    // public function get_month_visit()
+    // {
+    //     $visits = DB::table('visitors')
+    //         ->select(DB::raw('MONTH(date) as month,YEAR(date) as year, SUM(count) as count'))
+    //         ->groupBy(DB::raw('MONTH(date),YEAR(date)'))
+    //         ->get('count');
+    //     return response()->json($visits);
+    // }
+
+
+
+
+
+
+    // public function add_seller($userId)
+    // {
+    //     $newRole = DB::table('roles')->where('name', 'seller')->value('id');
+    //     DB::table('users')
+    //         ->where('id', $userId)
+    //         ->update(['role_id' => $newRole]);
+    // }
 
 
     public function get_location(Request $r)
@@ -137,21 +158,22 @@ class DashboardController extends Controller
         dd($data);
     }
 
-    public function get_month_sell()
-    {
-        $sells = DB::table('order_details')->selectRaw('Day(created_at) as day,Month(created_at) as month,SUM(totalPrice) as sum')
-            // ->whereMonth('created_at', Carbon::now()->month)
-            ->groupBy('day', 'month')
-            ->get();
-        return response()->json($sells);
-    }
+    //     public function get_month_sell()
+    //     {
+    //         $sells = DB::table('order_details')->selectRaw('Day(created_at) as day,Month(created_at) as month,SUM(totalPrice) as sum')
+    //             // ->whereMonth('created_at', Carbon::now()->month)
+    //             ->groupBy('day', 'month')
+    //             ->get();
+    //         return response()->json($sells);
+    //     }
 
-    public function get_count_product_month()
-    {
-        $sells = DB::table('order_details', 'o')->selectRaw('products.name,sum(o.quantity) as count')
-            ->whereMonth('o.created_at', Carbon::now()->month)
-            ->join('products', 'o.product_id', '=', 'products.id')
-            ->groupBy('products.name')->get();
-        return response()->json($sells);
-    }
+    //     public function get_count_product_month()
+    //     {
+    //         $sells = DB::table('order_details', 'o')->selectRaw('products.name,sum(o.quantity) as count')
+    //             ->whereMonth('o.created_at', Carbon::now()->month)
+    //             ->join('products', 'o.product_id', '=', 'products.id')
+    //             ->groupBy('products.name')->get();
+    //         return response()->json($sells);
+    //     }
+    // }
 }

@@ -3,8 +3,17 @@
 @endsection
 @section('app')
     @include('layouts.navbarAdmin')
+    @if (session()->has('error'))
+        @if (is_array(session()->get('error')))
+            @foreach (session()->get('error') as $error)
+                <x-alert message="{{ $error }}" type='fail' title="خطأ" />
+            @endforeach
+        @else
+            <x-alert message="{{ session()->get('error') }}" type='fail' title="خطأ" />
+        @endif
+    @endif
     <div class="dashboard">
-        <form action="" method="POST" class="sitting">
+        <form action="{{ route('dashboard.add-category') }}" method="POST" class="sitting">
             @csrf
             <h2 class="title-table">إضافة قسم</h2>
             <label for="title">اسم القسم:</label>
@@ -20,13 +29,10 @@
         </form>
         <section class="max-w-[90%] overflow-scroll container mx-auto">
             <h2 class="title-table">الأقسام</h2>
-            <table class="overflow-auto list mb-8"
-            data-url-remove="{{ route('removeAdmin') }}"
-            {{-- Route Remove category --}}
-            >
+            <table class="overflow-auto list mb-8" data-url-remove="{{ route('removeSec') }}">
                 <thead>
                     <tr>
-                        <th class="link"><a href="#">#</a></th>
+                        <th class="link"><a href="{{ route('dashboard.add-category',['order' => request('order') == 'asc' ? 'desc' : 'asc']) }}">#</a></th>
                         <th>الاسم</th>
                         <th>المسار</th>
                         <th>تعديل</th>
@@ -34,28 +40,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>ايفون</td>
-                        <td>apple</td>
-                        <td>
-                            <span class="edit" data-id="1">تعديل</span>
-                        </td>
-                        <td>
-                            <button class="button-red remove-admin" data-delete="hereId">حذف</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>لابتوب</td>
-                        <td>laptops</td>
-                        <td>
-                            <span class="edit" data-id="2">تعديل</span>
-                        </td>
-                        <td>
-                            <button class="button-red remove-admin" data-delete="hereId">حذف</button>
-                        </td>
-                    </tr>
+                    @foreach ($sections as $s)
+                        <tr>
+                            <td>{{ $s->id }}</td>
+                            <td>{{ $s->name }}</td>
+                            <td>{{ $s->url }}</td>
+                            <td>
+                                <span class="edit" data-id="{{ $s->id }}">تعديل</span>
+                            </td>
+                            <td>
+                                <button class="button-red remove-admin" data-delete="{{ $s->id }}">حذف</button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </section>

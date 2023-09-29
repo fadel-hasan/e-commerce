@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('name')->uniqid();
+            $table->string('url');
+            $table->text('desc');
+            $table->string('tags');
             $table->timestamps();
         });
     }

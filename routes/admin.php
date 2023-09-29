@@ -27,56 +27,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/add-admin',[DashboardController::class,'indexAdmin'])->name('dashboard.add-admin');
     Route::post('/add-admin',[DashboardController::class,'indexAdmin'])->name('post.dashboard.add-admin');
     Route::match(['get', 'post'], '/sitting', [DashboardController::class,'indexSitting'])->name('dashboard.sitting');
-    Route::get('/add-category', fn () => view('pages.dashboard.add-category', [
-        'adminLinks' => [
-            [
-                'to' => route('dashboard'),
-                'icon' => 'fa-solid fa-home',
-                'title' => "الصفحة الرئيسية"
-            ],
-            [
-                'to' => route('dashboard.member'),
-                'icon' => 'fa-solid fa-users',
-                'title' => "الأعضاء"
-            ],
-            [
-                'to' => route('dashboard.analysis'),
-                'icon' => 'fa-solid fa-chart-line',
-                'title' => "الإحصائيات"
-            ],
-            [
-                'to' => route('dashboard.history'),
-                'icon' => 'fa-solid fa-history',
-                'title' => "السجلات"
-            ],
-            [
-                'to' => route('dashboard.add-admin'),
-                'icon' => 'fa-solid fa-user',
-                'title' => "إضافة أدمن"
-            ],
-            [
-                'to' => route('dashboard.sitting'),
-                'icon' => 'fa-solid fa-cog',
-                'title' => "الإعدادات"
-            ],
-            [
-                'to' => route('dashboard.add-category'),
-                'icon' => 'fa-solid fa-book',
-                'title' => "إضافة قسم"
-            ],
-            [
-                'to' => route('dashboard.add-product'),
-                'icon' => 'fa-solid fa-shop',
-                'title' => "إضافة منتج"
-            ],
-            [
-                'to' => route('dashboard.add-coupon'),
-                'icon' => 'fa-solid fa-tags',
-                'title' => "إضافة خصم"
-            ],
-        ],
-        'isAuth' => true
-    ]))->name('dashboard.add-category');
+    Route::match(['get', 'post'],'/add-category', [DashboardController::class,'indexSection'])->name('dashboard.add-category');
     Route::get('/add-product', fn () => view('pages.dashboard.add-product', [
         'adminLinks' => [
             [
