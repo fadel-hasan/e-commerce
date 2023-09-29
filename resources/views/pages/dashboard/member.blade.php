@@ -1,6 +1,6 @@
 @section('title','الأعضاء')
 @section('app')
-    @include('layouts.navbarAdmin')
+    @include('layouts.navbarLeft')
     <div class="dashboard">
         <h2 class="title-table">الأعضاء</h2>
         <section class="max-w-[90%] overflow-scroll container mx-auto">

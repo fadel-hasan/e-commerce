@@ -24,7 +24,7 @@ class VarController extends Controller
         $this->sec = new SectionController();
     }
 
-    public static function adminLink()
+    public static function navbarLink()
     {
         $admin_link =  [
             [

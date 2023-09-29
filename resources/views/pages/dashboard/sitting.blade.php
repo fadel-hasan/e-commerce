@@ -1,6 +1,6 @@
 @section('title','الإعدادات')
 @section('app')
-    @include('layouts.navbarAdmin')
+    @include('layouts.navbarLeft')
     <div class="dashboard">
         <h2 class="title-table">الاعدادات</h2>
         <form action="{{ route('dashboard.sitting') }}" method="POST" class="sitting">

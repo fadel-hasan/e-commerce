@@ -27,7 +27,7 @@ use function PHPUnit\Framework\throwException;
 // });
 
 Route::get('/', function () {
-    return view('pages.home');
+    return view('pages.site.home');
     // return redirect(route('dashboard'));
 })->name('home');
 

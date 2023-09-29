@@ -21,7 +21,7 @@
         @apply transition-all duration-300 ease-linear pt-6 w-[calc(100%-4rem)];
     }
     .efect {
-        @apply transition duration-200 ease-linear;
+        @apply transition duration-200 ease-linear transition-all;
     }
     .title-table {
         @apply text-center text-blue-500 font-bold mb-4 text-2xl;

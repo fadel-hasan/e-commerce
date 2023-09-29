@@ -1,6 +1,6 @@
 @section('title','لوحة التحكم')
 @section('app')
-    @include('layouts.navbarAdmin')
+    @include('layouts.navbarLeft')
     {{--     4 Box for information data
     last users
     last product

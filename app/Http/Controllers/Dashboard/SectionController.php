@@ -36,7 +36,7 @@ class SectionController extends Controller
     //             $name = ['sections'];
     //             if ($error) {
 
-    //                 return view('pages.dashboard.add-category', array_merge(['adminLinks' => VarController::adminLink()], array_combine($name, $date)))
+    //                 return view('pages.dashboard.add-category', array_merge(['navbarLinks' => VarController::navbarLink()], array_combine($name, $date)))
     //                     ->with('error', $error);
     //             } else {
     //                 return view('pages.dashboard.add-category', array_combine($name, $date));
@@ -87,7 +87,7 @@ class SectionController extends Controller
 
             if ($validator->fails()) {
                 $error = $validator->errors();
-                return view('pages.dashboard.add-category', ['adminLinks' => VarController::adminLink(), 'sections' => $sections, 'error' => $error]);
+                return view('pages.dashboard.add-category', ['navbarLinks' => VarController::navbarLink(), 'sections' => $sections, 'error' => $error]);
             }
 
             $data = [

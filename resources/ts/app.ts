@@ -68,15 +68,15 @@ window.addEventListener('load', function () {
             })
         })
     }
-    let navbarAdmin = this.document.getElementById('navbarAdmin') as HTMLDivElement;
+    let navbarLeft = this.document.getElementById('navbarLeft') as HTMLDivElement;
     // Response Web For Admin
-    if (navbarAdmin) {
-        navbarAdmin.addEventListener('mouseenter', () => {
+    if (navbarLeft) {
+        navbarLeft.addEventListener('mouseenter', () => {
             if (this.window.innerWidth >= 463) {
                 (this.document.querySelector('.dashboard') as HTMLDivElement).style.setProperty('width', 'calc(100% - 10rem)');
             }
         })
-        navbarAdmin.addEventListener('mouseleave', () => {
+        navbarLeft.addEventListener('mouseleave', () => {
             if (this.window.innerWidth >= 463) {
                 (this.document.querySelector('.dashboard') as HTMLDivElement).style.setProperty('width', 'calc(100% - 4rem)');
             }
@@ -158,13 +158,15 @@ window.addEventListener('load', function () {
     let numberAddMore = 0;
     let moreHtmlAdd = this.document.getElementById('more') as HTMLDivElement;
     var htmlElementInputMore = '';
-    (this.document.getElementById('addMore') as HTMLSpanElement).addEventListener('click',() => {
-        numberAddMore++;
-        htmlElementInputMore = `<label class="text font-bold cursor-pointer" for="name#${numberAddMore}">التطويرة #${numberAddMore}:</label>
-        <input type="text" name="name#${numberAddMore}" id="name#${numberAddMore}" placeholder="التطويرة ${numberAddMore}">
-        <label class="text font-bold cursor-pointer" for="price#${numberAddMore}">سعرها :</label>
-        <input type="number" name="price#${numberAddMore}" id="price#${numberAddMore}" placeholder="20$" dir="ltr">
-        <hr>`;
-        moreHtmlAdd.innerHTML += htmlElementInputMore;
-    })
+    if (moreHtmlAdd) {
+        LoopElements.loopClick('#addMore',() => {
+            numberAddMore++;
+            htmlElementInputMore = `<label class="text font-bold cursor-pointer" for="name#${numberAddMore}">التطويرة #${numberAddMore}:</label>
+            <input type="text" name="name#${numberAddMore}" id="name#${numberAddMore}" placeholder="التطويرة ${numberAddMore}">
+            <label class="text font-bold cursor-pointer" for="price#${numberAddMore}">سعرها :</label>
+            <input type="number" name="price#${numberAddMore}" id="price#${numberAddMore}" placeholder="20$" dir="ltr">
+            <hr>`;
+            moreHtmlAdd.innerHTML += htmlElementInputMore;
+        });
+    }
 });

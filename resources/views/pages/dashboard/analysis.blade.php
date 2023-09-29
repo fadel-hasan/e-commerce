@@ -1,6 +1,6 @@
 @section('title','الإحصائيات')
 @section('app')
-    @include('layouts.navbarAdmin')
+    @include('layouts.navbarLeft')
     <div class="dashboard">
         <script>
             var canvasData = [];

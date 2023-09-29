@@ -29,7 +29,7 @@ Route::middleware('admin')->group(function () {
     Route::match(['get', 'post'], '/sitting', [DashboardController::class,'indexSitting'])->name('dashboard.sitting');
     Route::match(['get', 'post'],'/add-category', [DashboardController::class,'indexSection'])->name('dashboard.add-category');
     Route::get('/add-product', fn () => view('pages.dashboard.add-product', [
-        'adminLinks' => [
+        'navbarLinks' => [
             [
                 'to' => route('dashboard'),
                 'icon' => 'fa-solid fa-home',
@@ -79,7 +79,7 @@ Route::middleware('admin')->group(function () {
         'isAuth' => true
     ]))->name('dashboard.add-product');
     Route::get('/add-coupon', fn () => view('pages.dashboard.add-coupon', [
-        'adminLinks' => [
+        'navbarLinks' => [
             [
                 'to' => route('dashboard'),
                 'icon' => 'fa-solid fa-home',

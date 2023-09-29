@@ -2,7 +2,7 @@
     إضافة قسم
 @endsection
 @section('app')
-    @include('layouts.navbarAdmin')
+    @include('layouts.navbarLeft')
     @if (session()->has('error'))
         @if (is_array(session()->get('error')))
             @foreach (session()->get('error') as $error)

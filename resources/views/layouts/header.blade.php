@@ -13,7 +13,7 @@
                 <a href="{{ route('login') }}" class="button-blue">تسجيل الدخول</a>
             @else
                 <span>
-                    <a href="#">
+                    <a href="{{ route('user.profile') }}">
                         <i class="fa-solid fa-user text-white bg-slate-300 text-2xl p-3 rounded-full"></i>
                     </a>
                 </span>

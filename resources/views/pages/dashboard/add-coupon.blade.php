@@ -1,6 +1,6 @@
 @section('title','إضافة قسم')
 @section('app')
-    @include('layouts.navbarAdmin')
+    @include('layouts.navbarLeft')
     <div class="dashboard">
         <form action="" method="POST" class="sitting">
             @csrf

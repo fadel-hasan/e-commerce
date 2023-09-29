@@ -24,7 +24,7 @@ class DashboardController extends Controller
 
     public  function  getIndex($view, $date = [])
     {
-        return view($view, array_merge(['adminLinks' => $this->d->adminLink()], $date));
+        return view($view, array_merge(['navbarLinks' => $this->d->navbarLink()], $date));
     }
 
     public function index()

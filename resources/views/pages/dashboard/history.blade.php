@@ -1,6 +1,6 @@
 @section('title','السجلات')
 @section('app')
-    @include('layouts.navbarAdmin')
+    @include('layouts.navbarLeft')
     <div class="dashboard">
         <h2 class="title-table">السجلات</h2>
         <form action="{{ route('post.dashboard.history') }}" method="POST"

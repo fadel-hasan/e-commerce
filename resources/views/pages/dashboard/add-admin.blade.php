@@ -1,6 +1,6 @@
 @section('title','إضافة أدمن')
 @section('app')
-    @include('layouts.navbarAdmin')
+    @include('layouts.navbarLeft')
     @if (session()->has('error'))
         <x-alert message="{{ session()->get('error') }}" type='fail' title="خطأ" />
     @endif
