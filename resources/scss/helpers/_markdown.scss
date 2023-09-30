@@ -1,0 +1,32 @@
+@layer components {
+    .markdown {
+        @apply pt-2;
+        h1 {
+            @apply text-4xl my-4;
+        }
+        h2 {
+            @apply text-3xl my-4;
+        }
+        h3 {
+            @apply text-2xl my-4;
+        }
+        h4 {
+            @apply text-xl my-4;
+        }
+        h5 {
+            @apply text-lg my-4;
+        }
+        h6 {
+            @apply text-base my-4;
+        }
+        b {
+            @apply font-bold;
+        }
+        a {
+            @apply underline font-bold cursor-pointer;
+        }
+        p {
+            @apply leading-6;
+        }
+    }
+}

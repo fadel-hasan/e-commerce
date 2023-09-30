@@ -1,6 +1,6 @@
 @layer components {
     #navbarLeft {
-        @apply min-h-[calc(100vh-70px)] overflow-hidden sm:min-h-[calc(100vh-77px)] w-16 hover:w-40 transition-all duration-300 ease-linear bg-slate-100 fixed top-[70px] sm:top-[77px] left-0 z-10;
+        @apply min-h-[calc(100vh-70px)] overflow-hidden sm:min-h-[calc(100vh-77px)] w-16 hover:w-40 transition-all duration-300 ease-linear bg-gray-800 fixed top-[70px] sm:top-[77px] left-0 z-20;
         a {
             @apply flex justify-center items-center py-2 mt-6 text-black;
             &:hover {
@@ -19,10 +19,10 @@
             @apply opacity-100 right-8;
         }
         .icon {
-            @apply absolute left-1/2 -translate-x-1/2 transition-all duration-300 ease-linear text-blue-500;
+            @apply absolute left-1/2 -translate-x-1/2 transition-all duration-300 ease-linear text-white;
         }
         .title {
-            @apply  opacity-0 absolute -right-full transition-all duration-300 ease-linear text-blue-600 font-bold;
+            @apply  opacity-0 absolute -right-full transition-all duration-300 ease-linear text-white font-bold;
         }
     }
 }

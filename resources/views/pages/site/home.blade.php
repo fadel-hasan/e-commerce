@@ -17,16 +17,16 @@
             @for ($i=0;$i<=10;$i++)
                 <article>
                     <div class="img">
-                        <a href="#">
+                        <a href="{{ route('user.product',['uri'=>"test"]) }}">
                             <img src="https://placehold.co/600x400.png" alt="العنوان" loading="lazy">
                         </a>
                     </div>
                     <div class="content">
-                        <a href="#"><h3>سيرفر رام 4</h3></a>
+                        <a href="{{ route('user.product',['uri'=>"test"]) }}"><h3>سيرفر رام 4</h3></a>
                         <p>معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي. </p>
-                        <a href="#" class="button-blue">المزيد من المعلومات</a>
+                        <a href="{{ route('user.product',['uri'=>"test"]) }}" class="button-blue">المزيد من المعلومات</a>
                     </div>
-                    <a class="category" href="#">سيرفرات</a>
+                    <a class="category" href="{{ route('user.product',['uri'=>"test"]) }}">سيرفرات</a>
                 </article>
             @endfor
         </div>

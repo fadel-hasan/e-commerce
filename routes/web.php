@@ -25,13 +25,6 @@ use function PHPUnit\Framework\throwException;
 //     echo Artisan::output();
 //     dd(Artisan::output());
 // });
-
-Route::get('/', function () {
-    return view('pages.site.home');
-    // return redirect(route('dashboard'));
-})->name('home');
-
-
 // Auth
 Route::prefix('auth')->group(function () {
     Route::middleware('check.not.registered')->group(function () {
@@ -48,6 +41,13 @@ Route::prefix('auth')->group(function () {
 
     Route::middleware(['auth', 'log.activity:عملية تسجيل خروج من الموقع'])->get('logout', [AuthController::class, 'logout'])->name('logout');
 });
+// Site
+Route::controller(\App\Http\Controllers\Site\indexs::class)->group(function () {
+    Route::get('/','index')->name('home'); // Home page
+    Route::get('/search/{searchOut}','search')->name('search'); // Search page
+    Route::get('/category/{uri}','category')->name('user.category'); // category
+    Route::get('/product/{uri}','product')->name('user.product'); // Product page
+});
 
 // Member
 Route::prefix('/member')/* ->middleware() */->group(function() {
@@ -55,22 +55,13 @@ Route::prefix('/member')/* ->middleware() */->group(function() {
     Route::get('/refer',fn() => view('pages.site.refer'))->name('user.refer');
     Route::get('/history',fn() => view('pages.site.history'))->name('user.history');
 });
-// Search
-Route::get('/search/{name}', function ($name) {
-    return view('pages.site.search',['searchOut'=>$name]);
-})->name('search');
-// product
-Route::get('/product/{uri}',fn(string $uri) => view('pages.site.product'))->name('user.product');
-// category
-Route::get('/category/{uri}',fn(string $uri) => view('pages.site.category',[
-    'category' => $uri,
-    "desCategory" => "معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي. معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي. "
-]))->name('user.category');
+//
+
 // payment
 /**
  * @param int $id the payment
  * @param int $productId for pay
-// */
+*/
 // function payment(int $id,int $productId) {
 //     view('pages.site.category');
 // }

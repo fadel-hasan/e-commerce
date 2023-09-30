@@ -1,6 +1,6 @@
 @layer components {
     #footer {
-        @apply bg-gray-800 py-4 px-6 relative h-[64px] w-full h-full left-0 bottom-0 z-10 text-white text-center mt-4;
+        @apply bg-gray-800 py-4 px-6 static w-full h-fit left-0 bottom-0 z-10 text-white text-center mt-4;
         span {
             @apply text-blue-500 font-bold;
         }

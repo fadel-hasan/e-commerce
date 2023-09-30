@@ -18,10 +18,10 @@
         @apply underline text-blue-700 font-bold
     }
     .dashboard {
-        @apply transition-all duration-300 ease-linear pt-6 w-[calc(100%-4rem)];
+        @apply transition-all duration-300 ease-linear pt-6 w-[calc(100%-4rem)] min-h-[calc(100vh-70px)] sm:min-h-[calc(100vh-77px)];
     }
     .efect {
-        @apply transition duration-200 ease-linear transition-all;
+        @apply duration-200 ease-linear transition-all;
     }
     .title-table {
         @apply text-center text-blue-500 font-bold mb-4 text-2xl;

@@ -1,0 +1,20 @@
+@layer components {
+    .checkbox {
+        @apply flex items-center justify-start w-full my-6;
+        .relative {
+            input {
+                @apply sr-only;
+            }
+            .line {
+                @apply w-10 h-4 bg-gray-400 rounded-full shadow-inner;
+            }
+            .dot {
+                @apply absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition;
+            }
+            input:checked ~ .dot {
+                transform: translateX(100%);
+                @apply bg-blue-800
+            }
+        }
+    }
+}

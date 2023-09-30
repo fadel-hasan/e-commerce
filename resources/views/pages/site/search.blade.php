@@ -4,6 +4,11 @@
     <section class="py-32">
         <h2 class="text-center text-2xl">نتائج البحث عن: <span class="font-bold">{{ $searchOut }}</span></h2>
     </section>
+    {{-- Error --}}
+    @isset($error)
+        <x-alert type="fail" title="بحث خاطء" message="عذراً المنتج الذي تريده غير متوفر على هذا المتجر" />
+        <meta http-equiv="refresh" content="5; url=/">
+    @endisset
     {{-- products --}}
     <section id="products">
         <div class="products">

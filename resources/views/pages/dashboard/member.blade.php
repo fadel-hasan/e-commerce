@@ -18,7 +18,6 @@
                         </th>
                     </tr>
                 </thead>
-                {{-- @dd($members) --}}
                 @php
                     $i = ($members->currentPage() - 1) * $members->perPage();
                 @endphp

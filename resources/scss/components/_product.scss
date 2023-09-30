@@ -6,7 +6,7 @@
             >article {
                 @apply rounded-md relative shadow-md efect overflow-hidden;
                 >.img img {
-                    @apply w-full object-cover rounded-t-md;
+                    @apply w-full object-cover rounded-t-md aspect-video;
                 }
 
                 >.content {
