@@ -1,9 +1,8 @@
-@section('title',"قسم: {$category}")
+@section('title',"نتائج البحث عن: {$searchOut}")
 @section('app')
     {{-- Search About --}}
-    <section class="py-32 lg:container mx-auto">
-        <h2 class="text-center text-2xl">قسم: <span class="font-bold text-blue-700">{{ $category }}</span></h2>
-        <p class="text-center max-w-[1200px] text-gray-900 leading-8 mt-2 font-bold mx-auto">{{ $desCategory }}</p>
+    <section class="py-32">
+        <h2 class="text-center text-2xl">نتائج البحث عن: <span class="font-bold">{{ $searchOut }}</span></h2>
     </section>
     {{-- products --}}
     <section id="products">

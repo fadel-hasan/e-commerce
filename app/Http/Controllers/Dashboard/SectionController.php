@@ -67,7 +67,7 @@ class SectionController extends Controller
     //     return $s;
     // }
 
-    public function get_sections()
+    public function get_sections() :\Illuminate\Support\Collection
     {
         $order = request('order', 'desc');
         $sections = DB::table('sections')->select('id', 'name', 'url')->orderBy('id', $order)->get();
@@ -87,7 +87,7 @@ class SectionController extends Controller
 
             if ($validator->fails()) {
                 $error = $validator->errors();
-                return view('pages.dashboard.add-category', ['navbarLinks' => VarController::navbarLink(), 'sections' => $sections, 'error' => $error]);
+                session('error',$error);
             }
 
             $data = [
@@ -97,9 +97,9 @@ class SectionController extends Controller
                 'tags' => request('tags')
             ];
 
-            if (request('id')) {
+            if (request('id') and !$validator->fails()) {
                 DB::table('sections')->where('id', request('id'))->update($data);
-            } else {
+            } else if(!$validator->fails()) {
                 DB::table('sections')->insert($data);
             }
         }

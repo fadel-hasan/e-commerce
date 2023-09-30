@@ -57,12 +57,15 @@ Route::prefix('/member')/* ->middleware() */->group(function() {
 });
 // Search
 Route::get('/search/{name}', function ($name) {
-    return "Search Aboud {$name}";
+    return view('pages.site.search',['searchOut'=>$name]);
 })->name('search');
 // product
 Route::get('/product/{uri}',fn(string $uri) => view('pages.site.product'))->name('user.product');
 // category
-Route::get('/category/{uri}',fn(string $uri) => view('pages.site.category'))->name('user.category');
+Route::get('/category/{uri}',fn(string $uri) => view('pages.site.category',[
+    'category' => $uri,
+    "desCategory" => "معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي. معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي. "
+]))->name('user.category');
 // payment
 /**
  * @param int $id the payment

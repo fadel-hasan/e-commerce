@@ -4,5 +4,19 @@
         span {
             @apply text-blue-500 font-bold;
         }
+        .grid-helper {
+            h4 {
+                @apply text-xl text-start border-b pb-2;
+            }
+            nav {
+                @apply flex flex-col items-start gap-4 my-2;
+                &.links{
+                    @apply flex-row flex-wrap;
+                }
+                &:not(.links) a {
+                    @apply efect hover:text-blue-500 font-bold;
+                }
+            }
+        }
     }
 }

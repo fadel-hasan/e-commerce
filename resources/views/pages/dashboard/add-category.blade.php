@@ -3,10 +3,12 @@
 @endsection
 @section('app')
     @include('layouts.navbarLeft')
+    @php
+    @endphp
     @if (session()->has('error'))
-        @if (is_array(session()->get('error')))
-            @foreach (session()->get('error') as $error)
-                <x-alert message="{{ $error }}" type='fail' title="خطأ" />
+        @if (is_array(session()->get('error')->getMessages()))
+            @foreach (session()->get('error')->getMessages() as $error)
+                <x-alert message="{{ $error[0] }}" type='fail' title="خطأ" />
             @endforeach
         @else
             <x-alert message="{{ session()->get('error') }}" type='fail' title="خطأ" />
@@ -32,7 +34,9 @@
             <table class="overflow-auto list mb-8" data-url-remove="{{ route('removeSec') }}">
                 <thead>
                     <tr>
-                        <th class="link"><a href="{{ route('dashboard.add-category',['order' => request('order') == 'asc' ? 'desc' : 'asc']) }}">#</a></th>
+                        <th class="link"><a
+                                href="{{ route('dashboard.add-category', ['order' => request('order') == 'asc' ? 'desc' : 'asc']) }}">#</a>
+                        </th>
                         <th>الاسم</th>
                         <th>المسار</th>
                         <th>تعديل</th>
@@ -40,19 +44,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($sections as $s)
-                        <tr>
-                            <td>{{ $s->id }}</td>
-                            <td>{{ $s->name }}</td>
-                            <td>{{ $s->url }}</td>
-                            <td>
-                                <span class="edit" data-id="{{ $s->id }}">تعديل</span>
-                            </td>
-                            <td>
-                                <button class="button-red remove-admin" data-delete="{{ $s->id }}">حذف</button>
-                            </td>
-                        </tr>
-                    @endforeach
+                    @if (!is_string($sections))
+                        @foreach ($sections as $s)
+                            <tr>
+                                <td>{{ $s->id }}</td>
+                                <td>{{ $s->name }}</td>
+                                <td>{{ $s->url }}</td>
+                                <td>
+                                    <span class="edit" data-id="{{ $s->id }}">تعديل</span>
+                                </td>
+                                <td>
+                                    <button class="button-red remove-admin" data-delete="{{ $s->id }}">حذف</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        @php
+                            print_r([$sections]);
+                        @endphp
+                    @endif
                 </tbody>
             </table>
         </section>
