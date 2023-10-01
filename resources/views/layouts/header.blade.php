@@ -10,7 +10,7 @@
         {{-- i used guest to check if not registerd --}}
         <div @class(['hidden sm:block'])>
             @guest
-                <a href="{{ route('login') }}" class="button-yellow">تسجيل الدخول</a>
+                <a href="{{ route('login') }}" class="button-blue">تسجيل الدخول</a>
             @else
                 <span>
                     <a href="{{ route('user.profile') }}">

@@ -5,9 +5,9 @@
         <div class="content">
             <h1>{{ \App\Http\Controllers\Site\VarController::getSitting('title') }}</h1>
             <p>{{ \App\Http\Controllers\Site\VarController::getSitting('des') }}</p>
-            <a href="#products" class="button-yellow mx-auto">المزيد</a>
+            <a href="#products" class="button-blue mx-auto">المزيد</a>
             @if (isset(auth()->user()->role_id) and auth()->user()->role_id != 2)
-            <a href="{{ route('dashboard') }}" class="button-yellow mt-6 mx-auto">لوحة التحكم</a>
+            <a href="{{ route('dashboard') }}" class="button-blue mt-6 mx-auto">لوحة التحكم</a>
             @endif
         </div>
         <div class="image">

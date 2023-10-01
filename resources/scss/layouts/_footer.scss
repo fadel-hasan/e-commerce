@@ -1,6 +1,6 @@
 @layer components {
     #footer {
-        @apply bg-gray-800 py-4 px-6 static w-full h-fit left-0 bottom-0 z-10 text-white text-center mt-4;
+        @apply bg-gray-700 py-4 px-6 static w-full h-fit left-0 bottom-0 z-10 text-white text-center mt-4;
         span {
             @apply text-blue-500 font-bold;
         }
@@ -14,7 +14,7 @@
                     @apply flex-row flex-wrap;
                 }
                 &:not(.links) a {
-                    @apply efect hover:text-blue-500 font-bold;
+                    @apply efect hover:text-sky-500 font-bold;
                 }
             }
         }

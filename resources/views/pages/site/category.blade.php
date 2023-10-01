@@ -2,7 +2,7 @@
 @section('app')
     {{-- Search About --}}
     <section class="py-32 lg:container mx-auto">
-        <h2 class="text-center text-2xl">قسم: <span class="font-bold text-blue-700">{{ $category }}</span></h2>
+        <h2 class="text-center text-2xl">قسم: <span class="font-bold text-blue-600">{{ $category }}</span></h2>
         <p class="text-center max-w-[1200px] text-gray-900 leading-8 mt-2 font-bold mx-auto">{{ $desCategory }}</p>
     </section>
     {{-- products --}}

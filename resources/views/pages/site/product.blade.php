@@ -19,7 +19,7 @@
                             name="more#{{ $moreProduct['id'] }}" />
                     @endforeach
                 @endif
-                <input type="submit" value="شراء" class="button-yellow block w-[80%] mx-auto">
+                <input type="submit" value="شراء" class="button-blue block w-[80%] mx-auto">
             </form>
         </div>
     </section>
