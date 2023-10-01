@@ -88,12 +88,13 @@ class SectionController extends Controller
                 $error = $validator->errors();
                 session()->put('error', $error);
             }
-
-            $data = [
-                'name' => request('title'),
-                'url' => request('slug'),
-                'desc' => request('desc'),
-                'tags' => request('tags')
+            else
+            {
+                $data = [
+                    'name' => request('title'),
+                    'url' => request('slug'),
+                    'desc' => request('desc'),
+                    'tags' => request('tags')
             ];
 
             if (request('id') and !$validator->fails()) {
@@ -101,6 +102,7 @@ class SectionController extends Controller
             } else if (!$validator->fails()) {
                 DB::table('sections')->insert($data);
             }
+        }
         }
 
         $sections = DB::table('sections')->select('id', 'name', 'url')->orderBy('id', $order)->get();

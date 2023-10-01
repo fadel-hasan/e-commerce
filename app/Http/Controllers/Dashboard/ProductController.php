@@ -12,12 +12,15 @@ class ProductController extends Controller
 
     public function get_product()
     {
-
+        $order = request('order', 'desc');
         if (request()->isMethod('POST')) {
             $this->store_product();
         }
 
-        $p = DB::table('products')->select('id', 'name', 'cool_name', 'price', 'quantity')->get();
+        $p = DB::table('products')
+            ->select('id', 'name', 'cool_name', 'price', 'quantity')
+            ->orderBy('id', $order)
+            ->get();
         return $p;
     }
 
@@ -69,8 +72,8 @@ class ProductController extends Controller
                 'quantity' => request('quantity'),
                 'url_image' => $imagePath,
                 'percent' => 0,
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s')
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
             ];
 
             if (request('id')) {
@@ -82,9 +85,29 @@ class ProductController extends Controller
                     'product_id' => $p->id,
                     'user_id' => auth()->user()->id,
                     'is_sell' => 0,
-                    'created_at'=>date('Y-m-d H:i:s'),
-                    'updated_at'=>date('Y-m-d H:i:s')
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
                 ]);
+            }
+            if (count(request()->all()) > 11) {
+                $requestData = request()->all();
+                $slicedData = array_slice($requestData, 10);
+                $filteredData = array_filter($slicedData, function ($value, $key) {
+                    return !is_a($value, 'Illuminate\Http\UploadedFile');
+                }, ARRAY_FILTER_USE_BOTH);
+                for ($i = 1; $i <= count($filteredData) / 2; $i++) {
+                    DB::table('product_devs')->insert([
+                        'product_id' => $p->id,
+                        'name' => request('name#' . $i),
+                        'price' => request('price#' . $i),
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ]);
+                    DB::table('products')->where('id', $p->id)->update([
+                        'price' => DB::raw('price + ' . request('price#' . $i)),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ]);
+                }
             }
         }
         return;
@@ -99,8 +122,8 @@ class ProductController extends Controller
 
     public function delete(Request $r)
     {
-        $f=DB::table('product_users')->where('product_id',$r->id)->delete();
-        $s = DB::table('product')->delete($r->id);
+        $f = DB::table('product_users')->where('product_id', $r->id)->delete();
+        $s = DB::table('products')->delete($r->id);
         if ($f and $s) {
             return response()->json(
                 ['ok' => true],

@@ -1,8 +1,19 @@
-@section('title','إضافة قسم')
+@section('title', 'إضافة قسم')
 @section('app')
     @include('layouts.navbarLeft')
+    @if (session()->has('error'))
+        @if (is_array(session()->get('error')->getMessages()))
+            @foreach (session()->get('error')->getMessages() as $error)
+                <x-alert message="{{ $error[0] }}" type='fail' title="خطأ" />
+            @endforeach
+        @else
+            <x-alert message="{{ session()->get('error') }}" type='fail' title="خطأ" />
+
+        @endif
+        {{ session()->forget('error') }}
+    @endif
     <div class="dashboard">
-        <form action="" method="POST" class="sitting">
+        <form action="{{ route('dashboard.add-coupon') }}" method="POST" class="sitting">
             @csrf
             <h2 class="title-table">إضافة كود خصم:</h2>
             <label for="code">الكود:</label>
@@ -18,30 +29,34 @@
         </form>
         <section class="max-w-[90%] overflow-scroll container mx-auto">
             <h2 class="title-table">الخصومات الحالية:</h2>
-            <table class="overflow-auto list mb-8"
-            data-url-remove="{{ route('removeAdmin') }}"
-            {{-- Route Remove Coipon --}}>
+            <table class="overflow-auto list mb-8" data-url-remove="{{ route('removeCoupon') }}" {{-- Route Remove Coipon --}}>
                 <thead>
                     <tr>
-                        <th class="link"><a href="#">#</a></th>
+                        <th class="link"><a
+                                href="{{ route('dashboard.add-coupon', ['order' => request('order') == 'asc' ? 'desc' : 'asc']) }}">#</a>
+                        </th>
                         <th>الرمز</th>
                         <th>النسبة</th>
                         <th>عدد المستفيدين</th>
                         <th>عدد المستخدمين</th>
+                        <th>تاريخ انتهاء كود الخصم</th>
                         <th>حذف</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>free2024</td>
-                        <td>10%</td>
-                        <td>100</td>
-                        <td>90</td>
-                        <td>
-                            <button class="button-red remove-admin" data-delete="hereId">حذف</button>
-                        </td>
-                    </tr>
+                    @foreach ($copons as $c)
+                        <tr>
+                            <td>{{ $c->id }}</td>
+                            <td>{{ $c->code }}</td>
+                            <td>{{ $c->discount }}%</td>
+                            <td>{{ $c->count }}</td>
+                            <td>90</td>
+                            <td>{{ $c->expire_date }}</td>
+                            <td>
+                                <button class="button-red remove-admin" data-delete="{{ $c->id }}">حذف</button>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </section>
