@@ -7,7 +7,11 @@
             @csrf
             @foreach ($commands as $command)
                 <label for="{{ $command['id'] }}">{{ $command['name'] }}:</label>
-                <input type="{{ $command['type'] }}" name="{{ $command['id'] }}" id="{{ $command['id'] }}" value="{{ $command['value'] }}" @required($command['required']) @class(['hidden' => ($command['type'] == 'file')])>
+                @if ($command['type'] == 'textarea')
+                    <textarea name="{{ $command['id'] }}" id="{{ $command['id'] }}" cols="25" rows="6" @required($command['required'])>{{ $command['value'] }}</textarea>
+                @else
+                    <input type="{{ $command['type'] }}" name="{{ $command['id'] }}" id="{{ $command['id'] }}" value="{{ $command['value'] }}" @required($command['required']) @class(['hidden' => ($command['type'] == 'file')])>
+                @endif
                 @if ($command['type'] == 'file')
                     <input type="text" disabled value="لا يوجد صورة" id="filePhoto">
                 @endif

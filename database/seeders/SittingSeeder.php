@@ -13,8 +13,8 @@ class SittingSeeder extends Seeder
      */
     public function run(): void
     {
-        $command = ['title','des','tags','file','facebook','twitter'];
-        $value = ['العنوان','وصف','tag1,tag2,tag3','','',''];
+        $command = ['title','des','tags','file','facebook','twitter','telegram','website','instagram','privacy-policy','terms-of-use','refund-of-funds','why-we'];
+        $value = ['العنوان','وصف','tag1,tag2,tag3','','','','','','','','','',''];
         for ($i=0; $i <count($command) ; $i++) {
             DB::table('sittings')->insert([
                 'command'=>$command[$i],

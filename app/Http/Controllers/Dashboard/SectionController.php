@@ -67,10 +67,9 @@ class SectionController extends Controller
     //     return $s;
     // }
 
-    public function get_sections() :\Illuminate\Support\Collection
+    public function get_sections(): \Illuminate\Support\Collection
     {
         $order = request('order', 'desc');
-        $sections = DB::table('sections')->select('id', 'name', 'url')->orderBy('id', $order)->get();
 
         if (request()->isMethod('POST')) {
             $validator = Validator::make(request()->all(), [
@@ -87,7 +86,7 @@ class SectionController extends Controller
 
             if ($validator->fails()) {
                 $error = $validator->errors();
-                session('error',$error);
+                session()->put('error', $error);
             }
 
             $data = [
@@ -99,11 +98,12 @@ class SectionController extends Controller
 
             if (request('id') and !$validator->fails()) {
                 DB::table('sections')->where('id', request('id'))->update($data);
-            } else if(!$validator->fails()) {
+            } else if (!$validator->fails()) {
                 DB::table('sections')->insert($data);
             }
         }
 
+        $sections = DB::table('sections')->select('id', 'name', 'url')->orderBy('id', $order)->get();
         return $sections;
     }
 

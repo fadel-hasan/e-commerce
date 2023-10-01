@@ -1,21 +1,7 @@
 import '@fortawesome/fontawesome-free/js/all.min.js'
-import { Chart, ChartType } from 'chart.js/auto';
+import { Chart } from 'chart.js/auto';
 import {default as LoopElements} from './queryAllElements';
-type canvasDatas = {
-    id: string,
-    type: ChartType,
-    data: string,
-    title: string,
-    labels: string
-}
-type resultRequestProductes = {
-    image: string,
-    title:string,
-    des:string,
-    category:string,
-    link:string,
-    linkCategory:string,
-}
+import {canvasDatas,resultRequestProductes} from './type';
 declare var canvasData: Array<canvasDatas>;
 window.addEventListener('load', function () {
     LoopElements.loopClick('#iconSearch',() => {

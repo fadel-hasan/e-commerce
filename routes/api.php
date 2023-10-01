@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Add_adminController;
+use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SectionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix(env('PASSWORD_API'))->group(function () {
     Route::get('/removeAdmin', [Add_adminController::class, 'delete'])->name('removeAdmin');
     Route::get('/removeSec', [SectionController::class, 'delete'])->name('removeSec');
+    Route::get('/removeProduct', [ProductController::class, 'delete'])->name('removeProduct');
 });
 // it isn't important
 Route::get('/productesGet', function (): object {

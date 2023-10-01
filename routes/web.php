@@ -42,11 +42,14 @@ Route::prefix('auth')->group(function () {
     Route::middleware(['auth', 'log.activity:عملية تسجيل خروج من الموقع'])->get('logout', [AuthController::class, 'logout'])->name('logout');
 });
 // Site
-Route::controller(\App\Http\Controllers\Site\indexs::class)->group(function () {
+Route::controller(\App\Http\Controllers\Site\IndexsController::class)->group(function () {
     Route::get('/','index')->name('home'); // Home page
     Route::get('/search/{searchOut}','search')->name('search'); // Search page
     Route::get('/category/{uri}','category')->name('user.category'); // category
     Route::get('/product/{uri}','product')->name('user.product'); // Product page
+    Route::get('/privacy-policy','showTextMarkdown')->name('privacyPolicy'); // privacy Policy
+    Route::get('/terms-of-use','showTextMarkdown')->name('termsOfUse'); // privacy Policy
+    Route::get('/refund-of-funds','showTextMarkdown')->name('refundOfFunds'); // privacy Policy
 });
 
 // Member

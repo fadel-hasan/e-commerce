@@ -91,9 +91,12 @@ class DashboardController extends Controller
         return $this->getIndex('pages.dashboard.add-category', array_combine($name, $date));
     }
 
-
-
-
+    public function indexProduct()
+    {
+        $date = $this->d->products();
+        $name = ['products','sections'];
+        return $this->getIndex('pages.dashboard.add-product', array_combine($name, $date));
+    }
 
 
 

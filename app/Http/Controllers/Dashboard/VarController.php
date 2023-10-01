@@ -13,7 +13,7 @@ class VarController extends Controller
 
 
 
-    private $h,$m,$a,$r,$d,$s,$sec;
+    private $h,$m,$a,$r,$d,$s,$sec,$p;
     public function __construct() {
         $this->h = new HomeController();
         $this->m = new MemberController();
@@ -22,6 +22,7 @@ class VarController extends Controller
         $this->d = new Add_adminController();
         $this->s  =new SittingController();
         $this->sec = new SectionController();
+        $this->p = new ProductController();
     }
 
     public static function navbarLink()
@@ -171,9 +172,9 @@ class VarController extends Controller
 
     public function sittings()
     {
-        $name =['اسم الموقع','الوصف','العلامات الوصفية','صورة الموقع','ايدي حساب الفيسبوك','معرف حساب تويتر'];
-        $type = ['text','text','text','file','text','text'];
-        $required = [true,true,true,false,false,false];
+        $name =['اسم الموقع','الوصف','العلامات الوصفية','صورة الموقع','ايدي حساب الفيسبوك','معرف حساب تويتر','رابط حساب التلجرام','رابط موقع الكتروني','رابط حساب الإنستجرام','سياسة الخصوصية','شروط الإستخدام','سياسة رد الأموال','لماذا نحن'];
+        $type = ['text','text','text','file','text','text','text','text','text','textarea','textarea','textarea','textarea'];
+        $required = [true,true,true,false,false,false,false,false,false,false,false,false,false];
         $date = $this->s->get_command();
         $command=[];
         for ($i=0; $i <count($date) ; $i++) {
@@ -194,4 +195,9 @@ class VarController extends Controller
         return $this->sec->get_sections();
     }
 
+    public function products()
+    {
+        $date=[$this->p->get_product(),$this->p->get_section()];
+        return $date;
+    }
 }

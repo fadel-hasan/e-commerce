@@ -1,4 +1,4 @@
-@section('title', 'الصفحة الرئيسية')
+@section('title', $title)
 @section('app')
     <div class="pt-12">
         <h2 class="text-4xl text-center">{{ $title }}</h2>

@@ -16,9 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('section_id');
             $table->foreign('section_id')->references('id')->on('sections');
             $table->string('name');
+            $table->string('cool_name');
             $table->decimal('price',10,2);
             $table->string('url_image',2048);
             $table->longText('description');
+            $table->longText('information');
+            $table->string('tags');
             $table->integer('quantity');
             $table->tinyInteger('percent');
             $table->timestamps();

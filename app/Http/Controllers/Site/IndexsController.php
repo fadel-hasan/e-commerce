@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class indexs extends Controller
+class IndexsController extends Controller
 {
     /**
      * @param string $view
@@ -25,7 +25,9 @@ class indexs extends Controller
      */
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
-        return $this->view('pages.site.home');
+        return $this->view('pages.site.home',[
+            'products' => VarController::getProducts()
+        ]);
     }
     /**
      * @param string $searchOut what we search in databasess
@@ -74,5 +76,16 @@ class indexs extends Controller
             'id'            => 1,
             'more'          => $more
         ]);
+    }
+    /**
+     * Show texts and convert markdown to html
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function showTextMarkdown(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    {
+        $result = ConstDataController::uriTextsMarkdown[request()->server('REQUEST_URI')];
+        return $this->view('pages.site.texts',['title'=>$result['title'],
+        'text' => MarkdownController::convertToHtml(VarController::getSitting($result['command']))
+    ]);
     }
 }

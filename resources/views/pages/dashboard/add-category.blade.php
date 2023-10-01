@@ -3,8 +3,6 @@
 @endsection
 @section('app')
     @include('layouts.navbarLeft')
-    @php
-    @endphp
     @if (session()->has('error'))
         @if (is_array(session()->get('error')->getMessages()))
             @foreach (session()->get('error')->getMessages() as $error)
@@ -13,6 +11,7 @@
         @else
             <x-alert message="{{ session()->get('error') }}" type='fail' title="خطأ" />
         @endif
+        {{ session()->forget('error') }}
     @endif
     <div class="dashboard">
         <form action="{{ route('dashboard.add-category') }}" method="POST" class="sitting">
