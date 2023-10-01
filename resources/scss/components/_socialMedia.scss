@@ -1,14 +1,14 @@
-a[href*="facebook.com"] {
+.fa-facebook {
     color: #3b5998;
     background: #fff;
     border-radius: 999px;
 }
-a[href*="twitter.com"] {
+.fa-x-twitter {
     // text-white bg-black
     color:white;
     background: #000;
 }
-a[href*="t.me"] {
+.fa-telegram {
     color: #0088CC;
     background: #fff;
     border-radius: 999px;
@@ -17,7 +17,7 @@ a[href*="t.me"] {
 .site {
     @apply text-blue-600 bg-white rounded-full;
 }
-a[href*="instagram.com"] {
+.fa-instagram {
     background: linear-gradient(to top right,yellow,red,deeppink,darkblue);
     // px-1 p-0.5 rounded-lg
     border-radius: .5rem;

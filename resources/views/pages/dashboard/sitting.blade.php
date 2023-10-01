@@ -10,11 +10,11 @@
                 @if ($command['type'] == 'textarea')
                     <textarea name="{{ $command['id'] }}" id="{{ $command['id'] }}" cols="25" rows="6" @required($command['required'])>{{ $command['value'] }}</textarea>
                 @else
-                    <input type="{{ $command['type'] }}" name="{{ $command['id'] }}" id="{{ $command['id'] }}" value="{{ $command['value'] }}" @required($command['required']) @class(['hidden' => ($command['type'] == 'file')])>
+                    <input type="{{ $command['type'] }}" name="{{ $command['id'] }}" id="{{ $command['id'] }}" value="{{ $command['value'] }}" @required($command['required'])>
                 @endif
-                @if ($command['type'] == 'file')
+                {{-- @if ($command['type'] == 'file')
                     <input type="text" disabled value="لا يوجد صورة" id="filePhoto">
-                @endif
+                @endif --}}
             @endforeach
             <input type="submit" value="حفظ" class="button-blue w-fit mx-auto px-12 mb-4">
         </form>

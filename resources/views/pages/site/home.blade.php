@@ -6,9 +6,6 @@
             <h1>{{ \App\Http\Controllers\Site\VarController::getSitting('title') }}</h1>
             <p>{{ \App\Http\Controllers\Site\VarController::getSitting('des') }}</p>
             <a href="#products" class="button-blue mx-auto">المزيد</a>
-            @if (isset(auth()->user()->role_id) and auth()->user()->role_id != 2)
-            <a href="{{ route('dashboard') }}" class="button-blue mt-6 mx-auto">لوحة التحكم</a>
-            @endif
         </div>
         <div class="image">
             <img src="{{ asset('images/undraw_stripe_payments_re_chlm.svg') }}" alt="{{ \App\Http\Controllers\Site\VarController::getSitting('title') }}">

@@ -1,0 +1,29 @@
+@layer components {
+    #produtc-page {
+        @apply min-h-[calc(100vh-70px)] sm:min-h-[calc(100vh-77px)] flex flex-col gap-y-8 mt-16 md:mt-0 md:flex-row-reverse items-center justify-between sm:container px-4 mx-auto;
+        > div {
+            @apply w-full md:w-1/2;
+            img {
+                @apply rounded-xl object-cover aspect-video w-full;
+            }
+            &.content {
+                @apply flex flex-col w-full md:w-1/2;
+                h1 {
+                    @apply text-3xl font-bold text-blue-500;
+                }
+                p {
+                    @apply max-w-[90%] leading-8 my-6 text-gray-900;
+                }
+                span.price {
+                    @apply text-3xl font-bold text-blue-700 text-center;
+                }
+                h2 {
+                    @apply text-xl font-bold text-gray-900;
+                }
+                input[type="submit"] {
+                    @apply block w-[80%] mx-auto;
+                }
+            }
+        }
+    }
+}

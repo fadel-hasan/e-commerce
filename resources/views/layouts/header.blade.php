@@ -8,15 +8,20 @@
             <span id="iconSearch"><i class="fa-solid fa-search"></i></span>
         </form>
         {{-- i used guest to check if not registerd --}}
-        <div @class(['hidden sm:block'])>
+        <div class="hidden sm:block relative">
             @guest
                 <a href="{{ route('login') }}" class="button-blue">تسجيل الدخول</a>
             @else
-                <span>
-                    <a href="{{ route('user.profile') }}">
-                        <i class="fa-solid fa-user profile-img"></i>
-                    </a>
+                <span id="img-profile" class="cursor-pointer">
+                    <i class="fa-solid fa-user profile-img"></i>
                 </span>
+                <nav class="dropdaown">
+                    <a href="{{ route('user.profile') }}">الملف الشخصي</a>
+                    @if (isset(auth()->user()->role_id) and auth()->user()->role_id != 2)
+                        <a href="{{ route('dashboard') }}">لوحة التحكم</a>
+                    @endif
+                    <a href="{{ route('logout') }}">تسيجيل خروج</a>
+                </nav>
             @endguest
         </div>
     </div>

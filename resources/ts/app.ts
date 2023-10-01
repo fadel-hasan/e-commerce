@@ -1,10 +1,10 @@
 import '@fortawesome/fontawesome-free/js/all.min.js'
 import { Chart } from 'chart.js/auto';
-import {default as LoopElements} from './queryAllElements';
-import {canvasDatas,resultRequestProductes} from './type';
+import { default as LoopElements } from './queryAllElements';
+import { canvasDatas, resultRequestProductes } from './type';
 declare var canvasData: Array<canvasDatas>;
 window.addEventListener('load', function () {
-    LoopElements.loopClick('#iconSearch',() => {
+    LoopElements.loopClick('#iconSearch', () => {
         let inputSearch = document.getElementById('inputSearch') as HTMLInputElement;
         if (inputSearch.value.length > 0) {
             window.location.href = `${window.location.origin}/search/${inputSearch.value}`
@@ -45,7 +45,7 @@ window.addEventListener('load', function () {
         inputEmailAuth.addEventListener('input', isChangeAuth);
     }
     // Close Alerts
-    LoopElements.loopClick('.alert',(divAlert:HTMLElement) => {
+    LoopElements.loopClick('.alert', (divAlert: HTMLElement) => {
         (divAlert.querySelector('.close-alert') as HTMLSpanElement).addEventListener('click', function () {
             var opacity = 100;
             var timeRemoveAlert = setInterval(() => {
@@ -104,24 +104,8 @@ window.addEventListener('load', function () {
             }
         });
     }
-    /* let inputFile = this.document.getElementById('file') as HTMLInputElement;
-    let filePhoto = this.document.getElementById('filePhoto') as HTMLInputElement
-    // Upload File, maby change this
-    if (inputFile) {
-        inputFile.addEventListener('change', (el) => {
-            var explode = inputFile.value.split("\\");
-            filePhoto.value = explode[(explode.length - 1)];
-            if (/^[A-Za-z]+/.test(explode[(explode.length - 1)])) {
-                filePhoto.style.direction = 'ltr';
-            } else {
-                filePhoto.style.direction = 'rtl';
-            }
-        })
-        filePhoto.addEventListener('click', () => {
-        });
-    } */
     // Edit Product
-    LoopElements.loopClick('.edit',(editForm:HTMLElement) => {
+    LoopElements.loopClick('.edit', (editForm: HTMLElement) => {
         var elementTableThis = editForm.parentElement?.parentElement as HTMLTableRowElement;
         (this.document.getElementById('title') as HTMLInputElement).value = elementTableThis.children[1].innerHTML;
         (this.document.getElementById('slug') as HTMLInputElement).value = elementTableThis.children[2].innerHTML;
@@ -138,18 +122,18 @@ window.addEventListener('load', function () {
         this.document.body.classList.add('non-height');
     }
     // View Password
-    LoopElements.loopClick('.icon-eye',(el:HTMLElement) => {
+    LoopElements.loopClick('.icon-eye', (el: HTMLElement) => {
         var input = ((el.parentElement as HTMLDivElement).querySelector('input') as HTMLInputElement);
         (input.type == 'password') ? input.type = 'text' : input.type = 'password';
     })
     // Remove Admin
-    LoopElements.removeWithApi('remove-admin','data-url-remove','data-delete');
+    LoopElements.removeWithApi('remove-admin', 'data-url-remove', 'data-delete');
     // addMore
     let numberAddMore = 0;
     let moreHtmlAdd = this.document.getElementById('more') as HTMLDivElement;
     var htmlElementInputMore = '';
     if (moreHtmlAdd) {
-        LoopElements.loopClick('#addMore',() => {
+        LoopElements.loopClick('#addMore', () => {
             numberAddMore++;
             htmlElementInputMore = `<label class="text font-bold cursor-pointer" for="name#${numberAddMore}">التطويرة #${numberAddMore}:</label>
             <input type="text" name="name#${numberAddMore}" id="name#${numberAddMore}" placeholder="التطويرة ${numberAddMore}">
@@ -166,11 +150,11 @@ window.addEventListener('load', function () {
         let urlMoreProducts = this.document.getElementById('products')?.getAttribute('data-url-products');
         let htmlProductInsert = '';
         let spanSpiner = moreProductsClick.childNodes[1] as HTMLSpanElement;
-        moreProductsClick.addEventListener('click',() => {
+        moreProductsClick.addEventListener('click', () => {
             numberPageProducts++;
             spanSpiner.classList.remove('hidden')
-            LoopElements.requestApi(`${urlMoreProducts}?page=${numberPageProducts}`,(result:any) => {
-                var resultProducts:Array<resultRequestProductes> = result.result;
+            LoopElements.requestApi(`${urlMoreProducts}?page=${numberPageProducts}`, (result: any) => {
+                var resultProducts: Array<resultRequestProductes> = result.result;
                 htmlProductInsert = '';
                 resultProducts.forEach((product) => {
                     htmlProductInsert += `
@@ -190,11 +174,34 @@ window.addEventListener('load', function () {
                     `;
                 });
                 (this.document.querySelector('.products') as HTMLDivElement).innerHTML += htmlProductInsert;
+                if (htmlProductInsert === '') {
+                    moreProductsClick.remove();
+                }
                 spanSpiner.classList.add('hidden');
-            },() => {
-                console.error("error in your network")
+            }, () => {
                 spanSpiner.classList.add('hidden');
+                moreProductsClick.remove();
             });
         })
     }
+    // img-profile
+    let dropDaown = false;
+    let dropDaownDiv = this.document.querySelector('.dropdaown') as HTMLDivElement;
+    LoopElements.loopClick('#img-profile', () => {
+        if (dropDaown) {
+            dropDaownDiv.classList.remove('active');
+            var timeRemoveAlert = setInterval(() => {
+                    clearInterval(timeRemoveAlert);
+                    dropDaownDiv.classList.remove('flexElement');
+            }, 300);
+            dropDaown = false;
+        } else {
+            dropDaownDiv.classList.add('flexElement');
+            var timeRemoveAlert = setInterval(() => {
+                dropDaownDiv.classList.add('active');
+                clearInterval(timeRemoveAlert)
+            }, 10);
+            dropDaown = true;
+        }
+    });
 });

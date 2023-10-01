@@ -100,7 +100,7 @@ class ProductController extends Controller
     public function delete(Request $r)
     {
         $f=DB::table('product_users')->where('product_id',$r->id)->delete();
-        $s = DB::table('product')->delete($r->id);
+        $s = DB::table('products')->delete($r->id);
         if ($f and $s) {
             return response()->json(
                 ['ok' => true],

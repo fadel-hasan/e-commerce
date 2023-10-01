@@ -54,9 +54,8 @@ Route::controller(\App\Http\Controllers\Site\IndexsController::class)->group(fun
 
 // Member
 Route::prefix('/member')/* ->middleware() */->group(function() {
-    Route::get('/',fn() => view('pages.site.profile'))->name('user.profile');
-    Route::get('/refer',fn() => view('pages.site.refer'))->name('user.refer');
-    Route::get('/history',fn() => view('pages.site.history'))->name('user.history');
+    Route::get('/',fn() => view('pages.profile.profile'))->name('user.profile');
+    Route::get('/history',fn() => view('pages.profile.history'))->name('user.history');
 });
 //
 
