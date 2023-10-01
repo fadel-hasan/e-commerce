@@ -104,7 +104,7 @@ window.addEventListener('load', function () {
             }
         });
     }
-    let inputFile = this.document.getElementById('file') as HTMLInputElement;
+    /* let inputFile = this.document.getElementById('file') as HTMLInputElement;
     let filePhoto = this.document.getElementById('filePhoto') as HTMLInputElement
     // Upload File, maby change this
     if (inputFile) {
@@ -119,7 +119,7 @@ window.addEventListener('load', function () {
         })
         filePhoto.addEventListener('click', () => {
         });
-    }
+    } */
     // Edit Product
     LoopElements.loopClick('.edit',(editForm:HTMLElement) => {
         var elementTableThis = editForm.parentElement?.parentElement as HTMLTableRowElement;
