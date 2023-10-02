@@ -21,15 +21,17 @@ class IndexsController extends Controller
         return view(view: $view, data: $data);
     }
     /**
+     * view page home site
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
-        return $this->view('pages.site.home',[
+        return $this->view('pages.site.home', [
             'products' => VarController::getProducts()
         ]);
     }
     /**
+     * view page search
      * @param string $searchOut what we search in databasess
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
@@ -40,6 +42,7 @@ class IndexsController extends Controller
         ]);
     }
     /**
+     * veiw page category
      * @param string $searchOut what we search in databasess
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
@@ -50,7 +53,8 @@ class IndexsController extends Controller
             "desCategory" => "معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي. معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي. "
         ]);
     }
-    /*
+    /**
+     * view page product
      * @param string $searchOut what we search in databasess
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
@@ -78,14 +82,32 @@ class IndexsController extends Controller
         ]);
     }
     /**
+     * view page texts
      * Show texts and convert markdown to html
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function showTextMarkdown(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
         $result = ConstDataController::uriTextsMarkdown[request()->server('REQUEST_URI')];
-        return $this->view('pages.site.texts',['title'=>$result['title'],
-        'text' => MarkdownController::convertToHtml(VarController::getSitting($result['command']))
-    ]);
+        return $this->view('pages.site.texts', [
+            'title' => $result['title'],
+            'text' => MarkdownController::convertToHtml(VarController::getSitting($result['command']))
+        ]);
+    }
+    /**
+     * view page profile
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function profile() : \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory {
+        return view('pages.profile.profile');
+    }
+    /**
+     * view page history
+     * @param string $sort_by what we are ranking
+     * @param string $sort_order how we are ranking
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function history(string $sort_by = 'id',string $sort_order = 'desc') : \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory {
+        return view('pages.profile.history',['sort_order'=>$sort_order]);
     }
 }

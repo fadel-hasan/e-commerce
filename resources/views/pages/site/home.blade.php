@@ -5,10 +5,35 @@
         <div class="content">
             <h1>{{ \App\Http\Controllers\Site\VarController::getSitting('title') }}</h1>
             <p>{{ \App\Http\Controllers\Site\VarController::getSitting('des') }}</p>
-            <a href="#products" class="button-blue mx-auto">المزيد</a>
+            <a href="#moreInformation" class="button-blue mx-auto">المزيد</a>
         </div>
         <div class="image">
             <img src="{{ asset('images/undraw_stripe_payments_re_chlm.svg') }}" alt="{{ \App\Http\Controllers\Site\VarController::getSitting('title') }}">
+        </div>
+    </section>
+    {{-- Why Our --}}
+    <h2 class="text-center title-table scroll-mt-[73px] md:scroll-mt-[80px]" id="moreInformation">نحن فخورون ب</h2>
+    <section class="boxs relative mt-6 lg:grid-cols-3">
+        <div class="box">
+            <span class="icon"><i class="fa-solid fa-tags"></i></span>
+            <div>
+                <h3>عدد المنتجات</h3>
+                <p>0</p>
+            </div>
+        </div>
+        <div class="box">
+            <span class="icon"><i class="fa-solid fa-users"></i></span>
+            <div>
+                <h3>أشخاص تثق بنا</h3>
+                <p>0</p>
+            </div>
+        </div>
+        <div class="box">
+            <span class="icon"><i class="fa-solid fa-coins"></i></span>
+            <div>
+                <h3>المبالغ المدفوعة</h3>
+                <p>0</p>
+            </div>
         </div>
     </section>
     {{-- products --}}

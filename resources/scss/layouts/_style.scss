@@ -26,4 +26,7 @@
     .title-table {
         @apply text-center text-blue-500 font-bold mb-4 text-2xl;
     }
+    main {
+        @apply min-h-[calc(100vh-70px)] md:min-h-[calc(100vh-77px)];
+    }
 }

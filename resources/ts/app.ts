@@ -115,12 +115,6 @@ window.addEventListener('load', function () {
             priceNew.value = elementTableThis.children[3].innerHTML.replace('$', '');
         }
     });
-    // Config footer with css
-    var height = this.document.body.offsetHeight;
-    if (height < this.window.innerHeight) {
-        (this.document.getElementById('footer') as HTMLDivElement).style.position = 'fixed';
-        this.document.body.classList.add('non-height');
-    }
     // View Password
     LoopElements.loopClick('.icon-eye', (el: HTMLElement) => {
         var input = ((el.parentElement as HTMLDivElement).querySelector('input') as HTMLInputElement);
@@ -204,4 +198,12 @@ window.addEventListener('load', function () {
             dropDaown = true;
         }
     });
+    // icon-past
+    LoopElements.loopClick('.icon-past',() => {
+        var copyText = document.getElementById("copyLink") as HTMLInputElement;
+        copyText.select(); // Select the text field
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+        navigator.clipboard.writeText(copyText.value); // Copy the text inside the text field
+        alert("تم النسخ");
+    })
 });

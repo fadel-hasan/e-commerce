@@ -29,56 +29,7 @@ Route::middleware('admin')->group(function () {
     Route::match(['get', 'post'], '/sitting', [DashboardController::class,'indexSitting'])->name('dashboard.sitting');
     Route::match(['get', 'post'],'/add-category', [DashboardController::class,'indexSection'])->name('dashboard.add-category');
     Route::match(['get', 'post'],'/add-product',[DashboardController::class,'indexProduct'])->name('dashboard.add-product');
-    Route::get('/add-coupon', fn () => view('pages.dashboard.add-coupon', [
-        'navbarLinks' => [
-            [
-                'to' => route('dashboard'),
-                'icon' => 'fa-solid fa-home',
-                'title' => "الصفحة الرئيسية"
-            ],
-            [
-                'to' => route('dashboard.member'),
-                'icon' => 'fa-solid fa-users',
-                'title' => "الأعضاء"
-            ],
-            [
-                'to' => route('dashboard.analysis'),
-                'icon' => 'fa-solid fa-chart-line',
-                'title' => "الإحصائيات"
-            ],
-            [
-                'to' => route('dashboard.history'),
-                'icon' => 'fa-solid fa-history',
-                'title' => "السجلات"
-            ],
-            [
-                'to' => route('dashboard.add-admin'),
-                'icon' => 'fa-solid fa-user',
-                'title' => "إضافة أدمن"
-            ],
-            [
-                'to' => route('dashboard.sitting'),
-                'icon' => 'fa-solid fa-cog',
-                'title' => "الإعدادات"
-            ],
-            [
-                'to' => route('dashboard.add-category'),
-                'icon' => 'fa-solid fa-book',
-                'title' => "إضافة قسم"
-            ],
-            [
-                'to' => route('dashboard.add-product'),
-                'icon' => 'fa-solid fa-shop',
-                'title' => "إضافة منتج"
-            ],
-            [
-                'to' => route('dashboard.add-coupon'),
-                'icon' => 'fa-solid fa-tags',
-                'title' => "إضافة خصم"
-            ],
-        ],
-        'isAuth' => true
-    ]))->name('dashboard.add-coupon');
+    Route::match(['get', 'post'],'/add-coupon', [DashboardController::class,'indexCoupon'])->name('dashboard.add-coupon');
 });
 
 Route::get('try', [SittingController::class, 'get_command']);

@@ -50,13 +50,13 @@ Route::controller(\App\Http\Controllers\Site\IndexsController::class)->group(fun
     Route::get('/privacy-policy','showTextMarkdown')->name('privacyPolicy'); // privacy Policy
     Route::get('/terms-of-use','showTextMarkdown')->name('termsOfUse'); // privacy Policy
     Route::get('/refund-of-funds','showTextMarkdown')->name('refundOfFunds'); // privacy Policy
+    // Member
+    Route::prefix('/member')->middleware('auth')->group(function() {
+        Route::get('/','profile')->name('user.profile');
+        Route::get('/history/{sort_by?}/{sort_order?}','history')->name('user.history');
+    });
 });
 
-// Member
-Route::prefix('/member')/* ->middleware() */->group(function() {
-    Route::get('/',fn() => view('pages.profile.profile'))->name('user.profile');
-    Route::get('/history',fn() => view('pages.profile.history'))->name('user.history');
-});
 //
 
 // payment

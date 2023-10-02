@@ -1,0 +1,5 @@
+@layer components {
+    .icon-past {
+        @apply absolute top-6 text-2xl right-8 cursor-pointer;
+    }
+}
