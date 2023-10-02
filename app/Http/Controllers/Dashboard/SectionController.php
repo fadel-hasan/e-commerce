@@ -74,35 +74,36 @@ class SectionController extends Controller
         if (request()->isMethod('POST')) {
             $validator = Validator::make(request()->all(), [
                 'title' => 'required',
-                'slug' => 'required',
+                'slug' => 'required|regex:/^[a-zA-Z\s]+$/|unique:sections,url',
                 'desc' => 'required',
-                'tags' => 'required'
+                'tags' => 'required|regex:/^[a-zA-Z\s,\p{Arabic}]+$/u',
             ], [
                 'title.required' => 'حقل العنوان مطلوب',
                 'slug.required' => 'حقل الرابط المختصر مطلوب',
+                'slug.unique' => 'حقل الرابط المختصر مستخدم',
+                'slug.regex' => 'حقل الرابط المختصر يجب أن يحتوي على أحرف فقط باللغة الإنجليزية',
                 'desc.required' => 'حقل الوصف مطلوب',
-                'tags.required' => 'حقل العلامات مطلوب'
+                'tags.required' => 'حقل العلامات مطلوب',
+                'tags.regex' => 'حقل العلامات يجب أن يحتوي على أحرف وفواصل بينها من اجل مراعاة محركات البحث.',
             ]);
 
             if ($validator->fails()) {
                 $error = $validator->errors();
                 session()->put('error', $error);
-            }
-            else
-            {
+            } else {
                 $data = [
                     'name' => request('title'),
                     'url' => request('slug'),
                     'desc' => request('desc'),
                     'tags' => request('tags')
-            ];
+                ];
 
-            if (request('id') and !$validator->fails()) {
-                DB::table('sections')->where('id', request('id'))->update($data);
-            } else if (!$validator->fails()) {
-                DB::table('sections')->insert($data);
+                if (request('id') and !$validator->fails()) {
+                    DB::table('sections')->where('id', request('id'))->update($data);
+                } else if (!$validator->fails()) {
+                    DB::table('sections')->insert($data);
+                }
             }
-        }
         }
 
         $sections = DB::table('sections')->select('id', 'name', 'url')->orderBy('id', $order)->get();
