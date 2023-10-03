@@ -124,9 +124,9 @@ window.addEventListener('load', function () {
     LoopElements.removeWithApi('remove-admin', 'data-url-remove', 'data-delete');
     // addMore
     let moreHtmlAdd = this.document.getElementById('more') as HTMLDivElement;
-    let numberAddMore = Number(moreHtmlAdd.getAttribute('data-count')) ?? 0;
     var htmlElementInputMore = '';
     if (moreHtmlAdd) {
+        let numberAddMore = Number(moreHtmlAdd.getAttribute('data-count')) ?? 0;
         LoopElements.loopClick('#addMore', () => {
             numberAddMore++;
             htmlElementInputMore = `<div class="flex flex-col"><label class="text font-bold cursor-pointer" for="name#${numberAddMore}">التطويرة #${numberAddMore}:</label>
