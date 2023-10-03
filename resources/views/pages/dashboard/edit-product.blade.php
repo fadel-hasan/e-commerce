@@ -1,4 +1,4 @@
-@section('title', 'إضافة منتج')
+@section('title', 'تعديل منتج')
 @section('app')
     @include('layouts.navbarLeft')
     @if (session()->has('error'))
@@ -16,17 +16,16 @@
         @if (count($sections) == 0)
             <x-alert title="خطء" message="قم بإضافة قسم اولا" type="fail" />
         @else
-            <form action="{{ route('dashboard.add-product') }}" method="POST" class="sitting" enctype="multipart/form-data">
+            <form action="{{ route('dashboard.edit-product',['idProduct'=>$idProduct]) }}" method="POST" class="sitting" enctype="multipart/form-data">
                 @csrf
-                <h2 class="title-table">إضافة منتج</h2>
+                <h2 class="title-table">تعديل منتج</h2>
+                <input type="hidden" name="idProdcvt" name="idproduct" value="{{ $idProduct }}">
                 <label for="title">اسم المنتج:</label>
                 <input type="text" name="title" id="title" placeholder="اسم المنتيج">
                 <label for="slug">اسم لطيف:</label>
                 <input type="text" name="slug" id="slug" placeholder="phons" dir="ltr">
                 <label for="price">السعر:</label>
                 <input type="number" name="price" id="price" placeholder="20" dir="ltr" min="0">
-                <label for="percent">نسبة الربح:</label>
-                <input type="number" name="percent" id="percent" placeholder="20" dir="ltr" min="0">
                 <label for="price">الكمية:</label>
                 <input type="number" name="quantity" id="quantity" placeholder="20" dir="ltr" min="0">
                 <label for="desc">الوصف:</label>
@@ -43,48 +42,30 @@
                         <option value="{{ $s->id }}">{{ $s->name }}</option>
                     @endforeach
                 </select>
-                <input type="hidden" name="id" value="" id="id">
-                <div class="flex flex-col my-6">
-                    <span class="button-blue w-fit self-center text-lg" id="addMore">إضافة تطوير</span>
-                    <div id="more" class="my-2 flex flex-col"></div>
-                </div>
-                <input type="submit" value="إضافة" class="button-blue w-fit mx-auto px-12 mb-4">
+                <input type="submit" value="تعديل" class="button-blue w-fit mx-auto px-12 mb-4">
             </form>
-            <section class="max-w-[90%] overflow-scroll container mx-auto">
-                <h2 class="title-table">المنتجات</h2>
-                <table class="overflow-auto list mb-8" data-url-remove="{{ route('removeProduct') }}" {{-- Route Remove Product --}}>
-                    <thead>
-                        <tr>
-                            <th class="link"><a
-                                    href="{{ route('dashboard.add-product', ['order' => request('order') == 'asc' ? 'desc' : 'asc']) }}">#</a>
-                            </th>
-                            <th>الاسم</th>
-                            <th>رابط لطيف</th>
-                            <th>السعر</th>
-                            <th>لكمية المتوفر لديك</th>
-                            <th>تعديل</th>
-                            <th>حذف</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($products as $p)
-                            <tr>
-                                <td>{{ $p->id }}</td>
-                                <td>{{ $p->name }}</td>
-                                <td>{{ $p->cool_name }}</td>
-                                <td>{{ $p->price }}$</td>
-                                <td>{{ $p->quantity }}$</td>
-                                <td>
-                                    <span class="edit" data-id="{{ $p->id }}">تعديل</span>
-                                </td>
-                                <td>
-                                    <button class="button-red remove-admin" data-delete="{{ $p->id }}">حذف</button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </section>
+            <hr>
+            <form action="" method="post" class="sitting">
+                @csrf
+                <div class="flex flex-col my-6">
+                    <h2 class="title-table">التطويرات</h2>
+                    <span class="button-blue w-fit self-center text-lg" id="addMore">إضافة تطوير</span>
+                    {{-- عدد التطويرات الموجود --}}
+                    <div id="more" class="my-2" data-count="2">
+                        {{-- تطويرات --}}
+                        @for ($i=1;$i<=2;$i++)
+                            <div class="flex flex-col">
+                                <label class="text font-bold cursor-pointer" for="name#{{ $i }}">التطويرة #{{ $i }}:</label>
+                                <input type="text" name="name#{{ $i }}" id="name#{{ $i }}" placeholder="التطويرة {{ $i }}">
+                                <label class="text font-bold cursor-pointer" for="price#{{ $i }}">سعرها :</label>
+                                <input type="number" name="price#{{ $i }}" id="price#{{ $i }}" placeholder="20$" dir="ltr">
+                                <span class="button-red mb-3">حذف التطويرة</span>
+                                <hr>
+                            </div>
+                        @endfor
+                    </div>
+                </div>
+            </form>
         @endif
     </div>
 @endsection

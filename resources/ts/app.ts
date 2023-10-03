@@ -123,23 +123,23 @@ window.addEventListener('load', function () {
     // Remove Admin
     LoopElements.removeWithApi('remove-admin', 'data-url-remove', 'data-delete');
     // addMore
-    let numberAddMore = 0;
     let moreHtmlAdd = this.document.getElementById('more') as HTMLDivElement;
+    let numberAddMore = Number(moreHtmlAdd.getAttribute('data-count')) ?? 0;
     var htmlElementInputMore = '';
     if (moreHtmlAdd) {
         LoopElements.loopClick('#addMore', () => {
             numberAddMore++;
-            htmlElementInputMore = `<label class="text font-bold cursor-pointer" for="name#${numberAddMore}">التطويرة #${numberAddMore}:</label>
+            htmlElementInputMore = `<div class="flex flex-col"><label class="text font-bold cursor-pointer" for="name#${numberAddMore}">التطويرة #${numberAddMore}:</label>
             <input type="text" name="name#${numberAddMore}" id="name#${numberAddMore}" placeholder="التطويرة ${numberAddMore}">
             <label class="text font-bold cursor-pointer" for="price#${numberAddMore}">سعرها :</label>
             <input type="number" name="price#${numberAddMore}" id="price#${numberAddMore}" placeholder="20$" dir="ltr">
-            <hr>`;
+            <span class="button-red mb-3">حذف التطويرة</span><hr></div>`;
             moreHtmlAdd.innerHTML += htmlElementInputMore;
         });
     }
     // moreProductsClick
     let moreProductsClick = this.document.getElementById('moreProducts') as HTMLButtonElement;
-    let numberPageProducts = 0;
+    let numberPageProducts = 1;
     if (moreProductsClick) {
         let urlMoreProducts = this.document.getElementById('products')?.getAttribute('data-url-products');
         let htmlProductInsert = '';
@@ -168,6 +168,7 @@ window.addEventListener('load', function () {
                     `;
                 });
                 (this.document.querySelector('.products') as HTMLDivElement).innerHTML += htmlProductInsert;
+                LoopElements.removeMoreProduct();
                 if (htmlProductInsert === '') {
                     moreProductsClick.remove();
                 }
@@ -178,6 +179,7 @@ window.addEventListener('load', function () {
             });
         })
     }
+    LoopElements.removeMoreProduct();
     // img-profile
     let dropDaown = false;
     let dropDaownDiv = this.document.querySelector('.dropdaown') as HTMLDivElement;

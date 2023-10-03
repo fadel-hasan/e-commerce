@@ -23,8 +23,7 @@ class ProductController extends Controller
                     'linkCategory'  => $item->s_url,
                 ];
             });
-        sleep(2);
-        dd($p);
+        // sleep(2);
         return response([
             'ok' => true,
             'result' => $p

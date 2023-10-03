@@ -30,6 +30,7 @@ Route::middleware('admin')->group(function () {
     Route::match(['get', 'post'], '/sitting', [DashboardController::class,'indexSitting'])->name('dashboard.sitting');
     Route::match(['get', 'post'],'/add-category', [DashboardController::class,'indexSection'])->name('dashboard.add-category');
     Route::match(['get', 'post'],'/add-product',[DashboardController::class,'indexProduct'])->name('dashboard.add-product');
+    Route::match(['get', 'post'],'/edit-product/{idProduct}',[DashboardController::class,'editProduct'])->name('dashboard.edit-product');
     Route::match(['get', 'post'],'/add-coupon', [DashboardController::class,'indexCoupon'])->name('dashboard.add-coupon');
 });
 

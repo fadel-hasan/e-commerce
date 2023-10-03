@@ -97,6 +97,12 @@ class DashboardController extends Controller
         $name = ['products', 'sections'];
         return $this->getIndex('pages.dashboard.add-product', array_combine($name, $date));
     }
+    public function editProduct(int $idProduct)
+    {
+        $date = [$this->d->sections(),$idProduct];
+        $name = ['sections','idProduct'];
+        return $this->getIndex('pages.dashboard.edit-product', array_combine($name, $date));
+    }
 
     public function indexCoupon()
     {

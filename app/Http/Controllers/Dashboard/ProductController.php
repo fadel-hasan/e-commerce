@@ -47,6 +47,7 @@ class ProductController extends Controller
             'tags.required' => 'حقل العلامات مطلوب',
             'tags.regex' => 'حقل العلامات يجب أن يحتوي على أحرف وفواصل بينها من اجل مراعاة محركات البحث.',
             'price.required' => 'حقل السعر مطلوب',
+            'percent.required' => 'حقل نسبة الربح مطلوب',
             'paymetner.required' => 'حقل الشرح مطلوب',
             'category.required' => 'حقل القسم مطلوب',
             'quantity.required' => 'حقل الكمية مطلوب',
@@ -74,7 +75,7 @@ class ProductController extends Controller
                 'section_id' => request('category'),
                 'quantity' => request('quantity'),
                 'url_image' => $imagePath,
-                'percent' => 0,
+                'percent' => request('percent'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
             ];
