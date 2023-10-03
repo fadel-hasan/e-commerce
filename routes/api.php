@@ -30,3 +30,4 @@ Route::prefix(env('PASSWORD_API'))->group(function () {
 });
 // it isn't important
 Route::get('/products',[SiteProductController::class,'get_product'])->name('productesGet');
+Route::get('/product_section/{uri}',[SiteProductController::class,'get_product_section'])->name('productSectionGet');

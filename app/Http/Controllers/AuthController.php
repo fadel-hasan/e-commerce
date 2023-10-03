@@ -73,7 +73,21 @@ class AuthController extends Controller
             if (!$User) {
                 return redirect(route('get.signup'))->with('error', 'معلومات التسجيل خاطئة');
             }
+            $User->update([
+                'referral_code' => substr(uniqid($User->id), 7, 6)
+            ]);
 
+            if ($r->referral_code) {
+                $referrer = User::where('referral_code', $r->referral_code)->first();
+                if ($referrer) {
+                    DB::table('referrals')->insert(
+                        [
+                            'referrer_id' => $referrer->id,
+                            'referred_id' => $User->id,
+                        ]
+                        );
+                }
+            }
             $token = Str::random(64);
 
             UserVerify::create([
@@ -120,6 +134,14 @@ class AuthController extends Controller
         if (auth()->attempt(['email' => $r->email, 'password' => $r->password], $remember_me)) {
             if (auth()->user()->role_id == $admin) {
                 return redirect()->route('dashboard');
+            }
+            if(session()->has('useurl'))
+            {
+                // dd(true);
+                $uri = session()->get('useurl');
+                session()->forget('useurl');
+                return redirect()->intended(route('user.product',['uri'=>$uri]));
+
             }
             return redirect()->intended(route('home'));
         } else {

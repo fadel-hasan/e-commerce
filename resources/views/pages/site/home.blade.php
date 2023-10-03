@@ -18,42 +18,45 @@
             <span class="icon"><i class="fa-solid fa-tags"></i></span>
             <div>
                 <h3>عدد المنتجات</h3>
-                <p>0</p>
+                <p>{{ ($product->num ?? 0) }}</p>
             </div>
         </div>
         <div class="box">
             <span class="icon"><i class="fa-solid fa-users"></i></span>
             <div>
                 <h3>أشخاص تثق بنا</h3>
-                <p>0</p>
+                <p>{{ ($user->num ?? 0) }}</p>
             </div>
         </div>
         <div class="box">
             <span class="icon"><i class="fa-solid fa-coins"></i></span>
             <div>
                 <h3>المبالغ المدفوعة</h3>
-                <p>0</p>
+                <p>{{ ($sell->price ?? 0) }}</p>
             </div>
         </div>
     </section>
     {{-- products --}}
-    <section id="products" class="scroll-mt-[73px] md:scroll-mt-[80px]" data-url-products="{{ route('productesGet') }}"
+    <section id="products" class="scroll-mt-[73px] md:scroll-mt-[80px]" data-url-products="{{ route('productesGet') }}">
     {{-- set route api for get products and limte in all pages 10 example: domain.com/api/products?page=--}} >
         <div class="products">
             {{-- @for ($i=0;$i<=10;$i++) --}}
-                <article>
-                    <div class="img">
-                        <a href="{{ route('user.product',['uri'=>"test"]) }}">
-                            <img src="https://placehold.co/600x400.png" alt="العنوان" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <a href="{{ route('user.product',['uri'=>"test"]) }}"><h3>سيرفر رام 4</h3></a>
-                        <p>معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي. </p>
-                        <a href="{{ route('user.product',['uri'=>"test"]) }}" class="button-blue">المزيد من المعلومات</a>
-                    </div>
-                    <a class="category" href="{{ route('user.product',['uri'=>"test"]) }}">سيرفرات</a>
-                </article>
+
+            @foreach ($products as $p )
+            <article>
+                <div class="img">
+                    <a href="{{ route('user.product',['uri'=>$p['link']]) }}">
+                        <img src="{{ asset($p['image']) }}" alt="العنوان" loading="lazy">
+                    </a>
+                </div>
+                <div class="content">
+                    <a href="{{ route('user.product',['uri'=>$p['link']]) }}"><h3>{{ $p['title'] }}</h3></a>
+                    <p>{{ $p['des'] }} </p>
+                    <a href="{{ route('user.product',['uri'=>$p['link']]) }}" class="button-blue">المزيد من المعلومات</a>
+                </div>
+                <a class="category" href="{{ route('user.category',['uri'=>$p['linkCategory']]) }}">{{ $p['category'] }}</a>
+            </article>
+            @endforeach
             {{-- @endfor --}}
         </div>
         <button class="block w-fit mx-auto mt-4 button-blue px-6" id="moreProducts">

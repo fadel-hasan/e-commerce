@@ -1,25 +1,33 @@
-@section('title','الصفحة الرئيسية')
+@section('title', 'الصفحة الرئيسية')
 @section('app')
     {{-- Produtc --}}
     <section id="produtc-page">
         <div class="img">
-            <img src="https://placehold.co/800@2x.png" alt="{{ $name }}">
+            <img src="{{ asset($res['image']) }}" alt="{{ $res['name'] }}">
         </div>
         <div class="content">
-            <h1>{{ $name }}</h1>
-            <p>{{ $desProduct }}</p>
-            <span class="price">{{ $price }}$</span>
+            <h1>{{ $res['name'] }}</h1>
+            <p>{{ $res['desProduct'] }}</p>
+            <span class="price">{{ $res['price'] }}$</span>
             <h2>التطويرات</h2>
             <form action="" method="post">
-                <input type="hidden" name="id" value="{{ $id }}">
-                @if (isset($more) and is_array($more))
-                    @foreach ($more as $moreProduct)
+                <input type="hidden" name="id" value="{{ $res['id'] }}">
+                @if (isset($res['more']) and is_object($res['more']))
+                    @foreach ($res['more'] as $moreProduct)
                         <x-checkbox
                             title="{{ $moreProduct['name'] }} بمبلغ: <span class='font-bold'>{{ $moreProduct['price'] }}$</span>"
                             name="more#{{ $moreProduct['id'] }}" />
                     @endforeach
                 @endif
-                <input type="submit" value="شراء" class="button-blue">
+                @auth
+                    <input type="submit" value="شراء" class="button-blue">
+                @endauth
+                @guest
+                    <a href="{{ route('get.login') }}" class="button-blue">تسجيل الدخول</a>
+                    @php
+                        Session::put('useurl', $res['url']);
+                    @endphp
+                @endguest
             </form>
         </div>
     </section>
@@ -47,7 +55,8 @@
                         </a>
                         <p>معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي.
                         </p>
-                        <a href="{{ route('user.product', ['uri' => 'test']) }}" class="button-blue">المزيد من المعلومات</a>
+                        <a href="{{ route('user.product', ['uri' => 'test']) }}" class="button-blue">المزيد من
+                            المعلومات</a>
                     </div>
                     <a class="category" href="{{ route('user.product', ['uri' => 'test']) }}">سيرفرات</a>
                 </article>
