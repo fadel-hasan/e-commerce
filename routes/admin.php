@@ -25,6 +25,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/analysis', [DashboardController::class,'indexAnalysis'])->middleware('log.activity:تصفح صفحة الإحصائيات')->name('dashboard.analysis');
     Route::get('/history', [DashboardController::class,'indexHistory'])->middleware('log.activity:تصفح صفحة السجلات')->name('dashboard.history');
     Route::post('/history', [DashboardController::class,'indexHistory'])->middleware('log.activity:تصفح صفحة السجلات')->name('post.dashboard.history');
+    Route::get('/orders', [DashboardController::class,'indexOrder'])->middleware('log.activity:تصفح صفحة الطلبات')->name('dashboard.orders');
     Route::get('/add-admin',[DashboardController::class,'indexAdmin'])->name('dashboard.add-admin');
     Route::post('/add-admin',[DashboardController::class,'indexAdmin'])->name('post.dashboard.add-admin');
     Route::match(['get', 'post'], '/sitting', [DashboardController::class,'indexSitting'])->name('dashboard.sitting');

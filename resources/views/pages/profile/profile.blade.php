@@ -1,3 +1,4 @@
+@dd('error')
 @section('title', 'الملف الشخصي')
 @section('app')
     {{-- Soem Infomation --}}
@@ -32,7 +33,7 @@
         </div>
     </section>
     {{-- Refer --}}
-    <h3 class="text-center title-table mt-8">الإحالة</h3>
+    {{-- <h3 class="text-center title-table mt-8">الإحالة</h3>
     <p class="text-center">
         تستطيع ربح 2% من أي عملية شراء من قبل أي شخص تقوم بدعوته للتسجيل في هذا الموقع
     </p>
@@ -41,7 +42,7 @@
         <span class="icon-past">
             <div class="fa-solid fa-copy"></div>
         </span>
-    </div>
+    </div> --}}
     {{-- Products --}}
     <section id="products" class="scroll-mt-[73px] md:scroll-mt-[80px]">
         <h2 class="text-2xl my-2 text-center title-table">منتاجات قد تعجبك</h2>

@@ -73,9 +73,9 @@
                                 <td>{{ $p->name }}</td>
                                 <td>{{ $p->cool_name }}</td>
                                 <td>{{ $p->price }}$</td>
-                                <td>{{ $p->quantity }}$</td>
+                                <td>{{ $p->quantity }}</td>
                                 <td>
-                                    <span class="edit" data-id="{{ $p->id }}">تعديل</span>
+                                    <a href="{{ route('dashboard.edit-product',['idProduct'=>$p->id]) }}" class="button-blue">تعديل</a>
                                 </td>
                                 <td>
                                     <button class="button-red remove-admin" data-delete="{{ $p->id }}">حذف</button>

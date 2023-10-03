@@ -23,7 +23,7 @@
             td > span {
                 @apply button-blue;
             }
-            td > a {
+            td > a:not(.button-blue) {
                 @apply button-red;
             }
         }
