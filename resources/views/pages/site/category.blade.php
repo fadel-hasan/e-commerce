@@ -20,7 +20,7 @@
                     <p>{{ $p->description }}</p>
                     <a href="{{ route('user.product',['uri'=>$p->cool_name]) }}" class="button-blue">المزيد من المعلومات</a>
                 </div>
-                <a class="category" href="{{ route('user.category',['uri'=>$res['section']->url]) }}">سيرفرات</a>
+                <a class="category" href="{{ route('user.category',['uri'=>$res['section']->url]) }}">{{ $res['section']->name }}</a>
             </article>
             @endforeach
         </div>

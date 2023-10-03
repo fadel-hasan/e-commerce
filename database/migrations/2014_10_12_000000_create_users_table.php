@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('country')->nullable()->default('other');
             $table->ipAddress('ip')->nullable();
+            $table->string('referral_code')->nullable()->unique();
             $table->rememberToken();
             $table->timestamps();
 

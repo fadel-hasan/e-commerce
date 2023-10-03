@@ -6,7 +6,7 @@
             h1 {
                 @apply text-xl sm:text-3xl font-bold text-sky-500;
             }
-            form {
+            .form {
                 @apply relative basis-[80%] sm:basis-auto md:basis-[60%] lg:basis-[70%];
                 #inputSearch {
                     @apply bg-white rounded-lg py-2 sm:text-lg pr-2 pl-7 outline-none relative w-full text-gray-800;

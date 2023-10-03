@@ -1,32 +1,35 @@
-@section('title',"نتائج البحث عن: {$searchOut}")
+@section('title', "نتائج البحث عن: {$searchOut}")
 @section('app')
     {{-- Search About --}}
     <section class="py-32">
         <h2 class="text-center text-2xl">نتائج البحث عن: <span class="font-bold">{{ $searchOut }}</span></h2>
     </section>
     {{-- Error --}}
-    @isset($error)
+    @isset($products)
         <x-alert type="fail" title="بحث خاطء" message="عذراً المنتج الذي تريده غير متوفر على هذا المتجر" />
-        <meta http-equiv="refresh" content="5; url=/">
+        <meta http-equiv="refresh" content="5; url={{ url()->previous() }}">
     @endisset
     {{-- products --}}
     <section id="products">
         <div class="products">
-            @for ($i=1;$i<=5;$i++)
+            @foreach ($products as $p)
                 <article>
                     <div class="img">
-                        <a href="#">
-                            <img src="https://placehold.co/600x400.png" alt="العنوان" loading="lazy">
+                        <a href="{{ route('user.product', ['uri' => $p->cool_name]) }}">
+                            <img src="{{ asset($p->url_image) }}" alt="العنوان" loading="lazy">
                         </a>
                     </div>
                     <div class="content">
-                        <a href="#"><h3>سيرفر رام {{ $i }}</h3></a>
-                        <p>معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي. </p>
-                        <a href="#" class="button-blue">المزيد من المعلومات</a>
+                        <a href="{{ route('user.product', ['uri' => $p->cool_name]) }}">
+                            <h3>{{ $p->name }}</h3>
+                        </a>
+                        <p>{{ $p->description }}</p>
+                        <a href="{{ route('user.product', ['uri' => $p->cool_name]) }}" class="button-blue">المزيد من
+                            المعلومات</a>
                     </div>
-                    <a class="category" href="#">سيرفرات</a>
+                    <a class="category" href="{{ route('user.category', ['uri' => $p->url]) }}">{{ $p->s_name }}</a>
                 </article>
-            @endfor
+            @endforeach
         </div>
     </section>
 @endsection

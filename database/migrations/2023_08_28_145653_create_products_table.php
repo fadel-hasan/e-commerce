@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('section_id');
             $table->foreign('section_id')->references('id')->on('sections');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
             $table->string('cool_name');
             $table->decimal('price',10,2);

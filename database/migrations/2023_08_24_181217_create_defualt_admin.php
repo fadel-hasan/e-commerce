@@ -21,6 +21,9 @@ return new class extends Migration
         Role::create([
             'name' => 'user'
         ]);
+        Role::create([
+            'name' => 'saller'
+        ]);
         $admin_name = env('Admin_Name');
         $admin_email = env('Admin_Email');
         $admin_password = env('Admin_Password');

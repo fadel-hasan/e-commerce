@@ -75,7 +75,7 @@
                                 <td>{{ $p->price }}$</td>
                                 <td>{{ $p->quantity }}$</td>
                                 <td>
-                                    <span class="edit" data-id="{{ $p->id }}">تعديل</span>
+                                    <a class="edit" href="{{ route('dashboard.edit-product',['idProduct'=>$p->id]) }}">تعديل</a>
                                 </td>
                                 <td>
                                     <button class="button-red remove-admin" data-delete="{{ $p->id }}">حذف</button>

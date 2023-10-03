@@ -41,7 +41,8 @@ class IndexsController extends Controller
     public function search(string $searchOut): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
         return $this->view('pages.site.search', [
-            'searchOut' => $searchOut
+            'searchOut' => $searchOut,
+            'products' => VarController::search()
         ]);
     }
     /**

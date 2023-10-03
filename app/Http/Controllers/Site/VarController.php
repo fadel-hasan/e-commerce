@@ -97,4 +97,14 @@ class VarController extends Controller
         $res = $p->section();
         return $res;
     }
+
+    public static function search()
+    {
+        $s = DB::table('products as p')
+            ->where('p.name', 'LIKE', '%' . request('searchOut') . '%')
+            ->select('s.name as s_name','s.url', 'p.*')
+            ->join('sections as s', 'p.section_id', '=', 's.id')
+            ->get();
+        return $s;
+    }
 }

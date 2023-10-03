@@ -14,14 +14,27 @@ class Add_adminController extends Controller
         if (request('email')) {
             $this->add_admin(request('email'), request('rule'));
         }
-        $date = DB::table('users', 'u')
-            ->join('roles as r', 'u.role_id', '=', 'r.id')
-            ->whereNot('r.name', 'user')
-            ->leftJoin('product_users as pu', 'u.id', '=', 'pu.user_id')
-            ->select('u.name as u_name','u.id as u_id', 'u.updated_at', 'r.name as r_name', DB::raw('COUNT(CASE WHEN pu.is_sell = 0 THEN 1 END) AS product_count'), DB::raw('COUNT(CASE WHEN pu.is_sell = 1 THEN 1 END) AS sold_count'))
-            ->orderBy('u.updated_at', $order)
-            ->groupBy('u.name', 'u.updated_at', 'r.name','u.id')
+        $date = DB::table('users as u')
+            ->leftJoin('roles as r', 'u.role_id', '=', 'r.id')
+            ->leftJoin('orders as o', 'o.user_id', '=', 'u.id')
+            ->leftJoin('order_details as od',function ($join) {
+                $join->where('od.status', 1);
+            })
+            ->leftJoin('products as p', function ($join) {
+                $join->on('p.user_id', '=', 'u.id');
+            })
             ->where('u.id', '<>', 1)
+            ->where('r.name', '<>', 'user')
+            ->select(
+                'u.name as u_name',
+                'u.id as u_id',
+                'u.updated_at',
+                'r.name as r_name',
+                DB::raw('sum(p.quantity) AS product_count'),
+                DB::raw('COUNT(od.id) AS sold_count')
+            )
+            ->orderBy('u.updated_at', $order)
+            ->groupBy('u.name', 'u.updated_at', 'r.name', 'u.id')
             ->get();
         return $date;
     }
@@ -38,19 +51,17 @@ class Add_adminController extends Controller
             session()->put('error', 'هذا البريد الإلكتروني غير موجود او خاطئ');
         }
     }
-    
+
 
     public function delete(Request $r)
     {
-        $role = DB::table('roles')->where('name','user')->select('id')->first();
-        $u=DB::table('users')->where('id',$r->id)->update(['role_id'=>$role->id]);
+        $role = DB::table('roles')->where('name', 'user')->select('id')->first();
+        $u = DB::table('users')->where('id', $r->id)->update(['role_id' => $role->id]);
 
-        if($u)
-        {
-            return response()->json(['ok'=>true]);
-        }
-        else{
-            return response()->json(['ok'=>false]);
+        if ($u) {
+            return response()->json(['ok' => true]);
+        } else {
+            return response()->json(['ok' => false]);
         }
     }
 }

@@ -3,10 +3,10 @@
         <a href="{{ asset('') }}">
             <h1>{{ \App\Http\Controllers\Site\VarController::getSitting('title') }}</h1>
         </a>
-        <form action="" method="POST" class="">
+        <div class="form">
             <input type="serach" name="q" id="inputSearch">
             <span id="iconSearch"><i class="fa-solid fa-search"></i></span>
-        </form>
+        </div>
         {{-- i used guest to check if not registerd --}}
         <div class="hidden sm:block relative">
             @guest

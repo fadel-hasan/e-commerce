@@ -16,11 +16,20 @@ class ProductController extends Controller
         if (request()->isMethod('POST')) {
             $this->store_product();
         }
-
-        $p = DB::table('products')
-            ->select('id', 'name', 'cool_name', 'price', 'quantity')
-            ->orderBy('id', $order)
-            ->get();
+        if(auth()->user()->role_id == 3)
+        {
+            $p = DB::table('products')
+                ->select('id', 'name', 'cool_name', 'price', 'quantity')
+                ->where('role_id',auth()->user()->role_id)
+                ->orderBy('id', $order)
+                ->get();
+        }
+        else{
+            $p = DB::table('products')
+                ->select('id', 'name', 'cool_name', 'price', 'quantity')
+                ->orderBy('id', $order)
+                ->get();
+        }
         return $p;
     }
 
@@ -37,6 +46,7 @@ class ProductController extends Controller
             'tags' => 'required|regex:/^[a-zA-Z\s,\p{Arabic}]+$/u',
             'category' => 'required',
             'quantity' => 'required|min:1',
+            'percent'=>'required|regex:/^[0-9]+$/min:10',
             'file' => 'required|mimetypes:image/png,image/jpeg',
         ], [
             'title.required' => 'حقل العنوان مطلوب',
@@ -52,6 +62,9 @@ class ProductController extends Controller
             'category.required' => 'حقل القسم مطلوب',
             'quantity.required' => 'حقل الكمية مطلوب',
             'quantity.min' => 'اقل كمية ممكنة هي منتج واحد',
+            'percent.required'=>'نسبة الربح مطلوبة رجاءا',
+            'percent.regex'=>'الرجاء ادخال ارقام فقط',
+            'percent.min'=>'اقل نسبة ممكنة هي 10',
             'file.required' => 'يرجى تحميل صورة',
             'file.mimetypes' => 'صيغة الصورة غير مدعومة، يرجى اختيار صيغة png أو jpeg',
         ]);
@@ -75,6 +88,7 @@ class ProductController extends Controller
                 'section_id' => request('category'),
                 'quantity' => request('quantity'),
                 'url_image' => $imagePath,
+                'user_id'=>auth()->user()->id,
                 'percent' => request('percent'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s')
@@ -85,13 +99,6 @@ class ProductController extends Controller
             } else {
                 DB::table('products')->insert($data);
                 $p = DB::table('products')->select('id')->latest()->first();
-                DB::table('product_users')->insert([
-                    'product_id' => $p->id,
-                    'user_id' => auth()->user()->id,
-                    'is_sell' => 0,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s')
-                ]);
             }
             if (count(request()->all()) > 11) {
                 $requestData = request()->all();
@@ -107,10 +114,7 @@ class ProductController extends Controller
                         'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s')
                     ]);
-                    DB::table('products')->where('id', $p->id)->update([
-                        'price' => DB::raw('price + ' . request('price#' . $i)),
-                        'updated_at' => date('Y-m-d H:i:s')
-                    ]);
+
                 }
             }
         }
