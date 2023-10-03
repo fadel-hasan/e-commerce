@@ -40,7 +40,7 @@
     <section id="products" class="scroll-mt-[73px] md:scroll-mt-[80px]" data-url-products="{{ route('productesGet') }}"
     {{-- set route api for get products and limte in all pages 10 example: domain.com/api/products?page=--}} >
         <div class="products">
-            @for ($i=0;$i<=10;$i++)
+            {{-- @for ($i=0;$i<=10;$i++) --}}
                 <article>
                     <div class="img">
                         <a href="{{ route('user.product',['uri'=>"test"]) }}">
@@ -54,7 +54,7 @@
                     </div>
                     <a class="category" href="{{ route('user.product',['uri'=>"test"]) }}">سيرفرات</a>
                 </article>
-            @endfor
+            {{-- @endfor --}}
         </div>
         <button class="block w-fit mx-auto mt-4 button-blue px-6" id="moreProducts">
             المزيد

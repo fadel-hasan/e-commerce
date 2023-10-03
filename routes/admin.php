@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Dashboard\VarController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\SittingController;
+use App\Http\Controllers\Site\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,4 @@ Route::middleware('admin')->group(function () {
     Route::match(['get', 'post'],'/add-coupon', [DashboardController::class,'indexCoupon'])->name('dashboard.add-coupon');
 });
 
-Route::get('try', [SittingController::class, 'get_command']);
+Route::get('try', [ProductController::class, 'get_product']);

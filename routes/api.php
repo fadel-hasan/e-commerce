@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\Add_adminController;
 use App\Http\Controllers\Dashboard\CoponController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\SectionController;
+use App\Http\Controllers\Site\ProductController as SiteProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,34 +29,4 @@ Route::prefix(env('PASSWORD_API'))->group(function () {
     Route::get('/removeCoupon', [CoponController::class, 'delete'])->name('removeCoupon');
 });
 // it isn't important
-Route::get('/productesGet', function (): object {
-    // remove sleep because i use it for chek style loding api
-    sleep(2);
-    return response([
-        'ok' => true,
-        'result' => [
-            [
-                'image'         => 'https://placehold.co/600x400.png',
-                'title'         => "سيرفر رام 4",
-                "des"           => "معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي.",
-                "category"      => "سيرفرات",
-                'link'          => "#",
-                'linkCategory'  => "#"
-            ],            [
-                'image'         => 'https://placehold.co/600x400.png',
-                'title'         => "سيرفر رام 4",
-                "des"           => "معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي.",
-                "category"      => "سيرفرات",
-                'link'          => "#",
-                'linkCategory'  => "#"
-            ],            [
-                'image'         => 'https://placehold.co/600x400.png',
-                'title'         => "سيرفر رام 4",
-                "des"           => "معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي.",
-                "category"      => "سيرفرات",
-                'link'          => "#",
-                'linkCategory'  => "#"
-            ],
-        ]
-    ]);
-})->name('productesGet');
+Route::get('/products',[SiteProductController::class,'get_product'])->name('productesGet');
