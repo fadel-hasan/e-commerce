@@ -60,7 +60,8 @@ Route::controller(\App\Http\Controllers\Site\IndexsController::class)->group(fun
 Route::middleware('auth')->controller(\App\Http\Controllers\PaymentGateways\Payment::class)->group(function ()
 {
     Route::post('/payment/{id}','createOrder')->name('user.payment');
-    Route::get('/payment/{id}/{paymentMethod}',fn(int $order_id,string $method) => view('pages.profile.payment',[
+    Route::match(['get','post'],'/paymentOrder/{paymentOrder}','viewOrder')->name('user.payment.order');
+    Route::get('/paymentOrder/{paymentOrder}/{paymentMethod}',fn(int $order_id,string $method) => view('pages.profile.payment',[
         'payment' => $method,
         'order_id' => $order_id,
         'listPayment' => []

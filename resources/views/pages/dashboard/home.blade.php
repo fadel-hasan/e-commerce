@@ -55,7 +55,7 @@
                             <th>#</th>
                             <th>اسم المستخدم</th>
                             <th>اسم المنتج</th>
-                            <th>الكمية</th>
+                            {{-- <th>الكمية</th> --}}
                             <th>السعر</th>
                             <th>الحالة</th>
                         </tr>
@@ -66,7 +66,7 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $order->u_name }}</td>
                                 <td>{{ $order->p_name }}</td>
-                                <td>{{ $order->quantity }}</td>
+                                {{-- <td>{{ $order->quantity }}</td> --}}
                                 <td>{{ $order->price }}$</td>
                                 @if ($order->status == 0)
                                     <td><x-status-text type="fail" message="ملغي" /></td>

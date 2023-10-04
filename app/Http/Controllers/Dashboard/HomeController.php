@@ -53,10 +53,10 @@ class HomeController extends Controller
     {
         $latest_order = DB::table('orders', 'o')
             ->join('users as u', 'o.user_id', '=', 'u.id')
-            ->join('order_details as od', 'o.id', '=', 'od.order_id')
-            ->join('products as p', 'o.id', '=', 'p.id')
-            ->select('o.status', 'p.name as p_name', 'p.price', 'od.quantity', 'u.name as u_name')
-            ->orderBy('od.created_at', 'desc')
+            // ->join('order_details as od', 'o.id', '=', 'od.order_id')
+            ->join('products as p', 'o.product_id', '=', 'p.id')
+            ->select('o.status', 'p.name as p_name', 'p.price', 'u.name as u_name')
+            ->orderBy('o.created_at', 'desc')
             ->take(10)
             ->get();
 

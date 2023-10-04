@@ -12,8 +12,8 @@
                         </th>
                         <th>المستخدم</th>
                         <th>الإيميل</th>
-                        <th>الكمية</th>
                         <th>المنتج</th>
+                        <th>الحالة</th>
                         <th>التاريخ</th>
                         <th>الوقت</th>
                     </tr>
@@ -37,8 +37,33 @@
                         <td>1</td>
                         <td>syrians</td>
                         <td>syrians@gov.sy</td>
-                        <td>2</td>
                         <td>سيرفر 1 رام</td>
+                        <td>
+                            <x-status-text type="fail" message="ملغي" />
+                        </td>
+                        <td>2020-5-5</td>
+                        <td>20:21:25</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>syrians</td>
+                        <td>syrians@gov.sy</td>
+                        <td>سيرفر 1 رام</td>
+                        <td>
+                            <x-status-text type="pending" message="جاري" />
+                        </td>
+                        <td>2020-5-5</td>
+                        <td>20:21:25</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>syrians</td>
+                        <td>syrians@gov.sy</td>
+                        <td>سيرفر 1 رام</td>
+                        <td class=" cursor-pointer">
+                            {{-- I can click here for view information --}}
+                            <x-status-text />
+                        </td>
                         <td>2020-5-5</td>
                         <td>20:21:25</td>
                     </tr>

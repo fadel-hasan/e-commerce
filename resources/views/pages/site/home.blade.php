@@ -38,7 +38,7 @@
     </section>
     {{-- products --}}
     <section id="products" class="scroll-mt-[73px] md:scroll-mt-[80px]" data-url-products="{{ route('productesGet') }}">
-    {{-- set route api for get products and limte in all pages 10 example: domain.com/api/products?page=--}} >
+    {{-- set route api for get products and limte in all pages 10 example: domain.com/api/products?page=--}}
         <div class="products">
             {{-- @for ($i=0;$i<=10;$i++) --}}
 

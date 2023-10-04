@@ -76,15 +76,14 @@ class SectionController extends Controller
                 'title' => 'required',
                 'slug' => 'required|regex:/^[a-zA-Z\s]+$/|unique:sections,url',
                 'desc' => 'required',
-                'tags' => 'required|regex:/^[a-zA-Z\s,\p{Arabic}]+$/u',
+                'tags' => 'required',
             ], [
                 'title.required' => 'حقل العنوان مطلوب',
                 'slug.required' => 'حقل الرابط المختصر مطلوب',
                 'slug.unique' => 'حقل الرابط المختصر مستخدم',
                 'slug.regex' => 'حقل الرابط المختصر يجب أن يحتوي على أحرف فقط باللغة الإنجليزية',
                 'desc.required' => 'حقل الوصف مطلوب',
-                'tags.required' => 'حقل العلامات مطلوب',
-                'tags.regex' => 'حقل العلامات يجب أن يحتوي على أحرف وفواصل بينها من اجل مراعاة محركات البحث.',
+                'tags.required' => 'حقل العلامات مطلوب'
             ]);
 
             if ($validator->fails()) {

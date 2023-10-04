@@ -16,7 +16,6 @@
                     <i class="fa-solid fa-user profile-img"></i>
                 </span>
                 <nav class="dropdaown">
-                    <a href="{{ route('user.profile') }}">الملف الشخصي</a>
                     <a href="{{ route('user.history') }}">السجلات</a>
                     @if (isset(auth()->user()->role_id) and auth()->user()->role_id != 2)
                         <a href="{{ route('dashboard') }}">لوحة التحكم</a>
