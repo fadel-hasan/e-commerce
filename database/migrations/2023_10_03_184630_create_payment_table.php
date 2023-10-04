@@ -23,8 +23,6 @@ return new class extends Migration
             $table->string('type');
             // how much does he pay
             $table->decimal('money',10,2);
-            // if he use copons, if he use the value is true
-            $table->boolean('is_copons')->default(false);
             // i use text, in future maybe payment id is long
             $table->text('id_payment');
             $table->timestamps();

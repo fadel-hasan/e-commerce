@@ -80,7 +80,6 @@ class HomeController extends Controller
     {
         $sells = DB::table('order_details')->selectRaw('SUM(quantity) as sum')
             ->whereDay('created_at', Carbon::now()->day)
-            ->where('status', 1)
             ->first();
         return ($sells->sum ?? 0);
     }
@@ -88,7 +87,6 @@ class HomeController extends Controller
     public function get_count_sell_all()
     {
         $sells = DB::table('order_details')->selectRaw('SUM(quantity) as sum')
-            ->where('status', 1)
             ->first();
         return ($sells->sum ?? 0);
     }

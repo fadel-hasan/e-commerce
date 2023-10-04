@@ -16,7 +16,7 @@ class IndexsController extends Controller
      *
      *@return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    private function view(string $view, \Illuminate\Contracts\Support\Arrayable|array $data = [], array $mergeData = []): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    public function view(string $view, \Illuminate\Contracts\Support\Arrayable|array $data = [], array $mergeData = []): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
         return view(view: $view, data: $data);
     }

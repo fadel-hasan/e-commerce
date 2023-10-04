@@ -25,7 +25,7 @@
                 <label for="slug">اسم لطيف:</label>
                 <input type="text" name="slug" id="slug" placeholder="phons" dir="ltr">
                 <label for="price">السعر:</label>
-                <input type="number" name="price" id="price" placeholder="20" dir="ltr" min="0">
+                <input type="number" step="0.01" name="price" id="price" placeholder="20" dir="ltr" min="0">
                 <label for="price">الكمية:</label>
                 <input type="number" name="quantity" id="quantity" placeholder="20" dir="ltr" min="0">
                 <label for="desc">الوصف:</label>
@@ -58,7 +58,7 @@
                                 <label class="text font-bold cursor-pointer" for="name#{{ $i }}">التطويرة #{{ $i }}:</label>
                                 <input type="text" name="name#{{ $i }}" id="name#{{ $i }}" placeholder="التطويرة {{ $i }}">
                                 <label class="text font-bold cursor-pointer" for="price#{{ $i }}">سعرها :</label>
-                                <input type="number" name="price#{{ $i }}" id="price#{{ $i }}" placeholder="20$" dir="ltr">
+                                <input type="number" name="price#{{ $i }}" step="0.01" id="price#{{ $i }}" placeholder="20$" dir="ltr">
                                 <span class="button-red mb-3">حذف التطويرة</span>
                                 <hr>
                             </div>

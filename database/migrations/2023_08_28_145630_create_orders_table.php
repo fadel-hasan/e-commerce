@@ -17,7 +17,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            // $table->tinyInteger('status')->default(2);
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->tinyInteger('status')->default(2);
+            // create columns for set value more product as : id1#id2#id3
+            $table->text('dev')->default('');
             $table->timestamps();
         });
     }

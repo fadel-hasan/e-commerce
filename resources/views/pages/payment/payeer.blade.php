@@ -17,9 +17,5 @@
     <input type="hidden" name="m_curr" value="{{ $m_curr }}">
     <input type="hidden" name="m_desc" value="{{ $m_desc }}">
     <input type="hidden" name="m_sign" value="{{ $sign }}">
-    <div class="mt-2 border px-2 flex flex-row justify-center rounded-lg py-2 items-center">
-        <input type="text" name="copone" id="copone" placeholder="كود الخصم">
-        <span class="button-blue inline-block h-fit py-2" id="applyCopone">تطبيق</span>
-    </div>
     <input type="submit" name="m_process" value="دفع" class="button-blue mt-2 px-16 py-1 mx-auto" id="pay" />
 </form>

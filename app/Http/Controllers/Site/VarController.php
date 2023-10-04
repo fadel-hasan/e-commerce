@@ -70,7 +70,7 @@ class VarController extends Controller
 
     public static function sells()
     {
-        return DB::table('order_details')->selectRaw('sum(totalPrice) as price')->where('status', 1)->first();
+        return DB::table('order_details')->selectRaw('sum(totalPrice) as price')->first();
     }
 
     public static function product()

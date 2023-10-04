@@ -24,7 +24,7 @@
                 <label for="slug">اسم لطيف:</label>
                 <input type="text" name="slug" id="slug" placeholder="phons" dir="ltr">
                 <label for="price">السعر:</label>
-                <input type="number" name="price" id="price" placeholder="20" dir="ltr" min="0">
+                <input type="number" step="0.01" name="price" id="price" placeholder="20" dir="ltr" min="0">
                 <label for="percent">نسبة الربح:</label>
                 <input type="number" name="percent" id="percent" placeholder="20" dir="ltr" min="0">
                 <label for="price">الكمية:</label>

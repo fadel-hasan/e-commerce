@@ -15,9 +15,12 @@ class MemberController extends Controller
             throw new \Exception('error Page');
         }
         $members = DB::table('users', 'u')
-            ->leftJoin('orders as o', 'o.user_id', '=', 'u.id')
+            // ->leftJoin('orders as o', 'o.user_id', '=', 'u.id')
+            ->leftJoin('orders as o', function ($join){
+                $join->on('o.user_id', '=', 'u.id')->where('o.status',1);
+            })
             ->leftJoin('order_details as od', function ($join) {
-                $join->on('o.id', '=', 'od.order_id')->where('od.status', 1);
+                $join->on('o.id', '=', 'od.order_id');
             })
             ->select('u.name', 'u.email', DB::raw('sum(od.totalPrice) as money'), 'u.country')
             ->groupBy('u.name', 'u.email', 'u.country')

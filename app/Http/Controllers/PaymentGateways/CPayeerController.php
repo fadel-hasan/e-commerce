@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\PaymentGateways;
-
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 /**
  * file configration payment payeer
+ * you can download this file from payeer site
  */
-class CPayeerController extends Controller
+class CPayeerController
 {
     private $url = 'https://payeer.com/ajax/api/api.php';
     private $agent = 'Mozilla/5.0 (Windows NT 6.1; rv:12.0) Gecko/20100101 Firefox/12.0';
