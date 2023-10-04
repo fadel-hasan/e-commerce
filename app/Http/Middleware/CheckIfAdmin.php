@@ -15,11 +15,11 @@ class CheckIfAdmin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next ,$name): Response
     {
 
-        $admin_id = cache()->remember('admin_role_id', 60 *60 *24, function () {
-        return DB::table('roles')->where('name', 'admin')->value('id');
+        $admin_id = cache()->remember('admin_role_id', 60 *60 *24, function () use ($name) {
+        return DB::table('roles')->where('name', $name)->value('id');
     });
     if (Auth::check() && Auth::user()->role_id == $admin_id) {
         return $next($request);

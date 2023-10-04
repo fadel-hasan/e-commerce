@@ -2,7 +2,10 @@
 @section('app')
     @include('layouts.navbarLeft')
     @if (session()->has('error'))
-        @if (is_array(session()->get('error')->getMessages()))
+    @if (is_string(session()->get('error')))
+    <x-alert message="{{ session()->get('error') }}" type='fail' title="خطأ" />
+
+        @elseif (is_array(session()->get('error')->getMessages()))
             @foreach (session()->get('error')->getMessages() as $error)
                 <x-alert message="{{ $error[0] }}" type='fail' title="خطأ" />
             @endforeach
@@ -14,9 +17,9 @@
     @endif
     <div class="dashboard">
         {{-- @dd(is_emptyold('dev')) --}}
-        @if (count($sections) == 0)
+        {{-- @if (count($sections) == 0)
             <x-alert title="خطء" message="قم بإضافة قسم اولا" type="fail" />
-        @else
+        @else --}}
             <form action="{{ route('dashboard.edit-product', ['idProduct' => $idProduct]) }}" method="POST" class="sitting"
                 enctype="multipart/form-data">
                 @csrf
@@ -35,6 +38,8 @@
                 <label for="price">الكمية:</label>
                 <input type="number" name="quantity" id="quantity" value="{{ old('product')->quantity }}" placeholder="20"
                     dir="ltr" min="0">
+                    <label for="percent">نسبة الربح:</label>
+                <input type="number" name="percent" id="percent" placeholder="20" dir="ltr" min="0" value="{{ old('product')->percent }}">
                 <label for="desc">الوصف:</label>
                 <input type="text" name="desc" id="desc" value="{{ old('product')->description }}"
                     placeholder="الوصف">
@@ -48,20 +53,17 @@
                     <label for="file">صورة المنتج</label>
                     <img width="100" height="100" class="cursor-pointer" src="{{ asset(old('product')->url_image) }}"
                         alt="صورة المنتج">
-                    <a class="button-blue absolute" onclick="document.getElementById('file').click()">تعديل</a>
+                    <a class="button-blue absolute" onclick="document.getElementById('file').click()">تغيير الصورة</a>
                     <input type="file" name="file" id="file" style="display:none">
-                    <input type="hidden" name="file" value="{{ old('product')->url_image }}">
+                    <input type="text" name="file" id="file"  value="{{ old('product')->url_image }}" style="display:none">
                 </div>
                 <label for="category">القسم:</label>
                 <select name="category" id="category">
-                    @foreach ($sections as $s)
-                        <option value="{{ $s->id }}">{{ $s->name }}</option>
-                    @endforeach
+                    {{-- @foreach ($sections as $s)
+                        @endforeach --}}
+                        <option value="{{ old('product')->section_id }}">{{ old('product')->s_name }}</option>
                 </select>
-                <input type="submit" value="تعديل" class="button-blue w-fit mx-auto px-12 mb-4">
-            </form>
-            <hr>
-            <form action="" method="post" class="sitting">
+                <hr>
                 @csrf
                 <div class="flex flex-col my-6">
                     <h2 class="title-table">التطويرات</h2>
@@ -78,33 +80,35 @@
                                     placeholder="التطويرة {{ $key }}" value="{{ $dev->name }}">
                                 <label class="text font-bold cursor-pointer" for="price#{{ $key }}">سعرها
                                     :</label>
-                                <input type="number" name="price#{{ $key }}" id="price#{{ $key }}"
+                                    <input type="number" name="price#{{ $key }}" id="price#{{ $key }}"
                                     placeholder="20$" dir="ltr" value="{{ $dev->price }}" step="0.01">
+                                    <input type="hidden" name="id#{{ $key }}" value="{{ $dev->id }}">
                                 <span class="button-red mb-3">حذف التطويرة</span>
                                 <hr>
                             </div>
                         @endforeach
                     @endif
-                    <div id="more" class="my-2" data-count="2">
+                    <div id="more" class="my-2" data-count="{{ count(old('dev')) -1 }}">
                         {{-- تطويرات --}}
                         {{-- @for ($i = 1; $i <= 2; $i++)
                             <div class="flex flex-col">
                                 <label class="text font-bold cursor-pointer" for="name#{{ $i }}">التطويرة
                                     #{{ $i }}:</label>
-                                <input type="text" name="name#{{ $i }}" id="name#{{ $i }}"
+                                    <input type="text" name="name#{{ $i }}" id="name#{{ $i }}"
                                     placeholder="التطويرة {{ $i }}">
-                                <label class="text font-bold cursor-pointer" for="price#{{ $i }}">سعرها
-                                    :</label>
-                                <input type="number" name="price#{{ $i }}" id="price#{{ $i }}"
-                                    placeholder="20$" dir="ltr">
-                                <span class="button-red mb-3">حذف التطويرة</span>
-                                <hr>
-                            </div>
-                        @endfor --}}
-                    </div>
+                                    <label class="text font-bold cursor-pointer" for="price#{{ $i }}">سعرها
+                                        :</label>
+                                        <input type="number" name="price#{{ $i }}" id="price#{{ $i }}"
+                                        placeholder="20$" dir="ltr">
+                                        <span class="button-red mb-3">حذف التطويرة</span>
+                                        <hr>
+                                    </div>
+                                    @endfor --}}
+                                </div>
+                                <input type="submit" value="تعديل" class="button-blue w-fit mx-auto px-12 mb-4">
                 </div>
             </form>
-        @endif
+        {{-- @endif --}}
     </div>
 @endsection
 @include('pages.home')

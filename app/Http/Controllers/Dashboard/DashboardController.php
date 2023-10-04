@@ -99,8 +99,8 @@ class DashboardController extends Controller
     }
     public function editProduct(int $idProduct)
     {
-        $date = [$this->d->sections(),$idProduct];
-        $name = ['sections','idProduct'];
+        $date = [$idProduct];
+        $name = ['idProduct'];
         Edit_productController::date();
         return $this->getIndex('pages.dashboard.edit-product', array_combine($name, $date));
     }

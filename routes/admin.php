@@ -18,21 +18,21 @@ use App\Http\Controllers\Site\ProductController;
 | contains the "admin" middleware group. Now create something great!
 |
 */
-
-Route::middleware('admin')->group(function () {
+// use middleware is_verify_email at end
+Route::middleware(['admin:admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class,'index'])->middleware('log.activity:تصفح لوحة الأدمن الرئيسية')->name('dashboard');
     Route::get('/member/{sort_by?}/{sort_order?}', [DashboardController::class,'indexMember'])->middleware('log.activity:تصفح صفحة الأعضاء')->name('dashboard.member');
     Route::get('/analysis', [DashboardController::class,'indexAnalysis'])->middleware('log.activity:تصفح صفحة الإحصائيات')->name('dashboard.analysis');
     Route::get('/history', [DashboardController::class,'indexHistory'])->middleware('log.activity:تصفح صفحة السجلات')->name('dashboard.history');
     Route::post('/history', [DashboardController::class,'indexHistory'])->middleware('log.activity:تصفح صفحة السجلات')->name('post.dashboard.history');
     Route::get('/orders', [DashboardController::class,'indexOrder'])->middleware('log.activity:تصفح صفحة الطلبات')->name('dashboard.orders');
-    Route::get('/add-admin',[DashboardController::class,'indexAdmin'])->name('dashboard.add-admin');
-    Route::post('/add-admin',[DashboardController::class,'indexAdmin'])->name('post.dashboard.add-admin');
-    Route::match(['get', 'post'], '/sitting', [DashboardController::class,'indexSitting'])->name('dashboard.sitting');
-    Route::match(['get', 'post'],'/add-category', [DashboardController::class,'indexSection'])->name('dashboard.add-category');
-    Route::match(['get', 'post'],'/add-product',[DashboardController::class,'indexProduct'])->name('dashboard.add-product');
-    Route::match(['get', 'post'],'/edit-product/{idProduct}',[DashboardController::class,'editProduct'])->name('dashboard.edit-product');
-    Route::match(['get', 'post'],'/add-coupon', [DashboardController::class,'indexCoupon'])->name('dashboard.add-coupon');
+    Route::get('/add-admin',[DashboardController::class,'indexAdmin'])->name('dashboard.add-admin')->middleware('log.activity:تصفح صفحة الأدمن');
+    Route::post('/add-admin',[DashboardController::class,'indexAdmin'])->name('post.dashboard.add-admin')->middleware('log.activity:اضافة  ادمن');
+    Route::match(['get', 'post'], '/sitting', [DashboardController::class,'indexSitting'])->name('dashboard.sitting')->middleware('log.activity:تصفح صفحة الإعدادات');
+    Route::match(['get', 'post'],'/add-category', [DashboardController::class,'indexSection'])->name('dashboard.add-category')->middleware('log.activity:تصفح صفحة الأقسام');
+    Route::match(['get', 'post'],'/add-product',[DashboardController::class,'indexProduct'])->name('dashboard.add-product')->middleware('log.activity:تصفح صفحة المنتجات');
+    Route::match(['get', 'post'],'/edit-product/{idProduct}',[DashboardController::class,'editProduct'])->name('dashboard.edit-product')->middleware('log.activity:تصفح صفحة تعديل المنتج');
+    Route::match(['get', 'post'],'/add-coupon', [DashboardController::class,'indexCoupon'])->name('dashboard.add-coupon')->middleware('log.activity:تصفح صفحة الكوبونات');
 });
 
 Route::get('try', [ProductController::class, 'get_product']);
