@@ -16,4 +16,10 @@ class ConstDataController extends Controller {
             'command'   => 'refund-of-funds'
         ],
     ];
+    const paymentMethod = [
+        'payeer' => 'App\\Http\\Controllers\\PaymentGateways\\PayeerController',
+        'payeer2' => 'App\\Http\\Controllers\\PaymentGateways\\PayeerController',
+        'payeer3' => 'App\\Http\\Controllers\\PaymentGateways\\PayeerController',
+        'payeer4' => 'App\\Http\\Controllers\\PaymentGateways\\PayeerController',
+    ];
 }

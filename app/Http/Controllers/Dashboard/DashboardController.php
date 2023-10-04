@@ -101,6 +101,7 @@ class DashboardController extends Controller
     {
         $date = [$this->d->sections(),$idProduct];
         $name = ['sections','idProduct'];
+        Edit_productController::date();
         return $this->getIndex('pages.dashboard.edit-product', array_combine($name, $date));
     }
 
@@ -110,8 +111,9 @@ class DashboardController extends Controller
         $name = ['copons'];
         return $this->getIndex('pages.dashboard.add-coupon', array_combine($name, $date));
     }
-
-
+    public function indexOrder() {
+        return $this->getIndex('pages.dashboard.orders');
+    }
 
 
 

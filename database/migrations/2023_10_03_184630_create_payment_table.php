@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use function PHPUnit\Framework\once;
-
 return new class extends Migration
 {
     /**
@@ -13,15 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('payment', function (Blueprint $table) {
             $table->id();
+            // user required
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->tinyInteger('status')->default(2);
-            // create columns for set value more product as : id1#id2#id3
-            $table->text('dev')->default('');
+            // order required
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('order_details');
+            // type method payment
+            $table->string('type');
+            // how much does he pay
+            $table->decimal('money',10,2);
+            // i use text, in future maybe payment id is long
+            $table->text('id_payment');
             $table->timestamps();
         });
     }
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('payment');
     }
 };

@@ -37,16 +37,17 @@ class ProductController extends Controller
 
     public function store_product()
     {
+        // dd(request()->all());
         $validator = Validator::make(request()->all(), [
             'title' => 'required',
             'slug' => 'required|regex:/^[a-zA-Z\s]+$/|unique:sections,url',
             'price' => 'required',
             'desc' => 'required',
             'paymetner' => 'required',
-            'tags' => 'required|regex:/^[a-zA-Z\s,\p{Arabic}]+$/u',
+            'tags' => 'required|regex:/^[a-zA-Z\s,\p{Arabic}]+$/',
             'category' => 'required',
             'quantity' => 'required|min:1',
-            'percent'=>'required|regex:/^[0-9]+$/min:10',
+            'percent'=>'required|regex:/^[0-9]+$/',
             'file' => 'required|mimetypes:image/png,image/jpeg',
         ], [
             'title.required' => 'حقل العنوان مطلوب',
@@ -57,17 +58,18 @@ class ProductController extends Controller
             'tags.required' => 'حقل العلامات مطلوب',
             'tags.regex' => 'حقل العلامات يجب أن يحتوي على أحرف وفواصل بينها من اجل مراعاة محركات البحث.',
             'price.required' => 'حقل السعر مطلوب',
-            'percent.required' => 'حقل نسبة الربح مطلوب',
             'paymetner.required' => 'حقل الشرح مطلوب',
             'category.required' => 'حقل القسم مطلوب',
             'quantity.required' => 'حقل الكمية مطلوب',
             'quantity.min' => 'اقل كمية ممكنة هي منتج واحد',
+            'percent.required' => 'حقل نسبة الربح مطلوب',
             'percent.required'=>'نسبة الربح مطلوبة رجاءا',
             'percent.regex'=>'الرجاء ادخال ارقام فقط',
             'percent.min'=>'اقل نسبة ممكنة هي 10',
             'file.required' => 'يرجى تحميل صورة',
             'file.mimetypes' => 'صيغة الصورة غير مدعومة، يرجى اختيار صيغة png أو jpeg',
         ]);
+        // dd($validator);
         if ($validator->fails()) {
             $error = $validator->errors();
             session()->put('error', $error);
@@ -106,6 +108,7 @@ class ProductController extends Controller
                 $filteredData = array_filter($slicedData, function ($value, $key) {
                     return !is_a($value, 'Illuminate\Http\UploadedFile');
                 }, ARRAY_FILTER_USE_BOTH);
+                // dd($filteredData);
                 for ($i = 1; $i <= count($filteredData) / 2; $i++) {
                     DB::table('product_devs')->insert([
                         'product_id' => $p->id,
@@ -131,10 +134,9 @@ class ProductController extends Controller
     public function delete(Request $r)
     {
 
-        $f = DB::table('product_users')->where('product_id', $r->id)->delete();
-
+        $f=DB::table('product_devs')->where('product_id',$r->id)->delete();
         $s = DB::table('products')->delete($r->id);
-        if ($f and $s) {
+        if ($s) {
             return response()->json(
                 ['ok' => true],
                 200

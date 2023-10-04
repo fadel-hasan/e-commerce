@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
             $table->integer('quantity');
-            $table->tinyInteger('status')->default(2);
             $table->decimal('totalPrice',10,2);
+            // copone_id is use (it isn't require for taht i don't foregin key)
+            $table->bigIncrements('copone_id');
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@
             <label for="code">الكود:</label>
             <input type="text" name="code" id="code" placeholder="free2024">
             <label for="discount">النسبة:</label>
-            <input type="number" name="discount" id="discount" placeholder="10%" dir="ltr">
+            <input type="number" step="0.01" name="discount" id="discount" placeholder="10%" dir="ltr">
             <label for="count">عدد المستفيدين:</label>
             <input type="number" name="count" id="count" placeholder="100">
             <label for="expire_date">تاريخ الإنتهاء:</label>

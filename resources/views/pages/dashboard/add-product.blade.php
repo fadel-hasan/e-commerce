@@ -9,8 +9,8 @@
         @else
             <x-alert message="{{ session()->get('error') }}" type='fail' title="خطأ" />
 
-                @endif
-                {{ session()->forget('error') }}
+        @endif
+        {{ session()->forget('error') }}
     @endif
     <div class="dashboard">
         @if (count($sections) == 0)
@@ -24,7 +24,7 @@
                 <label for="slug">اسم لطيف:</label>
                 <input type="text" name="slug" id="slug" placeholder="phons" dir="ltr">
                 <label for="price">السعر:</label>
-                <input type="number" name="price" id="price" placeholder="20" dir="ltr" min="0">
+                <input type="number" step="0.01" name="price" id="price" placeholder="20" dir="ltr" min="0">
                 <label for="percent">نسبة الربح:</label>
                 <input type="number" name="percent" id="percent" placeholder="20" dir="ltr" min="0">
                 <label for="price">الكمية:</label>
@@ -43,7 +43,7 @@
                         <option value="{{ $s->id }}">{{ $s->name }}</option>
                     @endforeach
                 </select>
-                <input type="hidden" name="id" value="" id="id">
+                {{-- <input type="hidden" name="id" value="" id="id"> --}}
                 <div class="flex flex-col my-6">
                     <span class="button-blue w-fit self-center text-lg" id="addMore">إضافة تطوير</span>
                     <div id="more" class="my-2 flex flex-col"></div>
@@ -73,9 +73,10 @@
                                 <td>{{ $p->name }}</td>
                                 <td>{{ $p->cool_name }}</td>
                                 <td>{{ $p->price }}$</td>
-                                <td>{{ $p->quantity }}$</td>
+                                <td>{{ $p->quantity }}</td>
                                 <td>
-                                    <a class="edit" href="{{ route('dashboard.edit-product',['idProduct'=>$p->id]) }}">تعديل</a>
+                                    <a href="{{ route('dashboard.edit-product',['idProduct'=>$p->id]) }}" class="button-blue">تعديل</a>
+
                                 </td>
                                 <td>
                                     <button class="button-red remove-admin" data-delete="{{ $p->id }}">حذف</button>

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Artisan;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use Illuminate\Http\Request;
 use Stevebauman\Location\Facades\Location;
 use function PHPUnit\Framework\throwException;
 
@@ -56,15 +57,12 @@ Route::controller(\App\Http\Controllers\Site\IndexsController::class)->group(fun
         Route::get('/history/{sort_by?}/{sort_order?}','history')->name('user.history');
     });
 });
-
-//
-
-// payment
-/**
- * @param int $id the payment
- * @param int $productId for pay
-*/
-// function payment(int $id,int $productId) {
-//     view('pages.site.category');
-// }
-// Route::get('/payment/{id}/{productId}',payment($id,$productId))->name('user.category');
+Route::middleware('auth')->controller(\App\Http\Controllers\PaymentGateways\Payment::class)->group(function ()
+{
+    Route::post('/payment/{id}','createOrder')->name('user.payment');
+    Route::get('/payment/{id}/{paymentMethod}',fn(int $order_id,string $method) => view('pages.profile.payment',[
+        'payment' => $method,
+        'order_id' => $order_id,
+        'listPayment' => []
+    ]))->name('user.payment.pay')->where('id','[0-9]+')->where('paymentMethod','(info|payeer)');
+});

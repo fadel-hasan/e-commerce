@@ -75,6 +75,11 @@ class VarController extends Controller
                 'icon' => 'fa-solid fa-tags',
                 'title' => "إضافة خصم"
             ],
+            [
+                'to' => route('dashboard.orders'),
+                'icon' => 'fa-solid fa-list',
+                'title' => "الطلبات"
+            ],
         ];
 
         return $admin_link;

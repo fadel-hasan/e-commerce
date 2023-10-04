@@ -10,8 +10,8 @@
             <p>{{ $res['desProduct'] }}</p>
             <span class="price">{{ $res['price'] }}$</span>
             <h2>التطويرات</h2>
-            <form action="" method="post">
-                <input type="hidden" name="id" value="{{ $res['id'] }}">
+            <form action="{{ route('user.payment',['id'=>$res['id']]) }}" method="post">
+                @csrf
                 @if (isset($res['more']) and is_object($res['more']))
                     @foreach ($res['more'] as $moreProduct)
                         <x-checkbox
