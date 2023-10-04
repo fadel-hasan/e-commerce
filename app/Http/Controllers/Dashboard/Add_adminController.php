@@ -16,10 +16,10 @@ class Add_adminController extends Controller
         }
         $date = DB::table('users as u')
             ->leftJoin('roles as r', 'u.role_id', '=', 'r.id')
-            ->leftJoin('orders as o', 'o.user_id', '=', 'u.id')
-            ->leftJoin('order_details as od',function ($join) {
-                $join->where('od.status', 1);
+            ->leftJoin('orders as o', function($join) {
+                $join->on('o.user_id', '=', 'u.id')->where('o.status',1);
             })
+            ->leftJoin('order_details as od','od.order_id','=','o.id')
             ->leftJoin('products as p', function ($join) {
                 $join->on('p.user_id', '=', 'u.id');
             })

@@ -36,9 +36,11 @@ class AnalysisController extends Controller
 
     public function get_month_buy()
     {
-        $p = DB::table('order_details', 'od')
+        // order_details
+        $p = DB::table('orders', 'od')
             ->join('products as p', 'od.product_id', '=', 'p.id')
-            ->select(DB::raw('MONTHNAME(od.created_at) as month,YEAR(od.created_at) as year, SUM(od.quantity) as count , p.name'))
+            ->join('order_details', 'od.id', '=', 'order_details.order_id')
+            ->select(DB::raw('MONTHNAME(od.created_at) as month,YEAR(od.created_at) as year, SUM(order_details.quantity) as count , p.name'))
             ->where('od.status', 1)
             ->whereMonth('od.created_at', Carbon::now()->month)
             ->whereYear('od.created_at', Carbon::now()->year)
