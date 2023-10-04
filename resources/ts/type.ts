@@ -14,5 +14,8 @@ type resultRequestProductes = {
     link:string,
     linkCategory:string,
 }
-
-export {canvasDatas,resultRequestProductes}
+type coponReuestChek = {
+    ok:boolean,
+    discount:number
+}
+export {canvasDatas,resultRequestProductes,coponReuestChek}

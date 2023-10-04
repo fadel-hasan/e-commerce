@@ -6,8 +6,8 @@ export default class querySelectorAllElements {
         .then((result) => (result.ok == true) ? functionSuccess(result) : functionFail());
     }
     // Remove data in databases with API
-    static removeWithApi(nameClass: string, urlAttribute: string, idAttribute: string) {
-        let urlApi = document.querySelector('table.list')?.getAttribute(urlAttribute);
+    static removeWithApi(nameClass: string, urlAttribute: string, idAttribute: string,fromUrl:string = 'table.list') {
+        let urlApi = document.querySelector(fromUrl)?.getAttribute(urlAttribute);
         this.loopClick(`.${nameClass}`,(element:HTMLElement) => {
             if (confirm('هل أنت متأكد أنك تريد الحذف، الرجاء عدم حظر هذه الرسالة')) {
                 var urlRequest = `${urlApi}?id=${element.getAttribute(idAttribute)}`

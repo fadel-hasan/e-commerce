@@ -1,8 +1,9 @@
 import '@fortawesome/fontawesome-free/js/all.min.js'
 import { Chart } from 'chart.js/auto';
 import { default as LoopElements } from './queryAllElements';
-import { canvasDatas, resultRequestProductes } from './type';
+import { canvasDatas, resultRequestProductes, coponReuestChek } from './type';
 declare var canvasData: Array<canvasDatas>;
+declare let price: number;
 window.addEventListener('load', function () {
     LoopElements.loopClick('#iconSearch', () => {
         let inputSearch = document.getElementById('inputSearch') as HTMLInputElement;
@@ -122,6 +123,8 @@ window.addEventListener('load', function () {
     })
     // Remove Admin
     LoopElements.removeWithApi('remove-admin', 'data-url-remove', 'data-delete');
+    // Remove dev
+    LoopElements.removeWithApi('button-red', 'data-api', 'data-id','.sitting.edit-product');
     // addMore
     let moreHtmlAdd = this.document.getElementById('more') as HTMLDivElement;
     var htmlElementInputMore = '';
@@ -208,4 +211,33 @@ window.addEventListener('load', function () {
         navigator.clipboard.writeText(copyText.value); // Copy the text inside the text field
         alert("تم النسخ");
     })
+    // payment
+    if (price && price > 0) {
+        let totlalPrice = price;
+        let apiCheckCopon = this.document.querySelector('form.sitting')?.getAttribute('data-api');
+        let isCopon = false;
+        function changePrice() {
+            (document.getElementById('price') as HTMLInputElement).value = price.toString();
+        }
+        LoopElements.loopClick('#applyCopone',() => {
+            if (isCopon) {
+                return;
+            }
+            LoopElements.requestApi(`${apiCheckCopon}?code=${(this.document.getElementById('copone') as HTMLInputElement)?.value}`,({ok,discount} : coponReuestChek) => { // success Request
+                price -= price * discount / 100;
+                totlalPrice = totlalPrice * discount / 100;
+                console.log(price);
+                changePrice();
+                isCopon = true;
+                (this.document.getElementById('error') as HTMLParagraphElement).innerText = "";
+            },() => { // Faile Request
+                (this.document.getElementById('error') as HTMLParagraphElement).innerText = "عذراً الكوبون المستخدم غير صحيح";
+            });
+        });
+        (this.document.getElementById('quantity') as HTMLInputElement).addEventListener('change',(el:any) => {
+            price = el.target.value * totlalPrice;
+            changePrice();
+        })
+        LoopElements.loopClick('input[type="submit"]',changePrice);
+    }
 });

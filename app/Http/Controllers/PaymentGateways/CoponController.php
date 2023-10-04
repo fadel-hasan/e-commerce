@@ -26,14 +26,20 @@ class CoponController extends Controller
                 ->where('date','>',date('Y-n-d H:i:s',time() - 3600))
                 ->update(['count'=>DB::raw('`user_use_copon`.`count` + 1')]);
             $copon = DB::table('copons')
+            ->where('code','=',request('code'))
             ->where('status','=','1')
             ->where('expire_date','>',date('Y-n-d'))
             ->where('count','>','0');
-            if ($copon->count() != 0) {
-                $copon->update(['count'=>DB::raw('`copons`.`count` + 1')]);
+            if ($copon->count() > 0) {
+                $discount = $copon->first('discount')->discount;
+                if ($copon->first('count')->count == 1) {
+                    $copon->update(['updated_at'=>date('Y-n-d H:i:s'),'count'=>DB::raw('`copons`.`count` - 1'),'status'=>'0']);
+                } else {
+                    $copon->update(['updated_at'=>date('Y-n-d H:i:s'),'count'=>DB::raw('`copons`.`count` - 1')]);
+                }
                 return response([
-                    'ok' => true,
-                    'discount' => $copon->first('discount')->discount
+                    'ok'        => true,
+                    'discount'  =>$discount
                 ]);
             }
         }

@@ -48,11 +48,11 @@ class Edit_productController extends Controller
 
         $validator = Validator::make(request()->all(), [
             'title' => 'required',
-            'slug' => 'required|regex:/^[a-zA-Z\s]+$/|unique:sections,url',
+            'slug' => 'required|regex:/^\S+$/|unique:sections,url',
             'price' => 'required',
             'desc' => 'required',
             'paymetner' => 'required',
-            'tags' => 'required|regex:/^[a-zA-Z\s,\p{Arabic}]+$/',
+            'tags' => 'required',
             'category' => 'required',
             'quantity' => 'required|min:1',
             'percent'=>'required|regex:/^[0-9]+$/',
@@ -63,7 +63,6 @@ class Edit_productController extends Controller
             'slug.regex' => 'حقل الرابط المختصر يجب أن يحتوي على أحرف فقط باللغة الإنجليزية',
             'desc.required' => 'حقل الوصف مطلوب',
             'tags.required' => 'حقل العلامات مطلوب',
-            'tags.regex' => 'حقل العلامات يجب أن يحتوي على أحرف وفواصل بينها من اجل مراعاة محركات البحث.',
             'price.required' => 'حقل السعر مطلوب',
             'paymetner.required' => 'حقل الشرح مطلوب',
             'category.required' => 'حقل القسم مطلوب',
@@ -81,8 +80,7 @@ class Edit_productController extends Controller
             return back();
         }
         else{
-
-            DB::table('products')->where('id', request('idProduct'))->when(request('title') != old('product')->name, function ($u) {
+            DB::table('products')->where('id', request('idProduct'))->when(request('title') != old('product')->s_name, function ($u) {
                 $u->update([
                     'name' => request('title')
                 ]);
@@ -201,7 +199,7 @@ class Edit_productController extends Controller
 
         public function delete(Request $r)
     {
-        $s = DB::table('products_devs')->delete($r->id);
+        $s = DB::table('product_devs')->delete($r->id);
         if ($s) {
             return response()->json(
                 ['ok' => true],
