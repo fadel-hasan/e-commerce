@@ -19,20 +19,27 @@
                     </tr>
                 </thead>
                 @php
-                    // $i = ($records->currentPage() - 1) * $records->perPage();
+                    $i = ($orders->currentPage() - 1) * $orders->perPage();
                 @endphp
                 <tbody class="hisroty">
-                    {{-- @foreach ($records as $record)
+                    @foreach ($orders as $order)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $record->name ? $record->name : 'visit' }}</td>
-                            <td>{{ $record->email }}</td>
-                            <td>{{ $record->op }}</td>
+                            <td>{{ $order->u_name }}</td>
+                            <td>{{ $order->email }}</td>
+                            <td>{{ $order->p_name }}</td>
+                            @if ($order->status == 0)
+                                    <td><x-status-text type="fail" message="ملغي" /></td>
+                                @elseif ($order->status == 1)
+                                    <td class=" cursor-pointer"><x-status-text /></td>
+                                @else
+                                    <td><x-status-text type="pending" message="جاري" /></td>
+                                @endif
                             <td>{{ $record->ip }}</td>
-                            <td>{{ date('Y-m-d', strtotime($record->created_at)) }}</td>
-                            <td>{{ date('H:i:s', strtotime($record->created_at)) }}</td>
+                            <td>{{ date('Y-m-d', strtotime($order->created_at)) }}</td>
+                            <td>{{ date('H:i:s', strtotime($order->created_at)) }}</td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                     <tr>
                         <td>1</td>
                         <td>syrians</td>
@@ -70,17 +77,17 @@
                 </tbody>
             </table>
         </section>
-        {{-- <div class="flex justify-center">
-            @if ($records->previousPageUrl())
-                <a href="{{ $records->previousPageUrl() }}" class="button-blue mx-2 mt-4"><i
+        <div class="flex justify-center">
+            @if ($orders->previousPageUrl())
+                <a href="{{ $orders->previousPageUrl() }}" class="button-blue mx-2 mt-4"><i
                         class="fa-solid fa-angle-right"></i> السابق</a>
             @endif
 
-            @if ($records->nextPageUrl())
-                <a href="{{ $records->nextPageUrl() }}" class="button-blue mx-2 mt-4">التالي <i
+            @if ($orders->nextPageUrl())
+                <a href="{{ $orders->nextPageUrl() }}" class="button-blue mx-2 mt-4">التالي <i
                         class="fa-solid fa-angle-right rotate-180"></i></a>
             @endif
-        </div> --}}
+        </div>
     </div>
 @endsection
 @include('pages.home')

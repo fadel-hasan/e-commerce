@@ -112,7 +112,9 @@ class DashboardController extends Controller
         return $this->getIndex('pages.dashboard.add-coupon', array_combine($name, $date));
     }
     public function indexOrder() {
-        return $this->getIndex('pages.dashboard.orders');
+        $date = [$this->d->order()];
+        $name = ['orders'];
+        return $this->getIndex('pages.dashboard.orders',array_combine($name, $date));
     }
 
 

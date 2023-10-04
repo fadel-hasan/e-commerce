@@ -13,7 +13,7 @@ class VarController extends Controller
 
 
 
-    private $h, $m, $a, $r, $d, $s, $sec, $p, $c;
+    private $h, $m, $a, $r, $d, $s, $sec, $p, $c,$o;
     public function __construct()
     {
         $this->h = new HomeController();
@@ -25,6 +25,7 @@ class VarController extends Controller
         $this->sec = new SectionController();
         $this->p = new ProductController();
         $this->c = new CoponController();
+        $this->o= new OrderController();
     }
 
     public static function navbarLink()
@@ -211,5 +212,10 @@ class VarController extends Controller
     public function copons()
     {
         return $this->c->get_copon();
+    }
+
+    public function order()
+    {
+        return $this->o->get_order();
     }
 }

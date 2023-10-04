@@ -45,7 +45,7 @@ class Edit_productController extends Controller
         // dd(old('dev')->{'name#' . $i});
         // dd(old('dev')[0]->id);
         // dd(request()->all());
-
+        debug(request()->all());
         $validator = Validator::make(request()->all(), [
             'title' => 'required',
             'slug' => 'required|regex:/^[a-zA-Z\s]+$/|unique:sections,url',
@@ -129,7 +129,7 @@ class Edit_productController extends Controller
                     }, ARRAY_FILTER_USE_BOTH);
                     // dd(count($filteredData)/3);
 
-                    for ($i = 0; $i <= round(count($filteredData) / 3); $i++) {
+                    for ($i = 0; $i < round(count($filteredData) / 3); $i++) {
                         // dd(old('dev')[$i]->name);
                         // dd(request('name#'.$i)!=old('dev')[$i]->name and request('id#'.$i)==old('dev')[$i]->id);
                         if (request('name#' . $i) and request('price#' . $i)) {

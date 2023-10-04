@@ -112,6 +112,6 @@ class IndexsController extends Controller
      */
     public function history(string $sort_by = 'id', string $sort_order = 'desc'): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
-        return view('pages.profile.history', ['sort_order' => $sort_order]);
+        return view('pages.profile.history', ['orders' => OrderController::get_orders($sort_by,$sort_order),'sort_order'=>$sort_order]);
     }
 }
