@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PaymentGateways;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PayeerController extends Controller
 {
@@ -29,14 +30,25 @@ class PayeerController extends Controller
     public function AmounyPay()
     {
         if ($this->issetGet()) {
+            // Get order details
             $arShopHistory = $this->payeer->getShopOrderInfo([
                 'shopId' => env('id_shop'),
-                'orderId' => $_GET['m_orderid'],
+                'orderId' => request('m_orderid'),
             ]);
-            // 24.06.2022 18:26:54
-            $id = $this->bot->fetch('payeer',['Id'=>$_GET['m_orderid']]);
-            if (!isset($id['Many'])) {
-                $this->bot->insert('payeer',['Id'=>$_GET['m_orderid'],'Bot'=>$this->bot->myBot()->id,'Many'=>$arShopHistory['info']['sumOut']]);
+            // select in databases
+            $info_order = DB::table('payment')
+            ->where('id_payment','=',request('m_orderid'))
+            ->where('type','=','payeer');
+            if ($info_order->count() == 0) {
+                // insert information in database, because cancel any repeat in data
+                DB::table('payment')->insert([
+                    'id_payment' => request('m_orderid'),
+                    'type'       => 'payeer',
+                    'user_id'    => session('user_id'),
+                    'order_id'   => session('order_id'),
+                    'money'      => $arShopHistory['info']['sumOut'],
+                    'is_copons'  => session('is_copons') ? true : false,
+                ]);
                 return $arShopHistory['info']['sumOut'];
             }
         }
@@ -44,7 +56,7 @@ class PayeerController extends Controller
     }
     public function html($url, $Member, $price)
     {
-        $m_shop = payeer['id_shop'];
+       /*  $m_shop = payeer['id_shop'];
         $m_orderid = rand(20, 250);
         $m_amount = number_format($price, 2, '.', '');
         $m_curr = 'USD';
@@ -73,13 +85,13 @@ class PayeerController extends Controller
             </div>
             <input type="submit" name="m_process" value="دفع" class="btn btn-outline-success mt-2 px-4" id="pay" />
             <p class="text-start fs-5 mt-2">ملاحظة: أثناء عملية الدفع الخاصة بك فأنت موافق على <span class="text-primary text-decoration-underline" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">الشروط والأحكام</span></p>
-            </form>';
+            </form>'; */
     }
     public function successPay()
     {
-        $bot = $this->bot;
-        $_SESSION['ok'] = true;
-        if (isset($_SESSION['Products']) and !empty($_SESSION['Products'])) {
+        // $_SESSION['ok'] = true;
+        session()->put('okPayment','true');
+        /* if (isset($_SESSION['Products']) and !empty($_SESSION['Products'])) {
             $fetch = $bot->fetch('Products', ['Id' => $_SESSION['Products']]);
             $sql = $bot->fetch($bot->SelectData('member', 'Id="' . $_SESSION['Member'] . '"'));
             $txtAdmin = "مرحبا عزيزي الأدمن 🙋🏻 هناك عضو إشترى منتج 😉:\n";
@@ -118,6 +130,6 @@ class PayeerController extends Controller
             $txtAdmin .= "ايدي العضو : `{$_SESSION['Member']}`\n";
             $bot->sendAdmin($txtAdmin);
             $bot->sendMessage($_SESSION['Member'], "مرحبا عزيزي 🙋🏻 تم تفعيل الشركات التالية:\n" . implode(' - ', $array), [], 0);
-        }
+        } */
     }
 }

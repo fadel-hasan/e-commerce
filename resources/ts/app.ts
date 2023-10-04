@@ -135,7 +135,9 @@ window.addEventListener('load', function () {
             <input type="number" name="price#${numberAddMore}" id="price#${numberAddMore}" placeholder="20$" dir="ltr">
             <span class="button-red mb-3">حذف التطويرة</span><hr></div>`;
             moreHtmlAdd.innerHTML += htmlElementInputMore;
+            LoopElements.removeMoreProduct(() => numberAddMore--);
         });
+        LoopElements.removeMoreProduct(() => numberAddMore--);
     }
     // moreProductsClick
     let moreProductsClick = this.document.getElementById('moreProducts') as HTMLButtonElement;
@@ -168,7 +170,6 @@ window.addEventListener('load', function () {
                     `;
                 });
                 (this.document.querySelector('.products') as HTMLDivElement).innerHTML += htmlProductInsert;
-                LoopElements.removeMoreProduct();
                 if (htmlProductInsert === '') {
                     moreProductsClick.remove();
                 }
@@ -179,7 +180,6 @@ window.addEventListener('load', function () {
             });
         })
     }
-    LoopElements.removeMoreProduct();
     // img-profile
     let dropDaown = false;
     let dropDaownDiv = this.document.querySelector('.dropdaown') as HTMLDivElement;

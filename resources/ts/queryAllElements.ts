@@ -19,9 +19,10 @@ export default class querySelectorAllElements {
     static loopClick(elementName:string,funcationCall:CallableFunction) {
         (document.querySelectorAll(elementName) as NodeListOf<HTMLElement>)?.forEach((element) => element.addEventListener('click',() => funcationCall(element)));
     }
-    static removeMoreProduct() {
+    static removeMoreProduct(fun:CallableFunction) {
         this.loopClick('.flex span.button-red',(element:HTMLElement) => {
             element.parentElement?.remove();
+            fun();
         });
     }
 }

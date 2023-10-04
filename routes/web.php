@@ -55,16 +55,12 @@ Route::controller(\App\Http\Controllers\Site\IndexsController::class)->group(fun
         Route::get('/','profile')->name('user.profile');
         Route::get('/history/{sort_by?}/{sort_order?}','history')->name('user.history');
     });
+    Route::get('/payment/{id}/{paymentMethod?}',fn(int $order_id,string $method = 'info') => view('pages.profile.payment',[
+        'payment' => $method,
+        'order_id' => $order_id,
+        'listPayment' => [
+            'payeer',
+            'payeer',
+        ]
+    ]))->name('user.payment')->where('id','[0-9]+')->where('paymentMethod','(info|payeer)');
 });
-
-//
-
-// payment
-/**
- * @param int $id the payment
- * @param int $productId for pay
-*/
-// function payment(int $id,int $productId) {
-//     view('pages.site.category');
-// }
-// Route::get('/payment/{id}/{productId}',payment($id,$productId))->name('user.category');

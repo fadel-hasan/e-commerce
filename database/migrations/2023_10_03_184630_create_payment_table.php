@@ -13,7 +13,20 @@ return new class extends Migration
     {
         Schema::create('payment', function (Blueprint $table) {
             $table->id();
-            // $table->string();
+            // user required
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            // order required
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('order_details');
+            // type method payment
+            $table->string('type');
+            // how much does he pay
+            $table->decimal('money',10,2);
+            // if he use copons, if he use the value is true
+            $table->boolean('is_copons')->default(false);
+            // i use text, in future maybe payment id is long
+            $table->text('id_payment');
             $table->timestamps();
         });
     }
