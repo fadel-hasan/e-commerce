@@ -40,7 +40,7 @@ class ProductController extends Controller
         // dd(request()->all());
         $validator = Validator::make(request()->all(), [
             'title' => 'required',
-            'slug' => 'required|regex:/^[a-zA-Z\s]+$/|unique:sections,url',
+            'slug' => 'required|regex:/^\S+$/|unique:sections,url',
             'price' => 'required',
             'desc' => 'required',
             'paymetner' => 'required',

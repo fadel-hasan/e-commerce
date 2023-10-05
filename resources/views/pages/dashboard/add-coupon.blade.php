@@ -38,7 +38,6 @@
                         <th>الرمز</th>
                         <th>النسبة</th>
                         <th>عدد المستفيدين</th>
-                        <th>عدد المستخدمين</th>
                         <th>تاريخ انتهاء كود الخصم</th>
                         <th>حذف</th>
                     </tr>
@@ -50,7 +49,6 @@
                             <td>{{ $c->code }}</td>
                             <td>{{ $c->discount }}%</td>
                             <td>{{ $c->count }}</td>
-                            <td>90</td>
                             <td>{{ $c->expire_date }}</td>
                             <td>
                                 <button class="button-red remove-admin" data-delete="{{ $c->id }}">حذف</button>

@@ -74,7 +74,7 @@ class SectionController extends Controller
         if (request()->isMethod('POST')) {
             $validator = Validator::make(request()->all(), [
                 'title' => 'required',
-                'slug' => 'required|regex:/^[a-zA-Z\s]+$/|unique:sections,url',
+                'slug' => 'required|regex:/^\S+$/|unique:sections,url',
                 'desc' => 'required',
                 'tags' => 'required',
             ], [

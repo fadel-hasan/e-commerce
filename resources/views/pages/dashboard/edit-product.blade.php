@@ -20,8 +20,8 @@
         {{-- @if (count($sections) == 0)
             <x-alert title="خطء" message="قم بإضافة قسم اولا" type="fail" />
         @else --}}
-            <form action="{{ route('dashboard.edit-product', ['idProduct' => $idProduct]) }}" method="POST" class="sitting"
-                enctype="multipart/form-data">
+            <form action="{{ route('dashboard.edit-product', ['idProduct' => $idProduct]) }}" method="POST" class="sitting edit-product"
+                enctype="multipart/form-data" data-api="{{ route('removeDev') }}">
                 @csrf
                 <h2 class="title-table">تعديل منتج</h2>
                 <input type="hidden" name="idProdcvt" name="idproduct" value="{{ $idProduct }}">
@@ -51,9 +51,11 @@
                     placeholder="هاتف ابل، هاتف ايفون">
                 <div class="image-container relative">
                     <label for="file">صورة المنتج</label>
-                    <img width="100" height="100" class="cursor-pointer" src="{{ asset(old('product')->url_image) }}"
+                    <div class="max-w-[600px] mx-auto">
+                        <img class="cursor-pointer w-full" src="{{ asset(old('product')->url_image) }}"
                         alt="صورة المنتج">
-                    <a class="button-blue absolute" onclick="document.getElementById('file').click()">تغيير الصورة</a>
+                    </div>
+                    <a class="button-blue mb-4" onclick="document.getElementById('file').click()">تغيير الصورة</a>
                     <input type="file" name="file" id="file" style="display:none">
                     <input type="text" name="file" id="file"  value="{{ old('product')->url_image }}" style="display:none">
                 </div>
@@ -83,7 +85,7 @@
                                     <input type="number" name="price#{{ $key }}" id="price#{{ $key }}"
                                     placeholder="20$" dir="ltr" value="{{ $dev->price }}" step="0.01">
                                     <input type="hidden" name="id#{{ $key }}" value="{{ $dev->id }}">
-                                <span class="button-red mb-3">حذف التطويرة</span>
+                                <span class="button-red mb-3" data-id="{{ $key }}">حذف التطويرة</span>
                                 <hr>
                             </div>
                         @endforeach

@@ -13,9 +13,12 @@
 <form method="post" action="https://payeer.com/merchant/" class="sitting">
     <input type="hidden" name="m_shop" value="{{ $m_shop }}">
     <input type="hidden" name="m_orderid" value="{{ $m_orderid }}">
-    <input type="number" id="number" readonly name="m_amount" value="{{ $m_amount }}">
+    <input type="hidden" id="number" readonly name="m_amount" value="{{ $m_amount }}" readonly>
     <input type="hidden" name="m_curr" value="{{ $m_curr }}">
     <input type="hidden" name="m_desc" value="{{ $m_desc }}">
     <input type="hidden" name="m_sign" value="{{ $sign }}">
     <input type="submit" name="m_process" value="دفع" class="button-blue mt-2 px-16 py-1 mx-auto" id="pay" />
+    <script>
+        document.getElementById('pay').click();
+    </script>
 </form>

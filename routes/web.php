@@ -61,9 +61,10 @@ Route::middleware('auth')->controller(\App\Http\Controllers\PaymentGateways\Paym
 {
     Route::post('/payment/{id}','createOrder')->name('user.payment');
     Route::match(['get','post'],'/paymentOrder/{paymentOrder}','viewOrder')->name('user.payment.order');
-    Route::get('/paymentOrder/{paymentOrder}/{paymentMethod}',fn(int $order_id,string $method) => view('pages.profile.payment',[
+    /* Route::get('/paymentOrder/{paymentOrder}/{paymentMethod}',fn(int $order_id,string $method) => view('pages.profile.payment',[
         'payment' => $method,
         'order_id' => $order_id,
         'listPayment' => []
-    ]))->name('user.payment.pay')->where('id','[0-9]+')->where('paymentMethod','(info|payeer)');
+    ]))->name('user.payment.pay')->where('id','[0-9]+')->where('paymentMethod','(payeer)'); */
+    Route::post('/paymentOrder/{paymentOrder}','payOrder')->name('user.payment.pay')->where('id','[0-9]+')/* ->where('paymentMethod','('.implode('|',array_keys(\App\Http\Controllers\Site\ConstDataController::paymentMethod)).')') */;
 });

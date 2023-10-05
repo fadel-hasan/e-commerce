@@ -50,7 +50,7 @@ class Payment extends IndexsController
                 ]);
         } else {
             $hash = DB::table('user_use_copon')
-                ->where('date', '>', date('Y-n-d H:i:s', time() - (3600 * 24)))
+                ->where('date', '>', date('Y-n-d H:i:s', time() - 3600))
                 ->where('user_id', '=', $idUser)
                 ->first('hash')
                 ->hash;
@@ -119,6 +119,70 @@ class Payment extends IndexsController
             $price += $value->price;
         }
         return $price;
+    }
+    /**
+     * pay order
+     * @param int $idProduct id order from table product
+     * @param Request $request Request represents an HTTP request (from Laravel)
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|never
+     */
+    public function payOrder(int $idOrder, Request $request): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    {
+        $copone_id = 0;
+        if (!empty($request->get('copone'))) {
+            $copone = DB::table('copons')
+            ->where('code','=',$request->get('copone'))
+            ->where('updated_at','>',date('Y-n-d H:i:s',time() - 3600));
+            $copone_id = $copone->first()->id;
+        }
+        $price = 0;
+        $priceGet = DB::table('orders','o')
+        ->where('o.id','=',$idOrder)
+        ->join('products as p','p.id','=','o.product_id')
+        ->select('p.price as price','o.dev as devs')
+        ->first()
+        ;
+        $price = $priceGet->price;
+        foreach (explode('#',$priceGet->devs) as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+            $price += DB::table('product_devs')
+            ->where('id','=',$value)
+            ->first()
+            ->price;
+        }
+        if ($copone_id != 0) {
+            $price -= $price * $copone->first()->discount / 100;
+        }
+        $price *= $request->get('quantity');
+        $order_details = DB::table('order_details')
+        ->where('order_id','=',$idOrder);
+        if ($order_details->count() == 0) {
+            DB::table('order_details')
+            ->insert([
+                'order_id' => $idOrder,
+                'quantity' => $request->get('quantity'),
+                'totalPrice' => $price,
+                'copone_id' => $copone_id,
+                'created_at' => date('Y-n-d H:i:s'),
+                'updated_at' => date('Y-n-d H:i:s'),
+            ]);
+        } else {
+            $order_details
+            ->update([
+                'quantity' => $request->get('quantity'),
+                'totalPrice' => $price,
+                'copone_id' => $copone_id,
+                'updated_at' => date('Y-n-d H:i:s'),
+            ]);
+        }
+        $data = [];
+        $data['payment'] = $request->get('method');
+        $data['order_id'] = $idOrder;
+        $data['price'] = $price;
+        session()->put('idOrder',$idOrder);
+        return $this->view('pages.profile.payment', $data);
     }
 }
 
