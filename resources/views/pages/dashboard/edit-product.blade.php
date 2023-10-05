@@ -85,7 +85,7 @@
                                     <input type="number" name="price#{{ $key }}" id="price#{{ $key }}"
                                     placeholder="20$" dir="ltr" value="{{ $dev->price }}" step="0.01">
                                     <input type="hidden" name="id#{{ $key }}" value="{{ $dev->id }}">
-                                <span class="button-red mb-3" data-id="{{ $key }}">حذف التطويرة</span>
+                                <span class="button-red mb-3" data-id="{{ $dev->id }}">حذف التطويرة</span>
                                 <hr>
                             </div>
                         @endforeach

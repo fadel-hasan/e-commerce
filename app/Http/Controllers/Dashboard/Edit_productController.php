@@ -80,7 +80,7 @@ class Edit_productController extends Controller
             return back();
         }
         else{
-            DB::table('products')->where('id', request('idProduct'))->when(request('title') != old('product')->s_name, function ($u) {
+            DB::table('products')->where('id', request('idProduct'))->when(request('title') != old('product')->name, function ($u) {
                 $u->update([
                     'name' => request('title')
                 ]);

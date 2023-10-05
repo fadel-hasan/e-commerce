@@ -79,6 +79,24 @@ class ProductController extends Controller
         abort(404);
     }
 
+
+    public function get_smiler_product()
+    {
+        $s = DB::table('products')->where('cool_name', request('uri'))
+            ->select('section_id','id')
+            ->first();
+        if ($s) {
+            $p = DB::table('products','p')->where('p.section_id', $s->section_id)
+                ->join('sections as s','p.section_id','=','s.id')
+                ->select('s.name as s_name','s.url as s_url','p.*')
+                ->whereNot('p.id',$s->id)
+                ->orderBy('p.id', 'desc')
+                ->paginate(20);
+                return $p;
+        }
+        abort(404);
+    }
+
     public function section()
     {
         $s = DB::table('sections')->where('url', request('uri'))->first('*');
@@ -89,6 +107,4 @@ class ProductController extends Controller
         }
         abort(404);
     }
-
-    
 }

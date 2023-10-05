@@ -42,25 +42,21 @@
             في حال عدم وجود منتج  من نفس القسم او قام بشرائها يتم عرض منتج عشوائي
             --}}
         <div class="products mt-8">
-            @for ($i = 0; $i <= 6; $i++)
-                <article>
-                    <div class="img">
-                        <a href="{{ route('user.product', ['uri' => 'test']) }}">
-                            <img src="https://placehold.co/600x400.png" alt="العنوان" loading="lazy">
-                        </a>
-                    </div>
-                    <div class="content">
-                        <a href="{{ route('user.product', ['uri' => 'test']) }}">
-                            <h3>سيرفر رام 4</h3>
-                        </a>
-                        <p>معنى remo, تعريف remo في قاموس المعاني الفوري مجال البحث مصطلحات المعاني ضمن قاموس عربي انجليزي.
-                        </p>
-                        <a href="{{ route('user.product', ['uri' => 'test']) }}" class="button-blue">المزيد من
-                            المعلومات</a>
-                    </div>
-                    <a class="category" href="{{ route('user.product', ['uri' => 'test']) }}">سيرفرات</a>
-                </article>
-            @endfor
+            @foreach ($res['smiler'] as $p)
+            <article>
+                <div class="img">
+                    <a href="{{ route('user.product',['uri'=>$p->cool_name]) }}">
+                        <img src="{{ asset($p->url_image) }}" alt="العنوان" loading="lazy">
+                    </a>
+                </div>
+                <div class="content">
+                    <a href="{{ route('user.product',['uri'=>$p->cool_name]) }}"><h3>{{ $p->name }}</h3></a>
+                    <p>{{ $p->description }}</p>
+                    <a href="{{ route('user.product',['uri'=>$p->cool_name]) }}" class="button-blue">المزيد من المعلومات</a>
+                </div>
+                <a class="category" href="{{ route('user.category',['uri'=>$p->s_url]) }}">{{ $p->s_name }}</a>
+            </article>
+            @endforeach
         </div>
     </section>
 @endsection

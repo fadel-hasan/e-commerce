@@ -79,6 +79,7 @@ class VarController extends Controller
         $array = $p->product();
         $product = $array['product'];
         $more = $array['dev'];
+        $more_product = $p->get_smiler_product();
         $res = [
             'name'          => $product->name,
             'url'           => $product->cool_name,
@@ -86,7 +87,8 @@ class VarController extends Controller
             'desProduct'    => $product->description,
             'price'         => $product->price,
             'id'            => $product->id,
-            'more'          => $more
+            'more'          => $more,
+            'smiler'=>$more_product
         ];
         return $res;
     }
