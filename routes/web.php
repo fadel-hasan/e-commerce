@@ -57,14 +57,10 @@ Route::controller(\App\Http\Controllers\Site\IndexsController::class)->group(fun
         Route::get('/history/{sort_by?}/{sort_order?}','history')->name('user.history');
     });
 });
-Route::middleware('auth')->controller(\App\Http\Controllers\PaymentGateways\Payment::class)->group(function ()
+Route::middleware('auth')->controller(\App\Http\Controllers\PaymentGateways\PaymentController::class)->group(function ()
 {
     Route::post('/payment/{id}','createOrder')->name('user.payment');
     Route::match(['get','post'],'/paymentOrder/{paymentOrder}','viewOrder')->name('user.payment.order');
-    /* Route::get('/paymentOrder/{paymentOrder}/{paymentMethod}',fn(int $order_id,string $method) => view('pages.profile.payment',[
-        'payment' => $method,
-        'order_id' => $order_id,
-        'listPayment' => []
-    ]))->name('user.payment.pay')->where('id','[0-9]+')->where('paymentMethod','(payeer)'); */
     Route::post('/paymentOrder/{paymentOrder}','payOrder')->name('user.payment.pay')->where('id','[0-9]+')/* ->where('paymentMethod','('.implode('|',array_keys(\App\Http\Controllers\Site\ConstDataController::paymentMethod)).')') */;
+    Route::match(['post','get'],'/paymentMethod/{method}','afterPay')->where('method','payeer');
 });

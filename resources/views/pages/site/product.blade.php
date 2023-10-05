@@ -1,6 +1,11 @@
 @section('title', 'الصفحة الرئيسية')
 @section('app')
     {{-- Produtc --}}
+    @if (session()->has('success'))
+        <x-alert type="success" title="نجح الدفع" message="{{ session()->get('success') }}" />
+    @elseif (session()->has('fail'))
+        <x-alert type="fail" title="فشل الدفع" message="{{ session()->get('fail') }}" />
+    @endif
     <section id="produtc-page">
         <div class="img">
             <img src="{{ asset($res['image']) }}" alt="{{ $res['name'] }}">

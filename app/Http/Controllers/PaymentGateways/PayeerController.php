@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function PHPUnit\Framework\returnSelf;
+
 class PayeerController extends Controller
 {
     private $payeer;
@@ -14,13 +16,13 @@ class PayeerController extends Controller
      */
     public function __construct()
     {
-        $this->payeer = new CPayeerController(env('account_private'),env('id_private'),env('key_private'));
+        $this->payeer = new CPayeerController(env('account_private'), env('id_private'), env('key_private'));
     }
     /**
      * check is request from payeer after go to pay
      * @return bool
      */
-    public function issetGet() :bool
+    public function issetGet(): bool
     {
         if (request('successPayeer') or request('failPayeer') or request('status')) {
             return true;
@@ -52,15 +54,15 @@ class PayeerController extends Controller
             ]);
             // select in databases
             $info_order = DB::table('payment')
-            ->where('id_payment','=',request('m_orderid'))
-            ->where('type','=','payeer');
+                ->where('id_payment', '=', request('m_orderid'))
+                ->where('type', '=', 'payeer');
             if ($info_order->count() == 0) {
                 // insert information in database, because cancel any repeat in data
                 DB::table('payment')->insert([
                     'id_payment' => request('m_orderid'),
                     'type'       => 'payeer',
                     'user_id'    => session('user_id'),
-                    'order_id'   => session('order_id'),
+                    'order_id'   => session('idOrder'),
                     'money'      => $arShopHistory['info']['sumOut'],
                     'is_copons'  => session('is_copons') ? true : false,
                 ]);
@@ -68,5 +70,18 @@ class PayeerController extends Controller
             }
         }
         return 0;
+    }
+    /**
+     * run check and exec success command
+     */
+    public function run()
+    {
+        if (session('idOrder') and $this->issetGetForPay()) {
+            if ($_SESSION['Price'] == $this->AmounyPay()) {
+                $this->successPay();
+                return true;
+            }
+        }
+        return false;
     }
 }

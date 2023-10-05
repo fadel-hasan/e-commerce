@@ -1,14 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\PaymentGateways;
-
+/**
+ * use payment method here
+*/
+use App\Http\Controllers\PaymentGateways\{PayeerController};
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Site\IndexsController;
 use App\Http\Controllers\Site\ConstDataController;
 
-class Payment extends IndexsController
+class PaymentController extends IndexsController
 {
     /**
      * Create order and view payment method
@@ -71,9 +74,9 @@ class Payment extends IndexsController
             ->where('o.id', '=', $idOrder)
             ->where('o.user_id','=',$idUser)
             ->where('o.created_at','>',date('Y-n-d H:i:s',time() - 3600))
-            ->where('status','=','2')
+            ->where('o.status','=','2')
             ->join('products as p', 'p.id', '=', 'o.product_id')
-            ->first(['p.price as price', 'p.quantity as quantity','o.dev as dev']);
+            ->first(['p.price as price', 'p.quantity as quantity','o.dev as dev','p.information as information']);
         if (!isset($data['product']->price)) {
             return abort(403);
         }
@@ -87,38 +90,6 @@ class Payment extends IndexsController
         $data['listPayment'] = array_keys(ConstDataController::paymentMethod);
         $data['hash'] = $hash;
         return $this->view('pages.profile.payment', $data);
-    }
-    /**
-     * get devs as string
-     * @param ?array $devs
-     * @return string
-     */
-    private function getIdDevs(?array $devs = []): string
-    {
-        if (empty($devs)) {
-            return '';
-        }
-        // Convert array to text
-        $implode = implode('#', $devs);
-        // remove name more from string
-        $result = str_replace('more#', '', $implode);
-        return $result;
-    }
-    /**
-     * get price all dev
-     * @param string $devs after convert with `getIdDevs`
-     * @return int
-     */
-    private function priceMore(?string $devs = '') :int
-    {
-        $select = DB::table('product_devs')
-        ->whereIn('id',explode('#',$devs),'or')
-        ->get();
-        $price = 0;
-        foreach ($select as $key => $value) {
-            $price += $value->price;
-        }
-        return $price;
     }
     /**
      * pay order
@@ -138,10 +109,15 @@ class Payment extends IndexsController
         $price = 0;
         $priceGet = DB::table('orders','o')
         ->where('o.id','=',$idOrder)
+        ->where('o.status','=','2')
         ->join('products as p','p.id','=','o.product_id')
-        ->select('p.price as price','o.dev as devs')
+        ->select('p.price as price','o.dev as devs','o.user_id as user_id')
         ->first()
         ;
+        // for check from order for it is done hi don't pay agen
+        if (!isset($priceGet->price)) {
+            abort(403);
+        }
         $price = $priceGet->price;
         foreach (explode('#',$priceGet->devs) as $key => $value) {
             if (empty($value)) {
@@ -165,6 +141,7 @@ class Payment extends IndexsController
                 'quantity' => $request->get('quantity'),
                 'totalPrice' => $price,
                 'copone_id' => $copone_id,
+                'details' => $request->get('details'),
                 'created_at' => date('Y-n-d H:i:s'),
                 'updated_at' => date('Y-n-d H:i:s'),
             ]);
@@ -174,6 +151,7 @@ class Payment extends IndexsController
                 'quantity' => $request->get('quantity'),
                 'totalPrice' => $price,
                 'copone_id' => $copone_id,
+                'details' => $request->get('details'),
                 'updated_at' => date('Y-n-d H:i:s'),
             ]);
         }
@@ -181,8 +159,95 @@ class Payment extends IndexsController
         $data['payment'] = $request->get('method');
         $data['order_id'] = $idOrder;
         $data['price'] = $price;
-        session()->put('idOrder',$idOrder);
+        $this->setSession($idOrder,$priceGet->user_id,($copone_id != 0));
         return $this->view('pages.profile.payment', $data);
+    }
+    /**
+     * after pay for check from order
+     *
+     * @param string $method name payment method
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     **/
+    public function afterPay(string $method) :\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+    {
+        // start controller
+        $nameClass = "App\\Http\\Controllers\\PaymentGateways\\". ucfirst($method) . "Controller";
+        $class = new $nameClass();
+        $order = DB::table('orders', 'o')
+        ->where('o.id', '=', session('idOrder'))
+        ->where('o.user_id','=',session('user_id'))
+        ->where('o.created_at','>',date('Y-n-d H:i:s',time() - 3600))
+        ->where('o.status','=','2')
+        ->join('products as p', 'p.id', '=', 'o.product_id');
+        if ($class->run()) {
+            $order->update(['o.status'=>1]);
+            $this->removeSession();
+            return redirect(route('user.product',[
+                    'uri'=>$order->first(['p.cool_name as cool_name'])->cool_name
+                ])
+            )->with('success','تم الدفع بنجاح');
+        }
+        return redirect(route('user.product',[
+                'uri'=>$order->first(['p.cool_name as cool_name'])->cool_name
+            ])
+        )->with('fail','فشل الدفع');
+    }
+    /**
+     * privte functions
+     */
+    /**
+     * set session for check these information after pay
+     * @param int $idOrder id order
+     * @param int $user_id id user
+     * @return void
+     */
+    private function setSession(int $idOrder,int $user_id,bool $is_copons) :void
+    {
+        session()->put('idOrder',$idOrder);
+        session()->put('user_id',$user_id);
+        session()->put('is_copons',$is_copons);
+    }
+    /**
+     * remove session after pay
+     * @return void
+     */
+    private function removeSession() :void
+    {
+        session()->remove('idOrder');
+        session()->remove('user_id');
+        session()->remove('is_copons');
+    }
+    /**
+     * get price all dev
+     * @param string $devs after convert with `getIdDevs`
+     * @return int
+     */
+    private function priceMore(?string $devs = '') :int
+    {
+        $select = DB::table('product_devs')
+        ->whereIn('id',explode('#',$devs),'or')
+        ->get();
+        $price = 0;
+        foreach ($select as $key => $value) {
+            $price += $value->price;
+        }
+        return $price;
+    }
+    /**
+     * get devs as string
+     * @param ?array $devs
+     * @return string
+     */
+    private function getIdDevs(?array $devs = []): string
+    {
+        if (empty($devs)) {
+            return '';
+        }
+        // Convert array to text
+        $implode = implode('#', $devs);
+        // remove name more from string
+        $result = str_replace('more#', '', $implode);
+        return $result;
     }
 }
 

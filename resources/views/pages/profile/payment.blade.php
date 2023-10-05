@@ -17,6 +17,11 @@
                 <input type="text" name="copone" id="copone" placeholder="كود الخصم">
                 <span class="button-blue inline-block h-fit py-2" id="applyCopone">تطبيق</span>
             </div>
+            <div class="mt-2 gap-x-2 border px-2 flex flex-col justify-center rounded-lg py-2 items-center">
+                <h3 class="text-xl">ملاحظة:</h3>
+                <p class="self-start">{{ $product->information }}</p>
+                <textarea name="details" id="details" cols="30" rows="5" placeholder="ملاحظة"></textarea>
+            </div>
             <nav class="container mx-auto flex flex-row justify-center gap-x-6 gap-y-6 flex-wrap mt-6">
                 @foreach ($listPayment as $paymentValue)
                     <input type="submit" name="method" value="{{ $paymentValue }}" class="button-blue">

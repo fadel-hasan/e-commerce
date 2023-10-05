@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('quantity');
             $table->decimal('totalPrice',10,2);
+            $table->longText('details')->nullable();
             // copone_id is use (it isn't require for taht i don't foregin key)
             $table->integer('copone_id');
             $table->timestamps();
