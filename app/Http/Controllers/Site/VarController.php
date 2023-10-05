@@ -109,4 +109,10 @@ class VarController extends Controller
             ->get();
         return $s;
     }
+
+    public static function get_all_section()
+    {
+        $s= DB::table('sections')->get();
+        return $s;
+    }
 }

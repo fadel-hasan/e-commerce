@@ -10,10 +10,13 @@
         </div>
         <div>
             <h4>الأقسام</h4>
+            @php
+                $sec = \App\Http\Controllers\Site\VarController::get_all_section();
+            @endphp
             <nav>
-                <a href="{{ route('user.category',['uri'=>"test"]) }}">سيرفرات</a>
-                <a href="{{ route('user.category',['uri'=>"test"]) }}">سكريتات</a>
-                <a href="{{ route('user.category',['uri'=>"test"]) }}">شدات</a>
+                @foreach ($sec as $s)
+                <a href="{{ route('user.category', ['uri' => $s->url]) }}">{{ $s->name }}</a>
+                @endforeach
             </nav>
         </div>
         <div>
