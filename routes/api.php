@@ -9,6 +9,7 @@ use App\Http\Controllers\Site\ProductController as SiteProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentGateways\CoponController as CoponApi;
+use App\Http\Controllers\Site\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,5 @@ Route::prefix(env('PASSWORD_API'))->group(function () {
 Route::get('/products',[SiteProductController::class,'get_product'])->name('productesGet');
 Route::get('/product_section/{uri}',[SiteProductController::class,'get_product_section'])->name('productSectionGet');
 Route::get('/copon/{hash}',[CoponApi::class,'index'])->name('copon.api');
+
+Route::get('/order/{id}',[OrderController::class,'get_order'])->name('order.api');
