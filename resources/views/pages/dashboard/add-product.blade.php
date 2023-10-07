@@ -2,7 +2,10 @@
 @section('app')
     @include('layouts.navbarLeft')
     @if (session()->has('error'))
-        @if (is_array(session()->get('error')->getMessages()))
+    @if (is_string(session()->get('error')))
+    <x-alert message="{{ session()->get('error') }}" type='fail' title="خطأ" />
+
+        @elseif (is_array(session()->get('error')->getMessages()))
             @foreach (session()->get('error')->getMessages() as $error)
                 <x-alert message="{{ $error[0] }}" type='fail' title="خطأ" />
             @endforeach
