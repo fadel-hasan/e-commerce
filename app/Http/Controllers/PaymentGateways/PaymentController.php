@@ -78,7 +78,7 @@ class PaymentController extends IndexsController
         }
         $data['price'] = $data['product']->price + $this->priceMore($data['product']->dev);
         $hash = DB::table('user_use_copon')
-            ->where('date', '>', date('Y-n-d H:i:s', time() - (3600 * 24)))
+            ->where('date', '>', date('Y-n-d H:i:s', time() - 3600))
             ->where('user_id', '=', $idUser)
             ->first('hash')
             ->hash;
@@ -132,7 +132,7 @@ class PaymentController extends IndexsController
         if ($request->get('method') == 'USDT') {
             $noUse = [];
             while (true) {
-                $price += rand(0,1) / 10000;
+                $price += rand(0,15) / 10000;
                 if (in_array($price,$noUse)) {
                     $order_details = DB::table('orders','o')
                     ->join('order_details as s',function ($join)
@@ -209,6 +209,19 @@ class PaymentController extends IndexsController
                 'uri'=>$order->first(['p.cool_name as cool_name'])->cool_name
             ])
         )->with('fail','فشل الدفع');
+    }
+    /**
+     * exec some thing after accept pay
+     * @param int|float $profit how much money profit site
+     * @return void
+     */
+    public static function success(int|float $profit) :void
+    {
+        DB::table('profits')
+            ->insert([
+                'date' => date('Y-n-d'),
+                'profit' => $profit
+            ]);
     }
     /**
      * privte functions

@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_details', function (Blueprint $table) {
+        Schema::create('profits', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
-            $table->integer('quantity');
-            $table->double('totalPrice',10,8);
-            $table->longText('details')->nullable();
-            // copone_id is use (it isn't require for taht i don't foregin key)
-            $table->integer('copone_id');
-            $table->timestamps();
+            $table->double('profit',10,8);
+            $table->date('date');
         });
     }
 
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_details');
+        Schema::dropIfExists('profits');
     }
 };

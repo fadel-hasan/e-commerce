@@ -78,7 +78,8 @@ class PayeerController extends Controller
     {
         if (session('idOrder') and $this->issetGetForPay()) {
             if ($_SESSION['Price'] == $this->AmounyPay()) {
-                $this->successPay();
+                // هون ظبط الربح
+                // PaymentController::success($profit,session('idOrder'));
                 return true;
             }
         }
