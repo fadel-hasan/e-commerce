@@ -73,8 +73,9 @@ class AuthController extends Controller
             if (!$User) {
                 return redirect(route('get.signup'))->with('error', 'معلومات التسجيل خاطئة');
             }
+            
             $User->update([
-                'referral_code' => substr(uniqid($User->id), 7, 6)
+                'referral_code' => uniqid($User->id)
             ]);
 
             if ($r->referral_code) {
@@ -88,6 +89,7 @@ class AuthController extends Controller
                         );
                 }
             }
+
             $token = Str::random(64);
 
             UserVerify::create([
