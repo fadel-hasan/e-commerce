@@ -212,7 +212,7 @@ window.addEventListener('load', function () {
         alert("تم النسخ");
     })
     // payment
-    if (price && price > 0) {
+    if (this.document.getElementById('applyCopone')) {
         let totlalPrice = price;
         let apiCheckCopon = this.document.querySelector('form.sitting')?.getAttribute('data-api');
         let isCopon = false;

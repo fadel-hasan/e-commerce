@@ -3,7 +3,7 @@
     @include('layouts.navbarLeft')
     <div class="dashboard">
         <h2 class="title-table">الأعضاء</h2>
-        <section class="max-w-[90%] overflow-scroll container mx-auto">
+        <section class="max-w-[90%] overflow-auto container mx-auto">
             <table class="overflow-auto">
                 <thead>
                     <tr>

@@ -11,6 +11,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
+        "php-curl-class/php-curl-class": "^9.18",
         "stevebauman/location": "^7.0"
     },
     "require-dev": {

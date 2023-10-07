@@ -23,13 +23,17 @@ class AnalysisController extends Controller
 
     public function get_month_sell()
     {
-        $sells = DB::table('order_details', 'od')
-            ->select(DB::raw('MONTHNAME(created_at) as month,YEAR(created_at) as year,DAY(created_at) as day, SUM(totalPrice) as money'))
-            ->whereMonth('created_at', Carbon::now()->month)
-            ->whereYear('created_at', Carbon::now()->year)
+        $sells = DB::table('orders', 'o')
+            ->select(DB::raw('MONTHNAME(od.created_at) as month,YEAR(od.created_at) as year,DAY(od.created_at) as day, SUM(totalPrice) as money'))
+            ->where('o.status','=','1')
+            ->join('order_details as od',function ($join)
+            {
+                $join->on('o.id','=','od.order_id');
+            })
+            ->whereMonth('od.created_at', Carbon::now()->month)
+            ->whereYear('od.created_at', Carbon::now()->year)
             ->groupBy('month', 'year', 'day')
             ->get();
-
         return $sells;
     }
 

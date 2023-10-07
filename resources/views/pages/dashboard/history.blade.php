@@ -13,7 +13,7 @@
                 بحث <i class="fa-solid fa-search"></i>
             </button>
         </form>
-        <section class="max-w-[90%] overflow-scroll container mx-auto">
+        <section class="max-w-[90%] overflow-auto container mx-auto">
             <table class="overflow-auto min-w-[600px]">
                 <thead>
                     <tr>

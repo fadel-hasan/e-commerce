@@ -24,5 +24,8 @@
         &:not(:disabled) {
             @apply hover:border-green-600 hover:bg-green-500 opacity-100;
         }
+        &.view {
+            @apply border-green-600 bg-green-500 opacity-100 text-white;
+        }
     }
 }

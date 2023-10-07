@@ -50,7 +50,7 @@
                 </div>
                 <input type="submit" value="إضافة" class="button-blue w-fit mx-auto px-12 mb-4">
             </form>
-            <section class="max-w-[90%] overflow-scroll container mx-auto">
+            <section class="max-w-[90%] overflow-auto container mx-auto">
                 <h2 class="title-table">المنتجات</h2>
                 <table class="overflow-auto list mb-8" data-url-remove="{{ route('removeProduct') }}" {{-- Route Remove Product --}}>
                     <thead>

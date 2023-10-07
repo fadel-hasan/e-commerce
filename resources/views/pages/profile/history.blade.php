@@ -1,7 +1,7 @@
 @section('title', 'السجلات')
 @section('app')
     <h2 class="mt-4 title-table">السجلات</h2>
-    <section class="max-w-[90%] overflow-scroll container mx-auto">
+    <section class="max-w-[90%] overflow-auto container mx-auto">
         <table class="overflow-auto">
             <thead>
                 <tr>

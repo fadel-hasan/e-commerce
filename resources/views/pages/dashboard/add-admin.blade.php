@@ -6,7 +6,7 @@
     @endif
     <div class="dashboard">
         <h2 class="title-table">المشرفين</h2>
-        <section class="max-w-[90%] overflow-scroll container mx-auto">
+        <section class="max-w-[90%] overflow-auto container mx-auto">
             <table class="overflow-auto min-w-[600px] list"
                 {{-- data-url-remove="RotueHereBackEnd?id=" --}}
                 data-url-remove="{{ route('removeAdmin') }}"

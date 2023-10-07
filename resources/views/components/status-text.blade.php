@@ -11,7 +11,7 @@
    }
 @endphp
 <span
-   class="border-2 px-2 py-1 my-px inline-flex items-center rounded-full font-bold {{ $classFirst }}">
+   class="border-2 px-2 py-1 my-px inline-flex items-center rounded-full font-bold {{ $classFirst }} min-w-[95px]">
    {{ $message }}
    @if ($type == 'pending')
       <span class="mr-2 rounded-full {{ $classLast }}"><i class="fa-solid fa-circle-notch"></i></span>

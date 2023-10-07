@@ -19,3 +19,7 @@ yarn-error.log
 /.vscode
 /
 public/image_product
+yhya.json
+app/Http/Controllers/PaymentGateways
+app/Http/Controllers/PaymentGateways/*.php
+resources/views/pages/payment/USDT.blade.php

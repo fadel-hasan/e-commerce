@@ -32,18 +32,13 @@ class PaymentController extends IndexsController
             ->orderBy('created_at', 'desc')
             ->first();
         if (!isset($idOrder->id) and $request->method() == 'POST') {
-            DB::table('orders')->insert([
+            $idOrder = DB::table('orders')->insertGetId([
                 'user_id'       => $idUser,
                 'product_id'    => $idProduct,
                 'dev'           => $more,
                 'created_at'    => date('Y-n-d H:i:s'),
                 'updated_at'    => date('Y-n-d H:i:s')
             ]);
-            $idOrder = DB::table('orders')
-                ->where('user_id', '=', $idUser)
-                ->select('id')
-                ->orderBy('created_at', 'desc')
-                ->first();
             $hash = Str::random(1024);
             DB::table('user_use_copon')
                 ->insert([
@@ -57,8 +52,9 @@ class PaymentController extends IndexsController
                 ->where('user_id', '=', $idUser)
                 ->first('hash')
                 ->hash;
+            $idOrder = $idOrder->id;
         }
-        return redirect(route('user.payment.order', ['paymentOrder' => $idOrder->id]));
+        return redirect(route('user.payment.order', ['paymentOrder' => $idOrder]));
     }
     /**
      * view order if he will pay this order
@@ -104,12 +100,13 @@ class PaymentController extends IndexsController
             $copone = DB::table('copons')
             ->where('code','=',$request->get('copone'))
             ->where('updated_at','>',date('Y-n-d H:i:s',time() - 3600));
-            $copone_id = $copone->first()->id;
+            $copone_id = $copone->first()->id ?? 0;
         }
         $price = 0;
         $priceGet = DB::table('orders','o')
         ->where('o.id','=',$idOrder)
         ->where('o.status','=','2')
+        ->where('o.created_at','>',date('Y-n-d H:i:s',time() - 3600))
         ->join('products as p','p.id','=','o.product_id')
         ->select('p.price as price','o.dev as devs','o.user_id as user_id')
         ->first()
@@ -132,6 +129,27 @@ class PaymentController extends IndexsController
             $price -= $price * $copone->first()->discount / 100;
         }
         $price *= $request->get('quantity');
+        if ($request->get('method') == 'USDT') {
+            $noUse = [];
+            while (true) {
+                $price += rand(0,1) / 10000;
+                if (in_array($price,$noUse)) {
+                    $order_details = DB::table('orders','o')
+                    ->join('order_details as s',function ($join)
+                    {
+                        $join->on('s.order_id','=','o.id');
+                    })
+                    ->where('s.totalPrice','=',$price)
+                    ->where('o.status','=','2');
+                    if ($order_details->count() == 0) {
+                        break;
+                    }
+                } else if (count($noUse) >= 50) {
+                    $price += rand(15,20) / 100000;
+                }
+                $noUse[] = $price;
+            }
+        }
         $order_details = DB::table('order_details')
         ->where('order_id','=',$idOrder);
         if ($order_details->count() == 0) {
@@ -250,18 +268,3 @@ class PaymentController extends IndexsController
         return $result;
     }
 }
-
-
-
-
-
-
-
-/* DB::table('order_details')->insert([
-            'order_id' => $idOrder,
-            'product_id' => $idProduct,
-            'quantity' => 0,
-            'totalPrice' => 0,
-            'created_at' => date('Y-n-d H:i:s'),
-            'updated_at' => date('Y-n-d H:i:s')
-        ]); */

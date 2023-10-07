@@ -20,7 +20,7 @@
             @endforeach
         </section>
         <section class="boxs lg:grid-cols-2 xl:grid-cols-2 mt-8">
-            <div>
+            <div class="overflow-auto">
                 <h3 class="title-table">أخر الأعضاء</h3>
                 <table>
                     <thead>
@@ -44,7 +44,7 @@
                     </tbody>
                 </table>
             </div>
-            <div>
+            <div class=" overflow-auto">
                 <h3 class="title-table">أخر الطلبات</h3>
                 <table>
                     <thead>
